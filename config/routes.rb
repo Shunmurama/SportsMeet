@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+scope module: :public do
+  get 'user/mypage' => "users#show"
+  get 'user/information/edit' => "users#edit"
+  patch 'user/information' => "users#update"
+end
+
+
+
+namespace :admin do
+  resources :categories
+  resources :prefectures
+end
 
 # 顧客用
 # URL /customers/sign_in ...
