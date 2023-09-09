@@ -8,6 +8,7 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :prefecture
 
-
   has_one_attached :image
+
+  enum how_to_pay: { local_pay: 0, transfer: 1 }
 end

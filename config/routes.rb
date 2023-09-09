@@ -4,6 +4,8 @@ scope module: :public do
   get 'user/mypage' => "users#show"
   get 'user/information/edit' => "users#edit"
   patch 'user/information' => "users#update"
+
+  resources :events
 end
 
 
