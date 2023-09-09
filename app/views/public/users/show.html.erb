@@ -50,16 +50,13 @@
    <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.address %></div>
   </div>
 
+  <% @user.categories.each do |category| %>
+  <div class="row border border-dark" style="height: 40px;">
+   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">興味のある競技</div>
+   <div class="col-6 col-sm-4 d-flex align-items-center"><% category.name %></div>
+  </div>
+  <% end %>
+
 <%#ユーザーの関心も表示させる%>
 
-
- <div class="row mt-5">
-  <div class="col-sm-2 mb-4">
-   <h4 class="font-weight-bold">注文履歴</h4>
-  </div>
-  <div class="form-group ml-4">
-    <%= link_to '一覧を見る',orders_path, class: "btn btn-primary" %>
-  </div>
- </div>
-
- </div>
+</div>

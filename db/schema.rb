@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_07_170950) do
+ActiveRecord::Schema.define(version: 2023_09_09_163245) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2023_09_07_170950) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.integer "name", default: 0, null: false
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -151,7 +151,7 @@ ActiveRecord::Schema.define(version: 2023_09_07_170950) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "event_id", null: false
-    t.integer "user_interest_id", null: false
+    t.integer "user_interest_id"
     t.integer "favorite_id", null: false
     t.integer "comment_id", null: false
     t.integer "prefecture_id", null: false
@@ -161,7 +161,7 @@ ActiveRecord::Schema.define(version: 2023_09_07_170950) do
     t.string "phone_number", null: false
     t.string "postal_code", null: false
     t.string "address", null: false
-    t.string "birthday", null: false
+    t.date "birthday", null: false
     t.integer "gender", default: 0, null: false
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false

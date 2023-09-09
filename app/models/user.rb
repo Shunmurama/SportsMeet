@@ -9,8 +9,11 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :user_interests
+  has_many :categories, through: :user_interests
   belongs_to :prefecture
-  belongs_to :user_interest
+
+  accepts_nested_attributes_for :user_interests
 
   has_one_attached :image
 

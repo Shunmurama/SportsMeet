@@ -97,10 +97,19 @@
 
      <div class="row mt-2">
       <div class="col-sm-4">
-       市区町村　番地
+       市区町村　番地　マンション等
       </div>
       <div class="col-sm-8">
        <%= f.text_field :address, class: "hogehoge", size: "50x1" %>
+      </div>
+     </div>
+
+     <div class="row mt-2">
+      <div class="col-sm-4">
+       興味のある種目 ※任意選択・複数回答
+      </div>
+      <div class="col-sm-8">
+       <%= f.collection_check_boxes :user_interest_id, Category.all, :id, :name %>
       </div>
      </div>
 
@@ -133,34 +142,3 @@
   <% end %>
    <%= render "public/shared/links" %>
 </div>
-
-
-<h2>Sign up</h2>
-
-<%= form_with model: @user, url: user_registration_path do |f| %>
-  <%= render "public/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "public/shared/links" %>
