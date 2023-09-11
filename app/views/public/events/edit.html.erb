@@ -1,6 +1,6 @@
 <div class="container">
- <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">新規イベント登録</div>
-  <%= form_with model: @event, url: events_path, method: :post do |f| %>
+ <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">イベント編集</div>
+  <%= form_with model: @event, url: event_path, method: :patch do |f| %>
     <div class="mt-4">
 
      <div class="row mt-2">
@@ -102,7 +102,7 @@
      </div>
 
      <div class="mt-3 text-center">
-      <%= f.submit "新規登録", class: "w-25 btn btn-success" %>
+      <%= f.submit "編集する", class: "w-25 btn btn-success" %>
      </div>
     </div>
   <% end %>
