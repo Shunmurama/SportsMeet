@@ -1,7 +1,6 @@
 <div class="container">
  <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">ユーザー編集</div>
   <%= form_with model: @user, url: user_information_path, method: :patch do |f| %>
-   <%= render "public/shared/error_messages", resource: resource %>
     <div class="mt-4">
 
      <div class="row">
@@ -120,5 +119,4 @@
      </div>
     </div>
   <% end %>
-   <%= render "public/shared/links" %>
 </div>

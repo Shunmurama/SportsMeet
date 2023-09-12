@@ -1,6 +1,6 @@
 class Prefecture < ApplicationRecord
-  has_one :user
-  has_one :event
+  belongs_to :user
+  belongs_to :event
 
   enum name: {
     "--":0,

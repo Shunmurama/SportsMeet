@@ -6,7 +6,7 @@ class Event < ApplicationRecord
   has_many :event_categories
   has_many :categories, through: :event_categories
   belongs_to :user
-  belongs_to :prefecture
+  has_one :prefecture
 
   has_one_attached :image
 

@@ -150,29 +150,20 @@ ActiveRecord::Schema.define(version: 2023_09_09_171744) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "event_id", null: false
-    t.integer "user_interest_id"
-    t.integer "favorite_id", null: false
-    t.integer "comment_id", null: false
     t.integer "prefecture_id", null: false
     t.string "last_name", null: false
     t.string "first_name", null: false
-    t.string "group", null: false
+    t.string "group"
     t.string "phone_number", null: false
     t.string "postal_code", null: false
     t.string "address", null: false
-    t.date "birthday", null: false
+    t.string "birthday", null: false
     t.integer "gender", default: 0, null: false
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["comment_id"], name: "index_users_on_comment_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["event_id"], name: "index_users_on_event_id"
-    t.index ["favorite_id"], name: "index_users_on_favorite_id"
-    t.index ["prefecture_id"], name: "index_users_on_prefecture_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["user_interest_id"], name: "index_users_on_user_interest_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -194,9 +185,4 @@ ActiveRecord::Schema.define(version: 2023_09_09_171744) do
   add_foreign_key "reservations", "users"
   add_foreign_key "user_interests", "categories"
   add_foreign_key "user_interests", "users"
-  add_foreign_key "users", "comments"
-  add_foreign_key "users", "events"
-  add_foreign_key "users", "favorites"
-  add_foreign_key "users", "prefectures"
-  add_foreign_key "users", "user_interests"
 end

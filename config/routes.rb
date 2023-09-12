@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'homes/index'
+  end
 scope module: :public do
   get 'user/mypage' => "users#show"
   get 'user/information/edit' => "users#edit"
@@ -27,5 +30,7 @@ devise_for :user, skip: [:passwords], controllers: {
 devise_for :admin, skip: [:registrations, :passwords], controllers: {
   sessions: "admin/sessions"
 }
+
+root to: 'public/homes#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

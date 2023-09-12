@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     if resource_or_scope.is_a?(Admin)
        root_path
     else
-       root_path
+       user_mypage_path
     end
    end
 
@@ -28,7 +28,12 @@ class ApplicationController < ActionController::Base
    def configure_permitted_parameters
 
     # サインアップ時にストロングパラメータを追加
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :first_name, :group, :phone_number, :postal_code, :address, :birthday, :gender, :prefecture_id, user_interests_attributes: [:user_interest_id]])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [
+     :last_name, :first_name,
+     :group, :phone_number, :postal_code, :address, :birthday, :gender, :prefecture_id,
+     # user_interests_attributes: [:_destroy, category_ids: []]
+     category_ids: []
+     ])
 
     # アカウント編集の時のストロングパラメータを追加
     devise_parameter_sanitizer.permit(:account_update, keys: [:last_name, :first_name, :group, :phone_number, :postal_code, :address, :birthday, :gender, :prefecture_id, :user_interest_id])
