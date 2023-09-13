@@ -1,7 +1,23 @@
 <div class="container">
  <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">イベント一覧</div>
+
+  <div class="search_form">
+   <%= form_with model: @event, url: events_result_path, method: :get do |f| %>
+    <div class="field">
+     <%= f.text_field :keyword, placeholder: "キーワードを入力" %>
+    </div>
+    <div class="field">
+     <%= f.date_field :start_date, placeholder: "日にちを選択" %>
+    </div>
+    <div class="field">
+     <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+    </div>
+     <%= f.submit "検索", class: "btn btn-primary" %>
+   <% end %>
+  </div>
+
   <div class="mt-4">
-   <%= @events.each do |event| %>
+   <% @events.each do |event| %>
 
     <div class="mt-2">
      <div class="row mt-2">
@@ -9,15 +25,17 @@
       <div class="ml-2">
         <div class="ml-1 mt-1"><%= event.name %></div>
         <div class="ml-1 mt-1"><%= event.date %></div>
-        <div class="ml-1 mt-1"><%= event.number %></div>
-        <div class="ml-1 mt-1"><%= event.fee %></div>
-        <div class="ml-1 mt-1"><%= event.how_to_pay %></div>
+        <div class="ml-1 mt-1"><%= event.number %>人</div>
+        <div class="ml-1 mt-1"><%= event.fee %>円</div>
+        <div class="ml-1 mt-1"><%= event.how_to_pay_i18n %></div>
       </div>
      </div>
      <div class="text-center">
+       <% event.event_categories.each do |ec| %>
+       <div class="ml-1 mt-1"><%= ec.category.name %></div>
+       <% end %>
        <div class="ml-1 mt-1"><%= event.outline %></div>
-       <div class="ml-1 mt-1"><%= event.category_id %></div>
-       <div class="ml-1 mt-1"><%= event.prefecture_id %></div>
+       <div class="ml-1 mt-1"><%= Prefecture.names.invert[event.prefecture_id] %></div>
        <div class="ml-1 mt-1"><%= event.place %></div>
      </div>
     </div>

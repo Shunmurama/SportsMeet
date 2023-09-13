@@ -11,4 +11,16 @@ class Event < ApplicationRecord
   has_one_attached :image
 
   enum how_to_pay: { local_pay: 0, transfer: 1 }
+
+  accepts_nested_attributes_for :event_categories, allow_destroy: true
+
+  def self.search(keyword, start_date, category_id)
+    events = Event.all
+
+    events = events.where("title LIKE ?", "%#{keyword}%") if keyword.present?
+    events = events.where("date >= ?", start_date) if start_date.present?
+    events = events.where(category_id: category_id) if category_id.present?
+
+    events
+  end
 end

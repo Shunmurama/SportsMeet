@@ -26,7 +26,7 @@
        性別
       </div>
       <div class="col-sm-8">
-       <%= f.select :address, User.genders.keys, {} %>
+       <%= f.select :gender, User.genders_i18n.invert, {} %>
       </div>
      </div>
 
@@ -41,6 +41,8 @@
       </div>
      </div>
 
+    <% if @user.group.blank? %>
+    <% else %>
      <div class="row mt-2">
       <div class="col">
        団体名
@@ -51,6 +53,7 @@
       <div class="col">
       </div>
      </div>
+    <% end %>
 
      <div class="row mt-2">
       <div class="col">
@@ -90,7 +93,7 @@
        都道府県
       </div>
       <div class="col-sm-8">
-       <%= f.select :prefecture_id, Prefecture.names.keys, {} %>
+       <%= f.select :prefecture_id, Prefecture.names %>
       </div>
      </div>
 
@@ -104,13 +107,11 @@
      </div>
 
      <div class="row mt-2">
-      <div class="col">
-       パスワード（６文字以上）
+      <div class="col-sm-4">
+       興味のある種目 ※任意選択・複数回答
       </div>
-      <div class="col">
-       <%= f.password_field :password, autocomplete: "new-password" %>
-      </div>
-      <div class="col">
+      <div class="col-sm-8">
+       <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
       </div>
      </div>
 

@@ -6,6 +6,7 @@ class Public::UsersController < ApplicationController
 
   def edit
     @user = current_user
+    @user.user_interests.build
   end
 
   def update
@@ -15,19 +16,11 @@ class Public::UsersController < ApplicationController
    end
   end
 
-  def create
-    @user = current_user.new(user_params)
-    if @user.save
-      @user.categories << Category.where(id: params[:user][:user_interest_id])
-      redirect_to user_mypage_path
-    end
-  end
-
  private
   def user_params
     params.require(:user).permit(
-      :prefecture_id, :user_interest_id, :favorite_id, :comment_id, :last_name, :first_name, :group, :email,
-      :phone_number, :postal_code, :address, :birthday, :encrypted_password, :is_deleted,
+      :prefecture_id, :favorite_id, :comment_id, :last_name, :first_name, :group, :gender, :email,
+      :phone_number, :postal_code, :address, :birthday, :encrypted_password, :is_deleted, category_ids: []
       )
   end
 end

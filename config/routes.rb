@@ -8,7 +8,8 @@ scope module: :public do
   get 'user/information/edit' => "users#edit"
   patch 'user/information' => "users#update"
 
-  resources :events
+  resources :events, only: [:new, :index, :edit, :create, :update]
+  get 'events/result' => "events#result"
 end
 
 

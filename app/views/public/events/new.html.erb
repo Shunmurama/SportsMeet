@@ -23,10 +23,10 @@
 
      <div class="row mt-2">
       <div class="col-sm-4">
-       興味のある種目 ※任意選択・複数回答
+       種目
       </div>
       <div class="col-sm-8">
-       <%= f.collection_check_boxes :user_interest_id, Category.all, :id, :name %>
+       <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
       </div>
      </div>
 
@@ -57,7 +57,7 @@
        都道府県
       </div>
       <div class="col">
-       <%= f.select :prefecture_id, Prefecture.names.keys, {} %>
+       <%= f.select :prefecture_id, Prefecture.names %>
       </div>
       <div class="col">
       </div>

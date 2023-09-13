@@ -77,23 +77,19 @@ ActiveRecord::Schema.define(version: 2023_09_09_171744) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "category_id", null: false
-    t.integer "favorite_id", null: false
-    t.integer "comment_id", null: false
+    t.integer "user_id"
+    t.integer "category_id"
     t.integer "prefecture_id", null: false
     t.string "name", null: false
     t.text "outline", null: false
     t.date "date", null: false
     t.string "place", null: false
+    t.integer "number", null: false
     t.string "fee", null: false
     t.integer "how_to_pay", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_events_on_category_id"
-    t.index ["comment_id"], name: "index_events_on_comment_id"
-    t.index ["favorite_id"], name: "index_events_on_favorite_id"
-    t.index ["prefecture_id"], name: "index_events_on_prefecture_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -157,7 +153,7 @@ ActiveRecord::Schema.define(version: 2023_09_09_171744) do
     t.string "phone_number", null: false
     t.string "postal_code", null: false
     t.string "address", null: false
-    t.string "birthday", null: false
+    t.date "birthday", null: false
     t.integer "gender", default: 0, null: false
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
@@ -173,9 +169,6 @@ ActiveRecord::Schema.define(version: 2023_09_09_171744) do
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
   add_foreign_key "events", "categories"
-  add_foreign_key "events", "comments"
-  add_foreign_key "events", "favorites"
-  add_foreign_key "events", "prefectures"
   add_foreign_key "events", "users"
   add_foreign_key "favorites", "events"
   add_foreign_key "favorites", "users"
