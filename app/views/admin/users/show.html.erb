@@ -10,6 +10,14 @@
    </div>
   </div>
 
+  <div>
+    <% if @user.image.attached? %>
+     <%= image_tag @user.image, size: "100x100" %>
+    <% else %>
+     <%= image_tag 'no_image', size: "100x100" %>
+    <% end %>
+  </div>
+
   <div class="row border border-dark mt-3" style="height: 40px;">
    <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">氏名</div>
    <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.last_name %> <%= @user.first_name %> </div>

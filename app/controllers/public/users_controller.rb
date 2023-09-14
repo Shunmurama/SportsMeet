@@ -19,7 +19,7 @@ class Public::UsersController < ApplicationController
  private
   def user_params
     params.require(:user).permit(
-      :prefecture_id, :favorite_id, :comment_id, :last_name, :first_name, :group, :gender, :email,
+      :prefecture_id, :last_name, :first_name, :image, :group, :gender, :email,
       :phone_number, :postal_code, :address, :birthday, :encrypted_password, :is_deleted, category_ids: []
       )
   end

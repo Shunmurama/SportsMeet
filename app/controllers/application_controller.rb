@@ -29,12 +29,12 @@ class ApplicationController < ActionController::Base
 
     # サインアップ時にストロングパラメータを追加
     devise_parameter_sanitizer.permit(:sign_up, keys: [
-     :last_name, :first_name,
+     :last_name, :first_name, :image,
      :group, :phone_number, :postal_code, :address, :birthday, :gender, :prefecture_id,
      category_ids: []
      ])
 
     # アカウント編集の時のストロングパラメータを追加
-    devise_parameter_sanitizer.permit(:account_update, keys: [:last_name, :first_name, :group, :phone_number, :postal_code, :address, :birthday, :gender, :prefecture_id, :user_interest_id])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:last_name, :first_name, :image, :group, :phone_number, :postal_code, :address, :birthday, :gender, :prefecture_id, :user_interest_id])
    end
 end

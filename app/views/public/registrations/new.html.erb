@@ -4,6 +4,17 @@
    <%= render "public/shared/error_messages", resource: resource %>
     <div class="mt-4">
 
+     <div class="row mt-2">
+      <div class="col">
+       お写真
+      </div>
+      <div class="col">
+       <%= f.file_field :image, accept: "image/*" %>
+      </div>
+      <div class="col">
+      </div>
+     </div>
+
      <div class="row">
       <div class="col-sm-3">
        お名前
