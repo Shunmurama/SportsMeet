@@ -1,0 +1,45 @@
+<div class="container">
+ <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">イベント一覧</div>
+  <div class="mt-4">
+    <div class="mt-2">
+     <div class="row mt-2">
+      <div>写真</div>
+      <div class="ml-2">
+        <div class="ml-1 mt-1"><%= @event.name %></div>
+        <div class="ml-1 mt-1"><%= @event.date %></div>
+        <div class="ml-1 mt-1"><%= @event.number %>人</div>
+        <div class="ml-1 mt-1"><%= @event.fee %>円</div>
+        <div class="ml-1 mt-1"><%= @event.how_to_pay_i18n %></div>
+      </div>
+     </div>
+     <div class="text-center">
+       <% @event.event_categories.each do |ec| %>
+       <div class="ml-1 mt-1"><%= ec.category.name %></div>
+       <% end %>
+       <div class="ml-1 mt-1"><%= @event.outline %></div>
+       <div class="ml-1 mt-1"><%= Prefecture.names.invert[@event.prefecture_id] %></div>
+       <div class="ml-1 mt-1"><%= @event.place %></div>
+       <div class="row">
+        <div class="ml-1 mt-1"><%= link_to "編集", edit_event_path(@event.id), class: "btn btn-success" %></div>
+        <div class="ml-1 mt-1">
+         <% if @event.favorited_by?(current_user) %>
+          <p>
+           <%= link_to event_favorites_path(@event), method: :delete do %>
+            <i class="fa-solid fa-heart" style="color: #ff0505;"></i>
+             <%= @event.favorites.count %> いいね
+           <% end %>
+          </p>
+          <% else %>
+          <p>
+           <%= link_to event_favorites_path(@event), method: :post do %>
+            <i class="fa-regular fa-heart" style="color: #ff0505;"></i>
+             <%= @event.favorites.count %> いいね
+           <% end %>
+          </p>
+         <% end %>
+        </div>
+       </div>
+     </div>
+    </div>
+  </div>
+</div>
