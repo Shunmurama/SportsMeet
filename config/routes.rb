@@ -17,8 +17,10 @@ end
 namespace :admin do
   resources :categories
   resources :prefectures
-  get 'users/index' => "users#index"
+  get 'users/index' => "users#index", as: "index"
   get 'users/information/:id' => "users#show", as: "user"
+  get 'users/information/:id/edit' => "users#edit", as: "edit"
+  patch 'users/information/:id/edit' => "users#update", as: "update"
 end
 
 # 顧客用
