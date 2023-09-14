@@ -15,8 +15,8 @@
     <tbody>
      <% @users.each do |user|%>
      <tr>
-      <td class="w-auto"><%= usre.id %></td>
-      <td class="w-auto"><%= link_to user.full_name, admin_users_path(user.id) %></td>
+      <td class="w-auto"><%= user.id %></td>
+      <td class="w-auto"><%= link_to user.full_name, admin_user_path(user.id) %></td>
       <td class="w-auto"><%= user.email %></td>
       <% if user.is_deleted == false %>
        <td class="w-auto text-success">有効</td>

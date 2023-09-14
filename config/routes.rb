@@ -17,8 +17,8 @@ end
 namespace :admin do
   resources :categories
   resources :prefectures
-  get '/' => "users#index"
-  get 'users/information/:id' => "users#show"
+  get 'users/index' => "users#index"
+  get 'users/information/:id' => "users#show", as: "user"
 end
 
 # 顧客用

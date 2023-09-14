@@ -1,2 +1,68 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="container">
+ <div class="mt-4 ml-4 table-secondary col-sm-2 text-center"><h4><%= @user.full_name %>さんのマイページ</h4></div>
+
+  <div class="row mt-4">
+   <div class="col-sm-2">
+    <h4 class="font-weight-bold">登録情報</h4>
+   </div>
+   <div class="col">
+    <%#= link_to "編集する",admin_users_index_path, class: "btn btn-success" %>
+   </div>
+  </div>
+
+  <div class="row border border-dark mt-3" style="height: 40px;">
+   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">氏名</div>
+   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.last_name %> <%= @user.first_name %> </div>
+  </div>
+
+  <div class="row border border-dark" style="height: 40px;">
+   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">性別</div>
+   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.gender %></div>
+  </div>
+
+  <div class="row border border-dark" style="height: 40px;">
+   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">生年月日</div>
+   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.birthday %></div>
+  </div>
+
+  <div class="row border border-dark" style="height: 40px;">
+   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">メールアドレス</div>
+   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.email %></div>
+  </div>
+
+  <div class="row border border-dark" style="height: 40px;">
+   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">電話番号</div>
+   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.phone_number %></div>
+  </div>
+
+  <div class="row border border-dark" style="height: 40px;">
+   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">郵便番号</div>
+   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.postal_code %></div>
+  </div>
+
+  <div class="row border border-dark" style="height: 40px;">
+   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">都道府県</div>
+   <div class="col-6 col-sm-4 d-flex align-items-center"><%= Prefecture.names.invert[@user.prefecture_id] %></div>
+  </div>
+
+  <div class="row border border-dark" style="height: 40px;">
+   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">住所</div>
+   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.address %></div>
+  </div>
+
+  <% @user.user_interests.each do |ui| %>
+  <div class="row border border-dark" style="height: 40px;">
+   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">興味のある競技</div>
+   <div class="col-6 col-sm-4 d-flex align-items-center"><%= ui.category.name %></div>
+  </div>
+  <% end %>
+
+<%#ユーザーの関心も表示させる%>
+
+ <% if @user.group.blank? %>
+  個人
+ <% else %>
+  <%= @user.group %>
+ <% end %>
+
+</div>
