@@ -18,6 +18,10 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def favorite
+    @events = current_user.favorited_events
+  end
+
  private
   def user_params
     params.require(:user).permit(

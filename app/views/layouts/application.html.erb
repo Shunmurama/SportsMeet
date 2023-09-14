@@ -23,6 +23,16 @@
 
          <% if user_signed_in? %>
           <li>
+            <%= link_to events_path, class: "nav-link text-dark" do %>
+             イベント一覧
+            <% end %>
+          </li>
+          <li>
+            <%#= link_to user_favorite_path, class: "nav-link text-dark" do %>
+             お気に入りイベント
+            <%# end %>
+          </li>
+          <li>
             <%= link_to user_mypage_path, class: "nav-link text-dark" do %>
              マイページ
             <% end %>

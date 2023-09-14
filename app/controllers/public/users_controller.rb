@@ -15,6 +15,10 @@ class Public::UsersController < ApplicationController
      redirect_to user_mypage_path
    end
   end
+  
+  def favorite
+    
+  end
 
  private
   def user_params
