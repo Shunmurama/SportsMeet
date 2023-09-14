@@ -31,7 +31,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [
      :last_name, :first_name,
      :group, :phone_number, :postal_code, :address, :birthday, :gender, :prefecture_id,
-     # user_interests_attributes: [:_destroy, category_ids: []]
      category_ids: []
      ])
 

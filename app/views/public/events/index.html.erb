@@ -37,6 +37,7 @@
        <div class="ml-1 mt-1"><%= event.outline %></div>
        <div class="ml-1 mt-1"><%= Prefecture.names.invert[event.prefecture_id] %></div>
        <div class="ml-1 mt-1"><%= event.place %></div>
+       <div class="ml-1 mt-1"><%= link_to "編集", edit_event_path(event.id), class: "btn btn-success" %></div>
      </div>
     </div>
 

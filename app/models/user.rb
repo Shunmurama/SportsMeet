@@ -20,4 +20,8 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :user_interests, allow_destroy: true
 
+  def full_name
+    self.last_name + " " + self.first_name
+  end
+
 end

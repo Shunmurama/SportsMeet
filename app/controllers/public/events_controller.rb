@@ -30,7 +30,7 @@ class Public::EventsController < ApplicationController
   def search
     @keyword = params[:keyword]
     @start_date = params[:start_date]
-    @category_id = params[:category_id]
+    @category_id = params[:category_ids]
 
     @events = Event.search(@keywrod, @start_date, @category_id)
   end
@@ -38,15 +38,16 @@ class Public::EventsController < ApplicationController
   def result
     @keyword = params[:keyword]
     @start_date = params[:start_date]
-    @category_id = params[:category_id]
+    @category_id = params[:category_ids]
 
-    @events = Event.search(@keywrod, @start_date, @category_id)
+    @events = Event.search(@keyword, @start_date, @category_id)
   end
 
   private
     def event_params
       params.require(:event).permit(:user_id, :prefecture_id, :name,
       :outline, :number, :date, :place, :fee, :how_to_pay,
-      category_ids: [])
+      category_ids: []
+      )
     end
 end
