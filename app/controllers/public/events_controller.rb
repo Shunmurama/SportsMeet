@@ -25,6 +25,7 @@ class Public::EventsController < ApplicationController
 
   def index
     @events = Event.all
+
   end
 
   def show
@@ -32,20 +33,12 @@ class Public::EventsController < ApplicationController
     @comment = Comment.new
   end
 
-  def search
-    @keyword = params[:keyword]
-    @start_date = params[:start_date]
-    @category_id = params[:category_ids]
-
-    @events = Event.search(@keywrod, @start_date, @category_id)
-  end
-
   def result
     @keyword = params[:keyword]
     @start_date = params[:start_date]
-    @category_id = params[:category_ids]
-
-    @events = Event.search(@keyword, @start_date, @category_id)
+    @category_id = params[:category_id]
+    
+    @events = Event.search(@keyword,@start_date, @category_id)
   end
 
   private

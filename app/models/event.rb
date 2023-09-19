@@ -14,18 +14,21 @@ class Event < ApplicationRecord
 
   accepts_nested_attributes_for :event_categories, allow_destroy: true
 
-  def self.search(keyword, start_date, category_id)
-    events = Event.all
-
-    events = events.where("name LIKE ? OR outline LIKE ?", "%#{keyword}%", "%#{keyword}%") if keyword.present?
-    events = events.where("date >= ?", start_date) if start_date.present?
-    events = events.where(category_id: category_id) if category_id.present?
-
-    events
-  end
-
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
 
+  def available_numbers
+    number - reservations.sum(:reserved_number)
+  end
+  
+  def self.search(keyword, start_date, category_id)
+    events = Event.all
+    events = events.where("name LIKE ? OR outline LIKE ?", "%#{keyword}%", "%#{keyword}%") if keyword.present?
+    events = events.where("date >= ?", start_date) if start_date.present?
+    events = events.where(category_id: category_id) if category_id.present?
+    events = [] if keyword.empty? && start_date.empty? && category_id.empty
+    return events
+  end
+  
 end

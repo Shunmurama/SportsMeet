@@ -7,17 +7,16 @@ scope module: :public do
   get 'user/mypage' => "users#show"
   get 'user/information/edit' => "users#edit"
   patch 'user/information' => "users#update"
-  get 'user/:id/favorite' => "users#favorite", as: "user_favorite"
+  get 'user/favorite' => "users#favorite", as: "user_favorite"
 
   resources :events, only: [:new, :index, :edit, :show, :create, :update] do
   get 'result' => "events#result"
    resource :favorites, only: [:create, :destroy]
    resources :comments, only: [:create, :destroy]
+   resources :reservations, only: [:new, :show, :create, :destroy]
   end
 
 end
-
-
 
 namespace :admin do
   resources :categories

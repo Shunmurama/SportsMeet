@@ -2,7 +2,7 @@
  <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">イベント一覧</div>
 
   <div class="search_form">
-   <%= form_with model: @event, url: event_result_path(@events), method: :get do |f| %>
+   <%= form_with url: event_result_path(@events), method: :get do |f| %>
     <div class="field">
      <%= f.text_field :keyword, placeholder: "キーワードを入力" %>
     </div>

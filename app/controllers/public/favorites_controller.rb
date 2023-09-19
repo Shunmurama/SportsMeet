@@ -1,4 +1,5 @@
 class Public::FavoritesController < ApplicationController
+
   def create
     event = Event.find(params[:event_id])
     favorite = current_user.favorites.new(event_id: event.id)
@@ -12,4 +13,5 @@ class Public::FavoritesController < ApplicationController
     favorite.destroy
     redirect_to event_path(event)
   end
+
 end

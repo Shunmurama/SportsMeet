@@ -1,4 +1,5 @@
 class Public::UsersController < ApplicationController
+
   def show
     @user = current_user
     @users = User.all
@@ -15,16 +16,18 @@ class Public::UsersController < ApplicationController
      redirect_to user_mypage_path
    end
   end
-  
+
   def favorite
-    
+    @user_favorites = current_user.favorites
   end
 
  private
+
   def user_params
     params.require(:user).permit(
       :prefecture_id, :last_name, :first_name, :image, :group, :gender, :email,
       :phone_number, :postal_code, :address, :birthday, :encrypted_password, :is_deleted, category_ids: []
       )
   end
+
 end

@@ -65,6 +65,15 @@
   </div>
   <% end %>
 
+  <div class="mt-4">
+   参加予定のイベント
+   <div class="mt-1 ml-4">
+    <% @user.reservations.each do |ur| %>
+     <%= link_to ur.event.name, event_reservation_path(ur.event,ur) %>
+    <% end %>
+   </div>
+  </div>
+
 <%#ユーザーの関心も表示させる%>
 
  <% if @user.group.blank? %>
