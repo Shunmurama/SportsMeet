@@ -1,27 +1,46 @@
 <div class="container">
- <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">イベント一覧</div>
-  <div class="mt-4">
-    <div class="mt-2">
-     <div class="row mt-2">
-      <div>写真</div>
-      <div class="ml-2">
-        <div class="ml-1 mt-1"><%= @event.name %></div>
-        <div class="ml-1 mt-1"><%= @event.date %></div>
-        <div class="ml-1 mt-1"><%= @event.number %>人</div>
-        <div class="ml-1 mt-1"><%= @event.fee %>円</div>
-        <div class="ml-1 mt-1"><%= @event.how_to_pay_i18n %></div>
+ <div class="mt-5 ml-3 text-center"><h4>イベント詳細</h4></div>
+
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8 mt-4">
+        <div class="row">
+          <div class="col-md-4">
+            <% if @event.image.attached? %>
+              <%= image_tag @event.image, size: "250x250" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "250x250" %>
+            <% end %>
+          </div>
+            <div class="col-md-8">
+              <div class="ml-1 mt-1"><%= @event.name %></div>
+              <% @event.event_categories.each do |ec| %>
+               <div class="ml-1 mt-1" style="color: #00ECFF;"><%= ec.category.name %></div>
+              <% end %>
+              <div class="ml-1 mt-1">開催日時　　：<%= @event.date %></div>
+              <div class="ml-1 mt-1">開催地　　　：<%= Prefecture.names.invert[@event.prefecture_id] %><%= @event.place %></div>
+              <div class="ml-1 mt-1">募集人数　　：<%= @event.number %>人</div>
+              <div class="ml-1 mt-1">参加料金　　：<%= @event.fee %>円</div>
+              <div class="ml-1 mt-1">お支払い方法：<%= @event.how_to_pay_i18n %></div>
+            </div>
+        </div>
+
+        <div class="text-center">
+         <div class="mt-1"><概要><br><%= @event.outline %></div>
+         <div class="mt-1">開催地：<%= Prefecture.names.invert[@event.prefecture_id] %><%= @event.place %></div>
+         <div class="mt-3">
+           <% if @event.user_id == current_user.id %>
+            <%= link_to "編集", edit_event_path(@event.id), class: "btn btn-success" %>
+           <% else %>
+            <%= link_to '予約する', new_event_reservation_path(@event.id) %>
+           <% end %>
+          </div>
+        </div>
       </div>
      </div>
-     <div class="text-center">
-       <% @event.event_categories.each do |ec| %>
-       <div class="ml-1 mt-1"><%= ec.category.name %></div>
-       <% end %>
-       <div class="ml-1 mt-1"><%= @event.outline %></div>
-       <div class="ml-1 mt-1"><%= Prefecture.names.invert[@event.prefecture_id] %></div>
-       <div class="ml-1 mt-1"><%= @event.place %></div>
-       <div class="row">
-        <div class="ml-1 mt-1"><%= link_to "編集", edit_event_path(@event.id), class: "btn btn-success" %></div>
-        <div class="ml-1 mt-1">
+
+      <div class="row justify-content-center">
+        <div class="ml-1 mt-3">
          <% if @event.favorited_by?(current_user) %>
           <p>
            <%= link_to event_favorites_path(@event), method: :delete do %>
@@ -38,28 +57,26 @@
           </p>
          <% end %>
         </div>
-        <div class="ml-1 mt-1">
-        <%= link_to '予約する', new_event_reservation_path(@event.id) %>
-       </div>
-     </div>
-    </div>
-  </div>
 
-  <div class="mt-4">
-   <p>コメント件数:<%= @event.comments.count %></p>
-   <% @event.comments.each do |comment| %>
-    <p><%= image_tag comment.user.get_image(100,100) %></p>
-    <%= comment.user.full_name %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-    <% if comment.user == current_user %>
-     <%= link_to "削除", event_comment_path(comment.event, comment), method: :delete %>
-    <% end %>
-   <% end %>
-  </div>
-  <div class="mt-4">
-   <%= form_with model: [@event, @comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントしてください" %>
-    <%= f.submit "投稿する" %>
-   <% end %>
-  </div>
+        <div class="ml-3 mt-3">
+         <p>コメント件数:<%= @event.comments.count %></p>
+          <% @event.comments.each do |comment| %>
+          <p><%= image_tag comment.user.get_image(100,100) %></p>
+          <%= comment.user.full_name %><br>
+          <%= comment.created_at.strftime('%Y/%m/%d') %><span style="margin-right: 10px;"></span><%= comment.comment %>
+          <span style="margin-right: 10px;"></span>
+          <% if comment.user == current_user %>
+           <%= link_to "削除", event_comment_path(comment.event, comment), method: :delete %>
+          <% end %>
+         <% end %>
+        </div>
+        <div class="ml-5 mt-4">
+         <%= form_with model: [@event, @comment] do |f| %>
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントしてください" %>
+          <%= f.submit "投稿する" %>
+         <% end %>
+        </div>
+      </div>
+
+ </div>
 </div>

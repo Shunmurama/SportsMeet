@@ -21,14 +21,22 @@ class Event < ApplicationRecord
   def available_numbers
     number - reservations.sum(:reserved_number)
   end
-  
-  def self.search(keyword, start_date, category_id)
+
+  def self.search(keyword, start_date, category_ids)
     events = Event.all
     events = events.where("name LIKE ? OR outline LIKE ?", "%#{keyword}%", "%#{keyword}%") if keyword.present?
     events = events.where("date >= ?", start_date) if start_date.present?
-    events = events.where(category_id: category_id) if category_id.present?
-    events = [] if keyword.empty? && start_date.empty? && category_id.empty
+    events = events.where(category_id: category_ids) if category_ids.present?
+    events = [] if keyword.blank? && start_date.blank? && category_ids.blank?
     return events
   end
-  
+
+  def get_image(width, height)
+    unless image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.png')
+      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+    image.variant(resize_to_limit: [width, height]).processed
+  end
+
 end

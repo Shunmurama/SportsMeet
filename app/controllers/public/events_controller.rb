@@ -36,9 +36,9 @@ class Public::EventsController < ApplicationController
   def result
     @keyword = params[:keyword]
     @start_date = params[:start_date]
-    @category_id = params[:category_id]
-    
-    @events = Event.search(@keyword,@start_date, @category_id)
+    @category_ids = params[:category_ids]
+
+    @events = Event.search(@keyword,@start_date, @category_ids)
   end
 
   private

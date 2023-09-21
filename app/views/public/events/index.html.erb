@@ -1,46 +1,67 @@
 <div class="container">
- <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">イベント一覧</div>
+ <div class="mt-4 mb-3 text-center">検索</div>
 
-  <div class="search_form">
-   <%= form_with url: event_result_path(@events), method: :get do |f| %>
-    <div class="field">
-     <%= f.text_field :keyword, placeholder: "キーワードを入力" %>
-    </div>
-    <div class="field">
-     <%= f.date_field :start_date, placeholder: "日にちを選択" %>
-    </div>
-    <div class="field">
-     <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-    </div>
-     <%= f.submit "検索", class: "btn btn-primary" %>
-   <% end %>
-  </div>
-
-  <div class="mt-4">
-   <% @events.each do |event| %>
-
-    <div class="mt-2">
-     <div class="row mt-2">
-      <div>写真</div>
-      <div class="ml-2">
-        <div class="ml-1 mt-1"><%= link_to event.name, event_path(event.id) %></div>
-        <div class="ml-1 mt-1"><%= event.date %></div>
-        <div class="ml-1 mt-1"><%= event.number %>人</div>
-        <div class="ml-1 mt-1"><%= event.fee %>円</div>
-        <div class="ml-1 mt-1"><%= event.how_to_pay_i18n %></div>
+   <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <%= form_with url: event_result_path(@events), method: :get, class: "form-inline justify-content-between" do |f| %>
+            <div class="form-group mb-2">
+              <%= f.text_field :keyword, class: "form-control", placeholder: "キーワードを入力" %>
+            </div>
+            <div class="form-group mx-sm-2 mb-2">
+              <%= f.date_field :start_date, class: "form-control", placeholder: "日にちを選択", value: Date.today %>
+            </div>
+            <div class="form-group mb-2">
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, {}, class: "form-check-input" %>
+            </div>
+            <div class="form-group mb-2">
+              <%= f.submit "検索", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
       </div>
-     </div>
-     <div class="text-center">
-       <% event.event_categories.each do |ec| %>
-       <div class="ml-1 mt-1"><%= ec.category.name %></div>
-       <% end %>
-       <div class="ml-1 mt-1"><%= event.outline %></div>
-       <div class="ml-1 mt-1"><%= Prefecture.names.invert[event.prefecture_id] %></div>
-       <div class="ml-1 mt-1"><%= event.place %></div>
-       <div class="ml-1 mt-1"><%= link_to "編集", edit_event_path(event.id), class: "btn btn-success" %></div>
-     </div>
     </div>
+   </div>
 
-   <% end %>
+  <div class="mt-5 ml-3 text-center"><h4>イベント一覧</h4></div>
+
+   <div class="container mt-4">
+     <div class="row justify-content-center">
+       <% @events.each do |event| %>
+         <div class="col-md-8 mt-4">
+           <div class="row">
+             <div class="col-md-4">
+               <%= link_to event_path(event.id) do %>
+                 <% if event.image.attached? %>
+                   <%= image_tag event.image, size: "250x250" %>
+                 <% else %>
+                   <%= image_tag 'no_image', size: "250x250" %>
+                 <% end %>
+               <% end %>
+             </div>
+             <div class="col-md-8">
+               <div class="ml-1 mt-1"><%= link_to event.name, event_path(event.id) %></div>
+               <% event.event_categories.each do |ec| %>
+                 <div class="ml-1 mt-1"><%= ec.category.name %></div>
+               <% end %>
+               <div class="ml-1 mt-1">開催日時：<%= event.date %></div>
+               <div class="ml-1 mt-1">募集人数：<%= event.number %>人</div>
+               <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[event.prefecture_id] %></div>
+               <div class="ml-1 mt-1"><イベント概要><br>
+                 <% if event.outline.length > 40 %>
+                   <%= event.outline[0, 40] + "..." %>
+                 <% else %>
+                   <%= event.outline %>
+                 <% end %>
+               </div>
+             </div>
+           </div>
+         </div>
+       <% end %>
+     </div>
+   </div>
+
+
   </div>
 </div>

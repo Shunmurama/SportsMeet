@@ -1,34 +1,42 @@
 <div class="container">
- <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">お気に入り一覧</div>
-  <div class="mt-4">
-    <% if @user_favorites.any? %>
-     <% @user_favorites.each do |uf| %>
-
-      <div class="mt-2">
-       <div class="row mt-2">
-        <div>写真</div>
-        <div class="ml-2">
-          <div class="ml-1 mt-1"><%= link_to uf.event.name, event_path(uf.event.id) %></div>
-          <div class="ml-1 mt-1"><%= uf.event.date %></div>
-          <div class="ml-1 mt-1"><%= uf.event.number %>人</div>
-          <div class="ml-1 mt-1"><%= uf.event.fee %>円</div>
-          <div class="ml-1 mt-1"><%= uf.event.how_to_pay_i18n %></div>
-        </div>
-       </div>
-       <div class="text-center">
-         <% uf.event.categories.each do |category| %>
-           <div class="ml-1 mt-1"><%= category.name %></div>
+  <div class="mt-5 ml-3 text-center"><h4>お気に入りイベント一覧</h4></div>
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+         <% if @user_favorites.any? %>
+           <% @user_favorites.each do |uf| %>
+            <div class="col-md-8 mt-4">
+             <div class="row">
+               <div class="col-md-4">
+                 <%= link_to event_path(uf.event.id) do %>
+                   <% if uf.event.image.attached? %>
+                     <%= image_tag uf.event.image, size: "250x250" %>
+                   <% else %>
+                     <%= image_tag 'no_image', size: "250x250" %>
+                   <% end %>
+                 <% end %>
+               </div>
+               <div class="col-md-8">
+                 <div class="ml-1 mt-1"><%= link_to uf.event.name, event_path(uf.event.id) %></div>
+                 <% uf.event.categories.each do |category| %>
+                  <div class="ml-1 mt-1"><%= category.name %></div>
+                 <% end %>
+                 <div class="ml-1 mt-1">開催日時：<%= uf.event.date %></div>
+                 <div class="ml-1 mt-1">募集人数：<%= uf.event.number %>人</div>
+                 <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[uf.event.prefecture_id] %></div>
+                 <div class="ml-1 mt-1"><イベント概要><br>
+                   <% if uf.event.outline.length > 40 %>
+                     <%= uf.event.outline[0, 40] + "..." %>
+                   <% else %>
+                     <%= uf.event.outline %>
+                   <% end %>
+                 </div>
+               </div>
+             </div>
+            </div>
+           <% end %>
+         <% else %>
+          <p>お気に入りのイベントはありません。</p>
          <% end %>
-         <div class="ml-1 mt-1"><%= uf.event.outline %></div>
-         <div class="ml-1 mt-1"><%= Prefecture.names.invert[uf.event.prefecture_id] %></div>
-         <div class="ml-1 mt-1"><%= uf.event.place %></div>
-         <div class="ml-1 mt-1"><%= link_to "編集", edit_event_path(uf.event.id), class: "btn btn-success" %></div>
-       </div>
       </div>
-
-     <% end %>
-    <% else %>
-     <p>お気に入りのイベントはありません。</p>
-    <% end %>
-  </div>
+    </div>
 </div>
