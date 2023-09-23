@@ -1,85 +1,92 @@
-<div class="container">
- <div class="mt-4 ml-4 table-secondary col-sm-2 text-center"><h4>マイページ</h4></div>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center" style="background-color: #32EEFF; color: white;">
+          <h4>マイページ</h4>
+        </div>
+        <div class="card-body">
+          <!-- プロフィール画像 -->
+          <div class="text-center">
+            <% if @user.image.attached? %>
+              <%= image_tag @user.image, size: "200x200", class: "rounded-circle" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "200x200", class: "rounded-circle" %>
+            <% end %>
+          </div>
 
-  <div class="row mt-4">
-   <div class="col-sm-2">
-    <h4 class="font-weight-bold">登録情報</h4>
-   </div>
-   <div class="col">
-    <%= link_to "編集する", user_information_edit_path, class: "btn btn-success" %>
-   </div>
+          <!-- ユーザー情報 -->
+          <div class="mt-3">
+            <h4 class="font-weight-bold">登録情報</h4>
+            <%= link_to "編集する", user_information_edit_path, class: "btn btn-success btn-sm" %>
+          </div>
+
+          <table class="table table-bordered mt-3">
+            <tbody>
+              <tr>
+                <th class="bg-info text-white" scope="row" style="width: 40%;">氏名</th>
+                <td><%= @user.last_name %> <%= @user.first_name %></td>
+              </tr>
+              <tr>
+                <th class="bg-info text-white" scope="row">性別</th>
+                <td><%= @user.gender %></td>
+              </tr>
+              <tr>
+                <th class="bg-info text-white" scope="row">生年月日</th>
+                <td><%= @user.birthday %></td>
+              </tr>
+              <tr>
+                <th class="bg-info text-white" scope="row">メールアドレス</th>
+                <td><%= @user.email %></td>
+              </tr>
+              <tr>
+                <th class="bg-info text-white" scope="row">電話番号</th>
+                <td><%= @user.phone_number %></td>
+              </tr>
+              <tr>
+                <th class="bg-info text-white" scope="row">郵便番号</th>
+                <td><%= @user.postal_code %></td>
+              </tr>
+              <tr>
+                <th class="bg-info text-white" scope="row">都道府県</th>
+                <td><%= Prefecture.names.invert[@user.prefecture_id] %></td>
+              </tr>
+              <tr>
+                <th class="bg-info text-white" scope="row">住所</th>
+                <td><%= @user.address %></td>
+              </tr>
+              <tr>
+                <th class="bg-info text-white" scope="row">興味のある競技</th>
+                <td>
+                  <% @user.user_interests.each do |ui| %>
+                    <%= ui.category.name %><br>
+                  <% end %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- 参加予定のイベント -->
+          <div class="mt-4">
+            <h5>参加予定のイベント</h5>
+            <div class="ml-4">
+              <% @user.reservations.each do |ur| %>
+                <%= link_to ur.event.name, event_reservation_path(ur.event, ur) %><br>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- ユーザーの所属団体 -->
+          <div class="mt-4">
+            <h5>所属団体</h5>
+            <% if @user.group.blank? %>
+              個人
+            <% else %>
+              <%= @user.group %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-   <div>
-    <% if @user.image.attached? %>
-     <%= image_tag @user.image, size: "100x100" %>
-    <% else %>
-     <%= image_tag 'no_image', size: "100x100" %>
-    <% end %>
-   </div>
-
-  <div class="row border border-dark mt-3" style="height: 40px;">
-   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">氏名</div>
-   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.last_name %> <%= @user.first_name %> </div>
-  </div>
-
-  <div class="row border border-dark" style="height: 40px;">
-   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">性別</div>
-   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.gender %></div>
-  </div>
-
-  <div class="row border border-dark" style="height: 40px;">
-   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">生年月日</div>
-   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.birthday %></div>
-  </div>
-
-  <div class="row border border-dark" style="height: 40px;">
-   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">メールアドレス</div>
-   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.email %></div>
-  </div>
-
-  <div class="row border border-dark" style="height: 40px;">
-   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">電話番号</div>
-   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.phone_number %></div>
-  </div>
-
-  <div class="row border border-dark" style="height: 40px;">
-   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">郵便番号</div>
-   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.postal_code %></div>
-  </div>
-
-  <div class="row border border-dark" style="height: 40px;">
-   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">都道府県</div>
-   <div class="col-6 col-sm-4 d-flex align-items-center"><%= Prefecture.names.invert[@user.prefecture_id] %></div>
-  </div>
-
-  <div class="row border border-dark" style="height: 40px;">
-   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">住所</div>
-   <div class="col-6 col-sm-4 d-flex align-items-center"><%= @user.address %></div>
-  </div>
-
-  <% @user.user_interests.each do |ui| %>
-  <div class="row border border-dark" style="height: 40px;">
-   <div class="col-6 col-sm-2 table-secondary d-flex align-items-center">興味のある競技</div>
-   <div class="col-6 col-sm-4 d-flex align-items-center"><%= ui.category.name %></div>
-  </div>
-  <% end %>
-
-  <div class="mt-4">
-   参加予定のイベント
-   <div class="mt-1 ml-4">
-    <% @user.reservations.each do |ur| %>
-     <%= link_to ur.event.name, event_reservation_path(ur.event,ur) %>
-    <% end %>
-   </div>
-  </div>
-
-<%#ユーザーの関心も表示させる%>
-
- <% if @user.group.blank? %>
-  個人
- <% else %>
-  <%= @user.group %>
- <% end %>
-
 </div>
