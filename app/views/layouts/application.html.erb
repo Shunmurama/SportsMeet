@@ -31,6 +31,11 @@
 
          <% if user_signed_in? %>
           <li>
+            <%= link_to new_event_path, class: "nav-link text-dark" do %>
+             イベントを開催する
+            <% end %>
+          </li>
+          <li>
             <%= link_to events_path, class: "nav-link text-dark" do %>
              イベント一覧
             <% end %>
@@ -52,6 +57,11 @@
           </li>
 
          <% elsif admin_signed_in? %>
+          <li>
+            <%= link_to new_admin_category_path, class: "nav-link text-dark" do %>
+             カテゴリー追加
+            <% end %>
+          </li>
           <li>
             <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link text-dark" do %>
              ログアウト

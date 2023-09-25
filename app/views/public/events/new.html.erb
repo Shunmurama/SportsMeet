@@ -1,118 +1,83 @@
-<div class="container">
- <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">新規イベント登録</div>
-  <%= form_with model: @event, url: events_path, method: :post do |f| %>
-    <div class="mt-4">
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h4>新規イベント登録</h4>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @event, url: events_path, method: :post, html: { class: "mt-4" } do |f| %>
+            <div class="form-group">
+              <%= f.label :name, "イベント名" %>
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
 
-     <div class="row mt-2">
-      <div class="col-sm-4">
-       イベント名
-      </div>
-      <div class="col-sm-8">
-       <%= f.text_field :name %>
-      </div>
-     </div>
+            <div class="form-group">
+              <%= f.label :outline, "概要" %>
+              <%= f.text_area :outline, class: "form-control hogehoge", rows: "3" %>
+            </div>
 
-     <div class="row mt-2">
-      <div class="col-sm-4">
-       概要
-      </div>
-      <div class="col-sm-8">
-       <%= f.text_area :outline, class: "hogehoge", size: "50x3" %>
-      </div>
-     </div>
+            <div class="form-group">
+              <%= f.label :image, "会場イメージ" %>
+              <%= f.file_field :image, class: "form-control-file", accept: "image/*" %>
+            </div>
 
-     <div class="row mt-2">
-      <div class="col-sm-4">
-       会場イメージ
-      </div>
-      <div class="col-sm-8">
-       <%= f.file_field :image, accept: "image/*" %>
-      </div>
-     </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <%= f.label :number, "募集人数" %>
+                <div class="input-group">
+                  <%= f.select :number, (1..50).to_a, {}, class: "form-control" %>
+                  <div class="input-group-append">
+                    <span class="input-group-text">人</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <%= f.label :date, "イベント日時" %>
+                <%= f.date_select :date, default: Date.tomorrow, class: "form-control" %>
+              </div>
+            </div>
 
-     <div class="row mt-2">
-      <div class="col-sm-4">
-       種目
-      </div>
-      <div class="col-sm-8">
-       <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
-      </div>
-     </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <%= f.label :prefecture_id, "都道府県" %>
+                <%= f.select :prefecture_id, Prefecture.names, {}, class: "form-control" %>
+              </div>
+              <div class="form-group col-md-6">
+                <%= f.label :place, "開催地" %>
+                <%= f.text_field :place, class: "form-control" %>
+              </div>
+            </div>
 
-     <div class="row mt-2">
-      <div class="col">
-       募集人数
-      </div>
-      <div class="col">
-       <%= f.select :number, (1..50).to_a %>人
-      </div>
-      <div class="col">
-      </div>
-     </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <%= f.label :fee, "参加費" %>
+                <div class="input-group">
+                  <%= f.text_field :fee, class: "form-control" %>
+                  <div class="input-group-append">
+                    <span class="input-group-text">円</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <%= f.label :how_to_pay, "支払方法" %>
+                <div class="form-check">
+                  <%= f.radio_button :how_to_pay, Event.how_to_pays.key(0), checked: true, class: "form-check-input" %>
+                  <%= f.label :how_to_pay_local_pay, Event.how_to_pays_i18n[:local_pay], class: "form-check-label" %>
+                </div>
+                <div class="form-check">
+                  <%= f.radio_button :how_to_pay, Event.how_to_pays.key(1), class: "form-check-input" %>
+                  <%= f.label :how_to_pay_transfer, Event.how_to_pays_i18n[:transfer], class: "form-check-label" %>
+                </div>
+              </div>
+            </div>
 
-     <div class="row mt-2">
-      <div class="col">
-       イベント日時
+            <div class="form-group text-center">
+              <%= f.submit "新規登録", class: "btn btn-success btn-block" %>
+            </div>
+          <% end %>
+        </div>
       </div>
-      <div class="col">
-       <%= f.date_select :date, default: Date.tomorrow %>
-      </div>
-      <div class="col">
-      </div>
-     </div>
-
-     <div class="row mt-2">
-      <div class="col">
-       都道府県
-      </div>
-      <div class="col">
-       <%= f.select :prefecture_id, Prefecture.names %>
-      </div>
-      <div class="col">
-      </div>
-     </div>
-
-     <div class="row mt-2">
-      <div class="col">
-       開催地
-      </div>
-      <div class="col">
-       <%= f.text_field :place %>
-      </div>
-      <div class="col">
-      </div>
-     </div>
-
-     <div class="row mt-2">
-      <div class="col">
-       参加費
-      </div>
-      <div class="col">
-       <%= f.text_field :fee %>円
-      </div>
-      <div class="col">
-      </div>
-     </div>
-
-     <div class="row mt-2">
-      <div class="col">
-       支払方法
-      </div>
-      <div class="col">
-       <div>
-        <%= f.radio_button :how_to_pay, Event.how_to_pays.key(0), checked: true %>
-        <%= f.label :how_to_pay_local_pay, Event.how_to_pays_i18n[:local_pay] %>
-       </div>
-       <div>
-        <%= f.radio_button :how_to_pay, Event.how_to_pays.key(1) %>
-        <%= f.label :how_to_pay_transfer, Event.how_to_pays_i18n[:transfer] %>
-       </div>
-      </div>
-     </div>
-
-     <div class="mt-3 text-center">
-      <%= f.submit "新規登録", class: "w-25 btn btn-success" %>
-     </div>
     </div>
-  <% end %>
+  </div>
 </div>

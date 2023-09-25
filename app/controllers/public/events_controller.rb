@@ -41,9 +41,15 @@ class Public::EventsController < ApplicationController
     @events = Event.search(@keyword,@start_date, @category_ids)
   end
 
+  def destroy
+    event = Event.find(params[:id])
+    event.destroy
+    redirect_to events_path
+  end
+
   private
     def event_params
-      params.require(:event).permit(:user_id, :prefecture_id, :name,
+      params.require(:event).permit(:user_id, :prefecture_id, :name, :image,
       :outline, :number, :date, :place, :fee, :how_to_pay,
       category_ids: []
       )

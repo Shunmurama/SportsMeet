@@ -9,7 +9,7 @@ scope module: :public do
   patch 'user/information' => "users#update"
   get 'user/favorite' => "users#favorite", as: "user_favorite"
 
-  resources :events, only: [:new, :index, :edit, :show, :create, :update] do
+  resources :events, only: [:new, :index, :edit, :show, :create, :update, :destroy] do
   get 'result' => "events#result"
    resource :favorites, only: [:create, :destroy]
    resources :comments, only: [:create, :destroy]
