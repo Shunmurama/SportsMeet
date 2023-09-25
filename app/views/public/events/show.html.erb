@@ -15,7 +15,7 @@
             <div class="col-md-8">
               <div class="ml-1 mt-1"><%= @event.name %></div>
               <% @event.event_categories.each do |ec| %>
-               <div class="ml-1 mt-1" style="color: #00ECFF;"><%= ec.category.name %></div>
+               <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
               <% end %>
               <div class="ml-1 mt-1">開催日時　　：<%= @event.date %></div>
               <div class="ml-1 mt-1">開催地　　　：<%= Prefecture.names.invert[@event.prefecture_id] %><%= @event.place %></div>

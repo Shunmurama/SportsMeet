@@ -42,7 +42,7 @@
                 <div class="col mt-2">
                   <div class="ml-1 mt-1"><%= link_to event.name, event_path(event.id) %></div>
                   <% event.event_categories.each do |ec| %>
-                    <div class="ml-1 mt-1"><%= ec.category.name %></div>
+                    <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
                   <% end %>
                   <div class="ml-1 mt-1">開催日時：<%= event.date %></div>
                   <div class="ml-1 mt-1">募集人数：<%= event.number %>人</div>
