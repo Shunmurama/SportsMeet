@@ -13,7 +13,7 @@ scope module: :public do
   get 'result' => "events#result"
    resource :favorites, only: [:create, :destroy]
    resources :comments, only: [:create, :destroy]
-   resources :reservations, only: [:new, :show, :create, :destroy]
+   resources :reservations, only: [:new, :show, :create, :destroy, :index]
   end
 
 end

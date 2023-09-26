@@ -23,10 +23,21 @@
 
           <table class="table table-bordered mt-3">
             <tbody>
-              <tr>
+              <% if @user.group.blank? %>
+               <tr>
                 <th class="bg-info text-white" scope="row" style="width: 40%;">氏名</th>
                 <td><%= @user.last_name %> <%= @user.first_name %></td>
-              </tr>
+               </tr>
+              <% else %>
+               <tr>
+                <th class="bg-info text-white" scope="row" style="width: 40%;">団体名</th>
+                <td><%= @user.group %></td>
+               </tr>
+               <tr>
+                <th class="bg-info text-white" scope="row" style="width: 40%;">代表者名</th>
+                <td><%= @user.last_name %> <%= @user.first_name %></td>
+             　 </tr>
+              <% end %>
               <tr>
                 <th class="bg-info text-white" scope="row">性別</th>
                 <td><%= @user.gender %></td>
@@ -69,22 +80,15 @@
           <!-- 参加予定のイベント -->
           <div class="mt-4">
             <h5>参加予定のイベント</h5>
-            <div class="ml-4">
+            <ul class="list-group ml-4">
               <% @user.reservations.each do |ur| %>
-                <%= link_to ur.event.name, event_reservation_path(ur.event, ur) %><br>
+                <li class="list-group-item">
+                  <%= link_to ur.event.name, event_reservation_path(ur.event, ur) %>
+                </li>
               <% end %>
-            </div>
+            </ul>
           </div>
 
-          <!-- ユーザーの所属団体 -->
-          <div class="mt-4">
-            <h5>所属団体</h5>
-            <% if @user.group.blank? %>
-              個人
-            <% else %>
-              <%= @user.group %>
-            <% end %>
-          </div>
         </div>
       </div>
     </div>

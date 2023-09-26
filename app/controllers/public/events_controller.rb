@@ -9,6 +9,8 @@ class Public::EventsController < ApplicationController
     @event.user_id = current_user.id
     if @event.save
       redirect_to events_path
+    else
+      render :new
     end
   end
 
@@ -25,7 +27,6 @@ class Public::EventsController < ApplicationController
 
   def index
     @events = Event.all
-
   end
 
   def show

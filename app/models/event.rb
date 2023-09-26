@@ -10,6 +10,15 @@ class Event < ApplicationRecord
 
   has_one_attached :image
 
+  validates :name, presence: true
+  validates :outline, presence: true
+  validates :number, presence: true
+  validates :date, presence: true
+  validates :prefecture_id, presence: true
+  validates :place, presence: true
+  validates :fee, presence: true
+  validates :how_to_pay, presence: true
+
   enum how_to_pay: { local_pay: 0, transfer: 1 }
 
   accepts_nested_attributes_for :event_categories, allow_destroy: true

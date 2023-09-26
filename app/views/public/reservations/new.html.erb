@@ -3,6 +3,12 @@
     <h4>イベント詳細</h4>
   </div>
 
+  <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+　<% end %>
+
   <div class="row justify-content-center mt-4">
     <div class="col-md-8">
       <div class="row">

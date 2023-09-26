@@ -6,14 +6,19 @@ class Public::ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = current_user.reservations.create(reservation_params)
-    @reservation.user_id = current_user.id
-    @event = Event.find(params[:event_id])
-    @reservation.date = @event.date
-    if @reservation.save
-      redirect_to user_mypage_path, notice: '予約しました'
+  @event = Event.find(params[:event_id])
+  reserved_number = params[:reservation][:reserved_number].to_i
+
+    if reserved_number <= @event.available_numbers
+      @reservation = current_user.reservations.create(reservation_params)
+      @reservation.date = @event.date
+
+      if @reservation.save
+        redirect_to user_mypage_path, notice: '予約しました'
+      end
     else
-      redirect_to events_path
+      flash[:alert] = '予約可能な人数を超えています。'
+      render :new
     end
   end
 

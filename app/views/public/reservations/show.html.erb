@@ -1,48 +1,50 @@
-<div class="container">
- <div class="col-sm-2 mt-4 ml-3 text-center table-secondary">予約したイベント</div>
-  <div class="mt-4">
-    <div class="mt-2">
-     <div class="row mt-2">
-      <div>写真</div>
-      <div class="ml-2">
-        <div class="ml-1 mt-1"><%= @event.name %></div>
-        <div class="ml-1 mt-1"><%= @event.date %></div>
-        <div class="ml-1 mt-1"><%= @event.number %>人</div>
-        <div class="ml-1 mt-1"><%= @event.fee %>円</div>
-        <div class="ml-1 mt-1"><%= @event.how_to_pay_i18n %></div>
+<div class="container mt-5">
+  <div class="text-center">
+    <h4>イベント詳細</h4>
+  </div>
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+      <div class="row">
+        <!-- イベント写真 -->
+        <div class="col-md-4">
+          <div class="text-center">
+            <% if @event.image.attached? %>
+              <%= image_tag @event.image, size: "300x300", class: "img-fluid rounded" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "300x300", class: "img-fluid rounded" %>
+            <% end %>
+          </div>
+        </div>
+        <!-- イベント詳細情報 -->
+        <div class="col-md-8">
+          <div class="mb-2"><h5><%= @event.name %></h5></div>
+          <div class="event-categories mb-2">
+            <% @event.event_categories.each do |ec| %>
+              <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
+            <% end %>
+          </div>
+          <div class="mt-2">
+            <p>開催日時：<%= @event.date %></p>
+            <p>開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></p>
+            <p>募集人数：<%= @event.number %>人　予約した人数：<%= @reservation.reserved_number %></p>
+            <p>参加料金：<%= @event.fee %>円</p>
+            <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
+          </div>
+        </div>
       </div>
-     </div>
-     <div class="text-center">
-       <% @event.event_categories.each do |ec| %>
-       <div class="ml-1 mt-1"><%= ec.category.name %></div>
-       <% end %>
-       <div class="ml-1 mt-1"><%= @event.outline %></div>
-       <div class="ml-1 mt-1"><%= Prefecture.names.invert[@event.prefecture_id] %></div>
-       <div class="ml-1 mt-1"><%= @event.place %></div>
-       <div class="row">
-        <div class="ml-1 mt-1"><%= link_to "編集", edit_event_path(@event.id), class: "btn btn-success" %></div>
-        <div class="ml-1 mt-1">
-         <% if @event.favorited_by?(current_user) %>
-          <p>
-           <%= link_to event_favorites_path(@event), method: :delete do %>
-            <i class="fa-solid fa-heart" style="color: #ff0505;"></i>
-             <%= @event.favorites.count %> いいね
-           <% end %>
-          </p>
-          <% else %>
-          <p>
-           <%= link_to event_favorites_path(@event), method: :post do %>
-            <i class="fa-regular fa-heart" style="color: #ff0505;"></i>
-             <%= @event.favorites.count %> いいね
-           <% end %>
-          </p>
-         <% end %>
-        </div>
-        <div class="ml-1 mt-1">
-        <%= link_to '取り消す', event_reservation_path(@event, @reservation), method: :delete %>
-        </div>
-       </div>
-     </div>
+
+      <!-- イベント概要 -->
+      <div class="text-center mt-4">
+        <h5>概要</h5>
+        <p><%= @event.outline %></p>
+      </div>
+
+      <!-- 予約ボタン -->
+      <div class="text-center mt-4">
+        <%= link_to '取り消す', event_reservation_path(@event, @reservation), method: :delete, class: "btn btn-danger btn-block" %>
+      </div>
     </div>
   </div>
+
 </div>

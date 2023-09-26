@@ -4,6 +4,12 @@
       <div class="card">
         <div class="card-header text-center">
           <h4>新規イベント登録</h4>
+
+          <% if @event.errors.any? %>
+            必要事項を登録してください
+          <% end %>
+
+
         </div>
         <div class="card-body">
           <%= form_with model: @event, url: events_path, method: :post, html: { class: "mt-4" } do |f| %>
