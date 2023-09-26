@@ -77,18 +77,6 @@
             </tbody>
           </table>
 
-          <!-- 参加予定のイベント -->
-          <div class="mt-4">
-            <h5>参加予定のイベント</h5>
-            <ul class="list-group ml-4">
-              <% @user.reservations.each do |ur| %>
-                <li class="list-group-item">
-                  <%= link_to ur.event.name, event_reservation_path(ur.event, ur) %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-
         </div>
       </div>
     </div>
