@@ -21,6 +21,10 @@ class Public::UsersController < ApplicationController
     @user_favorites = current_user.favorites
   end
 
+  def reserved
+    @user_reserved = current_user.reservations
+  end
+
  private
 
   def user_params

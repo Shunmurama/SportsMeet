@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="mt-5 ml-3 text-center"><h4>予約済みのイベント一覧</h4></div>
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+         <% if @user_reserved.any? %>
+           <% @user_reserved.each do |ur| %>
+            <div class="col-md-8 mt-4">
+             <div class="row">
+               <div class="col-md-4">
+                 <%= link_to event_reservation_path(ur.event, ur) do %>
+                   <% if ur.event.image.attached? %>
+                     <%= image_tag ur.event.image, size: "250x250" %>
+                   <% else %>
+                     <%= image_tag 'no_image', size: "250x250" %>
+                   <% end %>
+                 <% end %>
+               </div>
+               <div class="col-md-8">
+                 <div class="ml-1 mt-1"><%= link_to ur.event.name, event_reservation_path(ur.event, ur) %></div>
+                 <% ur.event.categories.each do |category| %>
+                  <span class="badge badge-primary mr-2"><%= category.name %></span>
+                 <% end %>
+                 <div class="ml-1 mt-1">開催日時：<%= ur.event.date %></div>
+                 <div class="ml-1 mt-1">募集人数：<%= ur.event.number %>人</div>
+                 <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[ur.event.prefecture_id] %></div>
+                 <div class="ml-1 mt-1"><イベント概要><br>
+                   <% if ur.event.outline.length > 40 %>
+                     <%= ur.event.outline[0, 40] + "..." %>
+                   <% else %>
+                     <%= ur.event.outline %>
+                   <% end %>
+                 </div>
+               </div>
+             </div>
+            </div>
+           <% end %>
+         <% else %>
+          <p>予約済みのイベントはありません。</p>
+         <% end %>
+      </div>
+    </div>
+</div>

@@ -35,6 +35,13 @@
              イベントを開催する
             <% end %>
           </li>
+          <% if current_user.reservations.any? %>
+            <li>
+              <%= link_to user_reserved_path, class: "nav-link text-dark" do %>
+               参加予定のイベント
+              <% end %>
+            </li>
+          <% end %>
           <li>
             <%= link_to events_path, class: "nav-link text-dark" do %>
              イベント一覧

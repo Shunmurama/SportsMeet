@@ -8,6 +8,7 @@ scope module: :public do
   get 'user/information/edit' => "users#edit"
   patch 'user/information' => "users#update"
   get 'user/favorite' => "users#favorite", as: "user_favorite"
+  get 'user/reserved' => "users#reserved", as: "user_reserved"
 
   resources :events, only: [:new, :index, :edit, :show, :create, :update, :destroy] do
   get 'result' => "events#result"
