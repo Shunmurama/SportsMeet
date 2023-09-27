@@ -31,12 +31,24 @@ class Event < ApplicationRecord
     number - reservations.sum(:reserved_number)
   end
 
-  def self.search(keyword, start_date, category_ids)
+  def self.search(keyword, start_date, category_ids, prefecture)
     events = Event.all
-    events = events.where("name LIKE ? OR outline LIKE ?", "%#{keyword}%", "%#{keyword}%") if keyword.present?
-    events = events.where("date >= ?", start_date) if start_date.present?
-    events = events.where(category_id: category_ids) if category_ids.present?
-    events = [] if keyword.blank? && start_date.blank? && category_ids.blank?
+
+    if keyword.present?
+      events = events.where("name LIKE ? OR outline LIKE ?", "%#{keyword}%", "%#{keyword}%")
+    end
+    if start_date.present?
+      events = events.where("date >= ?", start_date)
+    end
+    if prefecture.present?
+      events = events.where(prefecture_id: prefecture)
+    end
+    if category_ids.blank?
+      events = events.where(category_id: category_ids)
+    end
+
+    events = events.order(date: :asc)
+
     return events
   end
 

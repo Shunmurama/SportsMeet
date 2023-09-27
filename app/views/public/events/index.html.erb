@@ -10,11 +10,19 @@
             <div class="form-group mb-2">
               <%= f.text_field :keyword, class: "form-control", placeholder: "キーワードを入力" %>
             </div>
-            <div class="form-group mx-sm-2 mb-2">
-              <%= f.date_field :start_date, class: "form-control", placeholder: "日にちを選択", value: Date.today %>
+            <div class="form-group mb-2">
+              <%= f.date_field :start_date, class: "form-control", value: Date.today %>
             </div>
-            <div class="form-group">
-              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
+            <div class="form-group mb-2">
+              <%= f.select :prefecture, Prefecture.names, class: "form-control" %>
+            </div>
+            <div class="form-group mb-2">
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+                <div class="form-check">
+                  <%= b.check_box class: "form-check-input" %>
+                  <%= b.label class: "form-check-label" %>
+                </div>
+              <% end %>
             </div>
             <div class="form-group mb-2">
               <%= f.submit "検索", class: "btn btn-primary" %>

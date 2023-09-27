@@ -38,8 +38,9 @@ class Public::EventsController < ApplicationController
     @keyword = params[:keyword]
     @start_date = params[:start_date]
     @category_ids = params[:category_ids]
+    @prefecture = params[:prefecture]
 
-    @events = Event.search(@keyword,@start_date, @category_ids)
+    @events = Event.search(@keyword, @start_date, @category_ids, @prefecture)
   end
 
   def destroy

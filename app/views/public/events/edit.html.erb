@@ -32,7 +32,7 @@
 
      <div class="row mt-2">
       <div class="col-sm-4">
-       興味のある種目 ※任意選択・複数回答
+       種目 ※選択するとユーザーに通知できます
       </div>
       <div class="col-sm-8">
        <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
