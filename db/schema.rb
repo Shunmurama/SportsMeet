@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_29_180817) do
+ActiveRecord::Schema.define(version: 2023_10_01_180924) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(version: 2023_09_29_180817) do
 
   create_table "events", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "category_id"
     t.integer "prefecture_id", null: false
     t.string "name", null: false
     t.text "outline", null: false
@@ -90,7 +89,6 @@ ActiveRecord::Schema.define(version: 2023_09_29_180817) do
     t.integer "how_to_pay", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_events_on_category_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -106,7 +104,6 @@ ActiveRecord::Schema.define(version: 2023_09_29_180817) do
   create_table "notifications", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "event_id", null: false
-    t.text "message", null: false
     t.integer "read", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -174,7 +171,6 @@ ActiveRecord::Schema.define(version: 2023_09_29_180817) do
   add_foreign_key "comments", "users"
   add_foreign_key "event_categories", "categories"
   add_foreign_key "event_categories", "events"
-  add_foreign_key "events", "categories"
   add_foreign_key "events", "users"
   add_foreign_key "favorites", "events"
   add_foreign_key "favorites", "users"
