@@ -8,6 +8,7 @@ class Public::EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.user_id = current_user.id
     if @event.save
+      @event.notifications
       redirect_to events_path
     else
       render :new
@@ -38,6 +39,7 @@ class Public::EventsController < ApplicationController
     @keyword = params[:keyword]
     @start_date = params[:start_date]
     @category_ids = params[:category_ids]
+    @category_ids.delete("")
     @prefecture = params[:prefecture]
 
     @events = Event.search(@keyword, @start_date, @category_ids, @prefecture)

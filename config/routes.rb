@@ -17,6 +17,8 @@ scope module: :public do
    resources :reservations, only: [:new, :show, :create, :destroy, :index]
   end
 
+  resources :notifications, only: [:create]
+
 end
 
 namespace :admin do

@@ -11,91 +11,93 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <header>
-   <nav class="navbar navbar-expand-lg navbar-dark border border-dark" style="background-color: #33FF66;">
-      <% if user_signed_in? %>
-       <%= link_to events_path, class: "navbar-brand" do %>
-        <i class="fa-solid fa-person-running" style="color: #000000;">SportsMeet</i>
-       <% end %>
-      <% else %>
-       <%= link_to root_path, class: "navbar-brand" do %>
-        <i class="fa-solid fa-person-running" style="color: #000000;">SportsMeet</i>
-       <% end %>
-      <% end %>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto">
-
-         <% if user_signed_in? %>
-          <li>
-            <%= link_to new_event_path, class: "nav-link text-dark" do %>
-             イベントを開催する
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+          <% if user_signed_in? %>
+            <%= link_to events_path, class: "navbar-brand" do %>
+              <i class="fa-solid fa-person-running mr-2"></i>
+              SportsMeet
             <% end %>
-          </li>
-          <% if current_user.reservations.any? %>
-            <li>
-              <%= link_to user_reserved_path, class: "nav-link text-dark" do %>
-               参加予定のイベント
-              <% end %>
-            </li>
+          <% else %>
+            <%= link_to root_path, class: "navbar-brand" do %>
+              <i class="fa-solid fa-person-running mr-2"></i>
+              SportsMeet
+            <% end %>
           <% end %>
-          <li>
-            <%= link_to events_path, class: "nav-link text-dark" do %>
-             イベント一覧
-            <% end %>
-          </li>
-          <li>
-            <%= link_to user_favorite_path, class: "nav-link text-dark" do %>
-             お気に入りイベント
-            <% end %>
-          </li>
-          <li>
-            <%= link_to user_mypage_path, class: "nav-link text-dark" do %>
-             マイページ
-            <% end %>
-          </li>
-          <li>
-            <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-dark" do %>
-             ログアウト
-            <% end %>
-          </li>
 
-         <% elsif admin_signed_in? %>
-          <li>
-            <%= link_to new_admin_category_path, class: "nav-link text-dark" do %>
-             カテゴリー追加
-            <% end %>
-          </li>
-          <li>
-            <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link text-dark" do %>
-             ログアウト
-            <% end %>
-          </li>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-         <% else %>
-          <li>
-            <%= link_to events_path, class: "nav-link text-dark" do %>
-             イベント一覧
-            <% end %>
-          </li>
-        <% end %>
-        </ul>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if user_signed_in? %>
+                <!-- ユーザーがログインしている場合 -->
+                <li class="nav-item">
+                  <%= link_to new_event_path, class: "nav-link" do %>
+                    イベントを開催する
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to user_reserved_path, class: "nav-link" do %>
+                    参加予定のイベント
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to user_favorite_path, class: "nav-link" do %>
+                    お気に入りイベント
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to user_mypage_path, class: "nav-link" do %>
+                    マイページ
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to destroy_user_session_path, method: :delete, class: "nav-link" do %>
+                    ログアウト
+                  <% end %>
+                </li>
+              <% elsif admin_signed_in? %>
+                <!-- 管理者がログインしている場合 -->
+                <li class="nav-item">
+                  <%= link_to new_admin_category_path, class: "nav-link" do %>
+                    カテゴリー追加
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link" do %>
+                    ログアウト
+                  <% end %>
+                </li>
+              <% else %>
+                <!-- ログインしていない場合 -->
+                <li class="nav-item">
+                  <%= link_to events_path, class: "nav-link" do %>
+                    イベント一覧
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <body>
+      <%= yield %>
+    </body>
+
+    <footer>
+      <div class="mt-5 p-3 bg-success">
+        <div class="border-dark border-dark">
+          <!-- フッターコンテンツを追加 -->
+          <div class="container text-center text-white">
+            <p>&copy; 2023 SportsMeet</p>
+          </div>
+        </div>
       </div>
-
-  </header>
-
-  <body>
-    <%= yield %>
-  </body>
-
-  <footer>
-    <div class='mt-5' style="height:70px; background-color: #33FF66;">
-      <div class='border-dark border-top'>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
 </html>

@@ -6,13 +6,12 @@ class Public::ReservationsController < ApplicationController
   end
 
   def create
-  @event = Event.find(params[:event_id])
-  reserved_number = params[:reservation][:reserved_number].to_i
+    @event = Event.find(params[:event_id])
+    @reservation = current_user.reservations.build(reservation_params)
+    reserved_number = params[:reservation][:reserved_number].to_i
 
     if reserved_number <= @event.available_numbers
-      @reservation = current_user.reservations.create(reservation_params)
       @reservation.date = @event.date
-
       if @reservation.save
         redirect_to user_mypage_path, notice: '予約しました'
       end

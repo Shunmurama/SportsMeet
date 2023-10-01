@@ -3,28 +3,27 @@
 
   <div class="row">
     <div class="col-md-4 mt-5">
-      <div class="card">
-       <div class="card-header text-center">検索</div>
-        <div class="card-body">
+      <div class="container border ">
+       <div class="text-center border-bottom">検索</div>
+        <div class="container">
           <%= form_with url: event_result_path(@events), method: :get, class: "form-inline justify-content-between" do |f| %>
-            <div class="form-group mb-2">
-              <%= f.text_field :keyword, class: "form-control", placeholder: "キーワードを入力" %>
+            <div class="mt-2 mb-2">
+              <%= f.text_field :keyword, placeholder: "キーワードを入力" %>
             </div>
-            <div class="form-group mb-2">
-              <%= f.date_field :start_date, class: "form-control", value: Date.today %>
+            <div class="mb-2">
+              <%= f.date_field :start_date, value: Date.today %>
             </div>
-            <div class="form-group mb-2">
-              <%= f.select :prefecture, Prefecture.names, class: "form-control" %>
+            <div class="mb-2">
+              <%= f.select :prefecture, Prefecture.names %>
             </div>
-            <div class="form-group mb-2">
-              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
-                <div class="form-check">
-                  <%= b.check_box class: "form-check-input" %>
-                  <%= b.label class: "form-check-label" %>
-                </div>
+            <div class="mb-2">
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, { in_columns: 2 } do |b| %>
+                <%= b.label class:"label-checkbox" do %>
+                 <%= b.check_box + b.text %>
+                <% end %>
               <% end %>
             </div>
-            <div class="form-group mb-2">
+            <div class="mb-2">
               <%= f.submit "検索", class: "btn btn-primary" %>
             </div>
           <% end %>
@@ -38,12 +37,12 @@
           <% @events.each do |event| %>
             <div class="col-md-12 mt-2 border">
               <div class="row">
-                <div class="col">
+                <div class="col m-2">
                   <%= link_to event_path(event.id) do %>
                     <% if event.image.attached? %>
-                      <%= image_tag event.image, size: "250x250" %>
+                      <%= image_tag event.image, class: "img-fluid" %>
                     <% else %>
-                      <%= image_tag 'no_image', size: "250x250" %>
+                      <%= image_tag 'no_image', class: "img-fluid" %>
                     <% end %>
                   <% end %>
                 </div>
@@ -52,7 +51,7 @@
                   <% event.event_categories.each do |ec| %>
                     <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
                   <% end %>
-                  <div class="ml-1 mt-1">開催日時：<%= event.date %></div>
+                  <div class="ml-1 mt-1">開催日時：<%= event.date.strftime('%Y/%m/%d %H:%M') %></div>
                   <div class="ml-1 mt-1">募集人数：<%= event.number %>人</div>
                   <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[event.prefecture_id] %></div>
                   <div class="ml-1 mt-1"><イベント概要><br>

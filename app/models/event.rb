@@ -3,7 +3,7 @@ class Event < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :event_categories
+  has_many :event_categories, dependent: :destroy
   has_many :categories, through: :event_categories
   belongs_to :user
   has_one :prefecture
@@ -23,6 +23,8 @@ class Event < ApplicationRecord
 
   accepts_nested_attributes_for :event_categories, allow_destroy: true
 
+
+
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
@@ -40,17 +42,23 @@ class Event < ApplicationRecord
     if start_date.present?
       events = events.where("date >= ?", start_date)
     end
-    if prefecture.present?
+    if prefecture.present? && prefecture != "0"
       events = events.where(prefecture_id: prefecture)
     end
-    if category_ids.blank?
-      events = events.where(category_id: category_ids)
+    if category_ids.present?
+      event_ids = EventCategory.where(category_id: category_ids).pluck(:event_id)
+      events = events.where(id: event_ids)
     end
 
     events = events.order(date: :asc)
 
     return events
   end
+  
+  
+  def notifications
+  end
+  
 
   def get_image(width, height)
     unless image.attached?

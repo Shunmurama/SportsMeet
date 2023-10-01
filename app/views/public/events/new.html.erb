@@ -43,8 +43,10 @@
                 </div>
               </div>
               <div class="form-group col-md-6">
-                <%= f.label :date, "イベント日時" %>
+                <%= f.label :date, "イベント日" %>
                 <%= f.date_select :date, default: Date.tomorrow, class: "form-control" %>
+                <%= f.label :date, "イベント時間" %>
+                <%= f.time_select :date, default: Time.now, class: "form-control" %>
               </div>
             </div>
 

@@ -12,9 +12,9 @@
                     <div class="col">
                       <%= link_to event_path(uf.event.id) do %>
                         <% if uf.event.image.attached? %>
-                          <%= image_tag uf.event.image, size: "250x250" %>
+                          <%= image_tag uf.event.image, class: "img-fluid" %>
                         <% else %>
-                          <%= image_tag 'no_image', size: "250x250" %>
+                          <%= image_tag 'no_image', class: "img-fluid" %>
                         <% end %>
                       <% end %>
                     </div>
@@ -23,7 +23,7 @@
                         <% uf.event.event_categories.each do |ec| %>
                           <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
                         <% end %>
-                      <div class="ml-1 mt-1">開催日時：<%= uf.event.date %></div>
+                      <div class="ml-1 mt-1">開催日時：<%= uf.event.date.strftime('%Y/%m/%d %H:%M') %></div>
                       <div class="ml-1 mt-1">募集人数：<%= uf.event.number %>人</div>
                       <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[uf.event.prefecture_id] %></div>
                       <div class="ml-1 mt-1"><イベント概要><br>
