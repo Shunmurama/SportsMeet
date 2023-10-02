@@ -8,9 +8,10 @@ class Public::EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.user_id = current_user.id
     if @event.save
-      @event.notifications
+      @event.create_notification_event!(current_user, @event.id)
       redirect_to events_path
     else
+      @event.event_categories.build
       render :new
     end
   end
@@ -54,7 +55,7 @@ class Public::EventsController < ApplicationController
   private
     def event_params
       params.require(:event).permit(:user_id, :prefecture_id, :name, :image,
-      :outline, :number, :date, :place, :fee, :how_to_pay,
+      :outline, :number, :date, :time, :place, :fee, :how_to_pay,
       category_ids: []
       )
     end

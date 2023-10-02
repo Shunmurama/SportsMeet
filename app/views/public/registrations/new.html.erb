@@ -72,7 +72,9 @@
           <div class="form-group row">
             <label for="category_ids" class="col-sm-3 col-form-label">興味のある種目 ※任意選択・複数回答</label>
             <div class="col-sm-9">
-              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+                 <%= b.check_box + b.text %>
+              <% end %>
             </div>
           </div>
           <div class="form-group row">

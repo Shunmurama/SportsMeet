@@ -23,7 +23,7 @@
                         <% ur.event.categories.each do |category| %>
                           <span class="badge badge-primary mr-2"><%= category.name %></span>
                         <% end %>
-                      <div class="ml-1 mt-1">開催日時：<%= ur.event.date.strftime('%Y/%m/%d %H:%M') %></div>
+                      <div class="ml-1 mt-1">開催日時：<%= ur.event.date.strftime("%Y/%m/%d") %> <%= ur.event.time.strftime("%H:%M") %></div>
                       <div class="ml-1 mt-1">募集人数：<%= ur.event.number %>人</div>
                       <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[ur.event.prefecture_id] %></div>
                       <div class="ml-1 mt-1"><イベント概要><br>

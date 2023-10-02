@@ -54,11 +54,27 @@ class Event < ApplicationRecord
 
     return events
   end
-  
-  
-  def notifications
+
+
+  def create_notification_event!(current_user, event_id)
+    temp_ids = Event.select(:user_id).where(user_id: id).where.not(user_id: current_user.id).distinct
+    temp_ids.each do |temp_id|
+      save_notification_event!(current_user, event_id, temp_id['user_id'])
+    end
   end
-  
+
+  def save_notification_event!(current_user, event_id, user_id)
+      notification = current_user.notifications.new(
+        user_id: user_id,
+        event_id: event_id,
+        read: '0'
+      )
+      if notification.user_id == event.user_id
+        notification.read = '1'
+      end
+      notification.save if notification.valid?
+  end
+
 
   def get_image(width, height)
     unless image.attached?

@@ -24,7 +24,7 @@
                   <% event.event_categories.each do |ec| %>
                     <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
                   <% end %>
-                  <div class="ml-1 mt-1">開催日時：<%= event.date.strftime('%Y/%m/%d %H:%M') %></div>
+                  <div class="ml-1 mt-1">開催日時：<%= event.date.strftime("%Y/%m/%d") %> <%= event.time.strftime("%H:%M") %></div>
                   <div class="ml-1 mt-1">募集人数：<%= event.number %>人</div>
                   <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[event.prefecture_id] %></div>
                   <div class="ml-1 mt-1"><イベント概要><br>

@@ -35,7 +35,9 @@
        種目 ※選択するとユーザーに通知できます
       </div>
       <div class="col-sm-8">
-       <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+       <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+         <%= b.check_box + b.text %>
+       <% end %>
       </div>
      </div>
 
@@ -55,7 +57,8 @@
        イベント日時
       </div>
       <div class="col">
-       <%= f.datetime_select :date, default: Date.tomorrow %>
+       <%= f.date_select :date, default: Date.tomorrow, class: "form-control" %>
+       <%= f.time_select :time, default: Time.now, class: "form-control" %>
       </div>
       <div class="col">
       </div>

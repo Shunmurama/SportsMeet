@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-md-4 mt-5">
-      <div class="container border ">
+      <div class="container border border-dark">
        <div class="text-center border-bottom">検索</div>
         <div class="container">
           <%= form_with url: event_result_path(@events), method: :get, class: "form-inline justify-content-between" do |f| %>
@@ -17,10 +17,8 @@
               <%= f.select :prefecture, Prefecture.names %>
             </div>
             <div class="mb-2">
-              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, { in_columns: 2 } do |b| %>
-                <%= b.label class:"label-checkbox" do %>
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
                  <%= b.check_box + b.text %>
-                <% end %>
               <% end %>
             </div>
             <div class="mb-2">
@@ -51,7 +49,7 @@
                   <% event.event_categories.each do |ec| %>
                     <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
                   <% end %>
-                  <div class="ml-1 mt-1">開催日時：<%= event.date.strftime('%Y/%m/%d %H:%M') %></div>
+                  <div class="ml-1 mt-1">開催日時：<%= event.date.strftime("%Y/%m/%d") %> <%= event.time.strftime("%H:%M") %></div>
                   <div class="ml-1 mt-1">募集人数：<%= event.number %>人</div>
                   <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[event.prefecture_id] %></div>
                   <div class="ml-1 mt-1"><イベント概要><br>

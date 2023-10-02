@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_01_180924) do
+ActiveRecord::Schema.define(version: 2023_10_02_193518) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -82,13 +82,14 @@ ActiveRecord::Schema.define(version: 2023_10_01_180924) do
     t.integer "prefecture_id", null: false
     t.string "name", null: false
     t.text "outline", null: false
-    t.datetime "date", null: false
+    t.date "date", null: false
     t.string "place", null: false
     t.integer "number", null: false
     t.string "fee", null: false
     t.integer "how_to_pay", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.time "time"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
