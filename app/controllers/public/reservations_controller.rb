@@ -11,7 +11,7 @@ class Public::ReservationsController < ApplicationController
     reserved_number = params[:reservation][:reserved_number].to_i
 
     if @event.date >= Date.today
-      if reserved_number <= @event.available_numbers && reserved_number == @event.minimum_number
+      if reserved_number <= @event.available_numbers && reserved_number >= @event.minimum_number
         @reservation.date = @event.date
         if @reservation.save
           redirect_to user_mypage_path, notice: '予約しました'
@@ -36,7 +36,7 @@ class Public::ReservationsController < ApplicationController
     @reservation = current_user.reservations.find(params[:id])
     reserved_number = params[:reservation][:reserved_number].to_i
 
-    if reserved_number == @event.minimum_number
+    if reserved_number <= @event.available_numbers && reserved_number >= @event.minimum_number
       @reservation.update(reservation_params)
       redirect_to event_reservation_path
     else
