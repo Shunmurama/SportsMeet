@@ -10,7 +10,7 @@
                 <div class="col-md-12 mt-2 border">
                   <div class="row">
                     <div class="col">
-                      <%= link_to event_reservation_path(ur.event, ur) do %>
+                      <%= link_to event_path(ur.event.id) do %>
                         <% if ur.event.image.attached? %>
                           <%= image_tag ur.event.image, class: "img-fluid" %>
                         <% else %>
@@ -19,12 +19,15 @@
                       <% end %>
                     </div>
                     <div class="col mt-2">
-                      <div class="ml-1 mt-1"><%= link_to ur.event.name, event_reservation_path(ur.event, ur) %></div>
+                      <div class="ml-1 mt-1"><%= link_to ur.event.name, event_path(ur.event.id) %></div>
                         <% ur.event.categories.each do |category| %>
                           <span class="badge badge-primary mr-2"><%= category.name %></span>
                         <% end %>
                       <div class="ml-1 mt-1">開催日時：<%= ur.event.date.strftime("%Y/%m/%d") %> <%= ur.event.time.strftime("%H:%M") %></div>
                       <div class="ml-1 mt-1">募集人数：<%= ur.event.number %>人</div>
+                      <% if ur.event.minimum_number.present? %>
+                        <div class="ml-1 mt-1">・<%= ur.event.minimum_number %>人で予約しています。</div>
+                      <% end %>
                       <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[ur.event.prefecture_id] %></div>
                       <div class="ml-1 mt-1"><イベント概要><br>
                                                <% if ur.event.outline.length > 40 %>

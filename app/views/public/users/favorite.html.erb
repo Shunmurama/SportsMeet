@@ -10,12 +10,10 @@
                 <div class="col-md-12 mt-2 border">
                   <div class="row">
                     <div class="col">
-                      <%= link_to event_path(uf.event.id) do %>
-                        <% if uf.event.image.attached? %>
-                          <%= image_tag uf.event.image, class: "img-fluid" %>
-                        <% else %>
-                          <%= image_tag 'no_image', class: "img-fluid" %>
-                        <% end %>
+                      <% if uf.event.image.attached? %>
+                        <%= image_tag uf.event.image, class: "img-fluid" %>
+                      <% else %>
+                        <%= image_tag 'no_image', class: "img-fluid" %>
                       <% end %>
                     </div>
                     <div class="col mt-2">
@@ -25,6 +23,9 @@
                         <% end %>
                       <div class="ml-1 mt-1">開催日時：<%= uf.event.date.strftime("%Y/%m/%d") %> <%= uf.event.time.strftime("%H:%M") %></div>
                       <div class="ml-1 mt-1">募集人数：<%= uf.event.number %>人</div>
+                      <% if uf.event.minimum_number.present? %>
+                        <div class="ml-1 mt-1">人数：<%= uf.event.minimum_number %>人で予約してください。</div>
+                      <% end %>
                       <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[uf.event.prefecture_id] %></div>
                       <div class="ml-1 mt-1"><イベント概要><br>
                                               <% if uf.event.outline.length > 40 %>

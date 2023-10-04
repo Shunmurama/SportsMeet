@@ -41,8 +41,9 @@
       </div>
 
       <!-- 予約ボタン -->
-      <div class="text-center mt-4">
-        <%= link_to '取り消す', event_reservation_path(@event, @reservation), method: :delete, class: "btn btn-danger btn-block" %>
+      <div class="d-flex justify-content-between">
+        <%= link_to '登録内容を変更する', edit_event_reservation_path(@event, @reservation), class: "btn btn-success" %>
+        <%= link_to '取り消す', event_reservation_path(@event, @reservation), method: :delete, class: "btn btn-danger" %>
       </div>
     </div>
   </div>

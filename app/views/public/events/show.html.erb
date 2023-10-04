@@ -28,6 +28,9 @@
             <p>開催日時：<%= @event.date.strftime("%Y/%m/%d") %> <%= @event.time.strftime("%H:%M") %></p>
             <p>開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></p>
             <p>募集人数：<%= @event.number %>人</p>
+            <% if @event.minimum_number.present? %>
+              <p>・<%= @event.minimum_number %>人で予約してください。</p>
+            <% end %>
             <p>参加料金：<%= @event.fee %>円</p>
             <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
           </div>
@@ -43,13 +46,20 @@
       <!-- 予約ボタン -->
       <div class="text-center mt-4">
         <% if user_signed_in? %>
-          <% if @event.user_id == current_user.id %>
-            <%= link_to "編集", edit_event_path(@event.id), class: "btn btn-success" %>
+          <% reservation = current_user.reservations.find_by(event_id: @event.id) %>
+          <% if reservation %>
+            <% @user_reserved.each do |ur| %>
+              <%= link_to "詳細", event_reservation_path(ur.event, ur), class: "btn btn-success" %>
+            <% end %>
           <% else %>
-            <% if @event.date >= Date.today %>
-              <%= link_to '予約する', new_event_reservation_path(@event.id), class: "btn btn-success" %>
+            <% if @event.user_id == current_user.id %>
+              <%= link_to "編集", edit_event_path(@event.id), class: "btn btn-success" %>
             <% else %>
-              このイベントは終了しました。
+              <% if @event.date >= Date.today %>
+                <%= link_to '予約する', new_event_reservation_path(@event.id), class: "btn btn-success" %>
+              <% else %>
+                このイベントは終了しました。
+              <% end %>
             <% end %>
           <% end %>
         <% else %>

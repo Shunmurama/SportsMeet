@@ -45,12 +45,17 @@
                   <% end %>
                 </div>
                 <div class="col mt-2">
-                  <div class="ml-1 mt-1"><%= link_to event.name, event_path(event.id) %></div>
+                  <div class="ml-1 mt-1">
+                    <%= link_to event.name, event_path(event.id) %>
+                  </div>
                   <% event.event_categories.each do |ec| %>
                     <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
                   <% end %>
                   <div class="ml-1 mt-1">開催日時：<%= event.date.strftime("%Y/%m/%d") %> <%= event.time.strftime("%H:%M") %></div>
                   <div class="ml-1 mt-1">募集人数：<%= event.number %>人</div>
+                  <% if event.minimum_number.present? %>
+                    <div class="ml-1 mt-1">・<%= event.minimum_number %>人で予約してください。</div>
+                  <% end %>
                   <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[event.prefecture_id] %></div>
                   <div class="ml-1 mt-1"><イベント概要><br>
                     <% if event.outline.length > 40 %>

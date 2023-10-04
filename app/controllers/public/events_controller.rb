@@ -34,6 +34,7 @@ class Public::EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @comment = Comment.new
+    @user_reserved = current_user.reservations
   end
 
   def result
@@ -55,7 +56,7 @@ class Public::EventsController < ApplicationController
   private
     def event_params
       params.require(:event).permit(:user_id, :prefecture_id, :name, :image,
-      :outline, :number, :date, :time, :place, :fee, :how_to_pay,
+      :outline, :number, :minimum_number, :date, :time, :place, :fee, :how_to_pay,
       category_ids: []
       )
     end
