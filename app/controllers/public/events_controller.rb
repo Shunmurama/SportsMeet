@@ -23,7 +23,9 @@ class Public::EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update(event_params)
-      redirect_to events_path
+      redirect_to event_path(@event.id)
+    else
+      render :edit
     end
   end
 
@@ -55,8 +57,8 @@ class Public::EventsController < ApplicationController
 
   private
     def event_params
-      params.require(:event).permit(:user_id, :prefecture_id, :name, :image,
-      :outline, :number, :minimum_number, :date, :time, :place, :fee, :how_to_pay,
+      params.require(:event).permit(:user_id, :prefecture_id, :name, :image, :outline,
+      :number, :minimum_number, :date, :time, :place, :fee, :how_to_pay, :latitude, :longitude,
       category_ids: []
       )
     end

@@ -23,7 +23,8 @@ class Event < ApplicationRecord
 
   accepts_nested_attributes_for :event_categories, allow_destroy: true
 
-
+   geocoded_by :place
+   after_validation :geocode, if: :place_changed?
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
