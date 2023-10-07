@@ -3,10 +3,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = current_user
     @users = User.all
-    @notifications = current_user.notifications
-    @notifications.where(read: '0').each do |notification|
-      notification.update_attributes(read: '1')
-    end
+    @notifications = Notification.all
   end
 
   def edit

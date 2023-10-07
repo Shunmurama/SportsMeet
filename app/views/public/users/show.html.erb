@@ -80,12 +80,9 @@
         </div>
 
         <div>
-          <% @notifications.each do |notification|%>
-            <% case notification.action %>
-            <% when '0' then %>
-              <% if notification.event.user_id != current_user.id %>
-                <%= link_to "イベントに参加してみませんか？", event_path(notification.event.id) %>
-              <% end %>
+          <% @notifications.each do |notification| %>
+            <% if notification.event.user_id != current_user.id %>
+              <%= link_to "イベントに参加してみませんか？", event_path(notification.event.id) %>
             <% end %>
           <% end %>
         </div>

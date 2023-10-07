@@ -58,9 +58,12 @@ class Event < ApplicationRecord
 
 
   def create_notification_event!(current_user, event_id)
-    temp_ids = Event.select(:user_id).where(user_id: id).where.not(user_id: current_user.id).distinct
-    temp_ids.each do |temp_id|
-      save_notification_event!(current_user, event_id, temp_id['user_id'])
+    categories.each do |category|
+        user_ids = UserInterest.where(category_id: category_ids).pluck(:user_id)
+        users = User.where(id: user_ids)
+        users.each do |user|
+          save_notification_event!(current_user, event_id, user_id)
+        end
     end
   end
 
@@ -68,12 +71,9 @@ class Event < ApplicationRecord
       notification = current_user.notifications.new(
         user_id: user_id,
         event_id: event_id,
-        read: '0'
+        read: false
       )
-      if notification.user_id == event.user_id
-        notification.read = '1'
-      end
-      notification.save if notification.valid?
+      notification.save
   end
 
 
