@@ -11,6 +11,7 @@ scope module: :public do
   get 'user/reserved' => "users#reserved", as: "user_reserved"
   get 'user/unsubscribe' => "users#unsubscribe", as: "user_unsubscribe"
   patch 'user/withdrawal' => 'users#withdrawal', as: 'user_withdrawal'
+  get 'user/_notification' => 'users#notification', as: 'user_notification'
 
   resources :events, only: [:new, :index, :edit, :show, :create, :update, :destroy] do
   get 'result' => "events#result"

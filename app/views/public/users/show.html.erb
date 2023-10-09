@@ -5,6 +5,11 @@
         <div class="card-header text-center" style="background-color: #32EEFF; color: white;">
           <h4>マイページ</h4>
         </div>
+
+          <div id="mask" class="hidden"></div>
+          <div id="modal" class="hidden"><%= link_to "招待が来ています。", user_notification_path, class: "btn btn-success btn-sm", remote: true %></div>
+
+
         <div class="card-body">
           <!-- プロフィール画像 -->
           <div class="text-center">
@@ -78,14 +83,6 @@
             </tbody>
           </table>
 
-        </div>
-
-        <div>
-          <% @notifications.each do |notification| %>
-            <% if notification.event.user_id != current_user.id && notification.event.category_ids == current_user.category_ids %>
-              <%= link_to "イベントに参加してみませんか？", event_path(notification.event.id) %>
-            <% end %>
-          <% end %>
         </div>
 
       </div>
