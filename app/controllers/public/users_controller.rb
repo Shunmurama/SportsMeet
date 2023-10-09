@@ -26,6 +26,22 @@ class Public::UsersController < ApplicationController
     @user_reserved = current_user.reservations
   end
 
+  def unsubscribe
+    @user = current_user
+  end
+
+  def withdrawal
+    @user = current_user
+    reservations_to_delete = @user.reservations
+    reservations_to_delete.destroy_all
+    events_to_delete = @user.events
+    events_to_delete.destroy_all
+    @user.update(is_deleted: true)
+    reset_session
+    flash[:notice] = "退会しました。"
+    redirect_to root_path
+  end
+
  private
 
   def user_params

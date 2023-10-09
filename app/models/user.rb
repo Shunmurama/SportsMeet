@@ -19,6 +19,10 @@ class User < ApplicationRecord
   enum gender: {"--":0, 男性:1, 女性:2}
 
   accepts_nested_attributes_for :user_interests, allow_destroy: true
+  
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
 
   def full_name
     self.last_name + " " + self.first_name

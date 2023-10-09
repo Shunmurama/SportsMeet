@@ -9,6 +9,8 @@ scope module: :public do
   patch 'user/information' => "users#update"
   get 'user/favorite' => "users#favorite", as: "user_favorite"
   get 'user/reserved' => "users#reserved", as: "user_reserved"
+  get 'user/unsubscribe' => "users#unsubscribe", as: "user_unsubscribe"
+  patch 'user/withdrawal' => 'users#withdrawal', as: 'user_withdrawal'
 
   resources :events, only: [:new, :index, :edit, :show, :create, :update, :destroy] do
   get 'result' => "events#result"

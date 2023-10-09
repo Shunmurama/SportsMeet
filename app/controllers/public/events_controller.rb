@@ -36,7 +36,9 @@ class Public::EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @comment = Comment.new
-    @user_reserved = current_user.reservations
+    if user_signed_in?
+      @user_reserved = current_user.reservations
+    end
   end
 
   def result
