@@ -82,7 +82,7 @@
 
         <div>
           <% @notifications.each do |notification| %>
-            <% if notification.event.user_id != current_user.id %>
+            <% if notification.event.user_id != current_user.id && notification.event.category_ids == current_user.category_ids %>
               <%= link_to "イベントに参加してみませんか？", event_path(notification.event.id) %>
             <% end %>
           <% end %>
