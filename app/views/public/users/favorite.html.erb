@@ -3,35 +3,35 @@
 
     <div class="mt-4">
       <% if @user_favorites.any? %>
-        <% @user_favorites.each do |uf| %>
+        <% @user_favorites.each do |favorite| %>
           <div class="col-md-8 mx-auto">
             <div class="container mt-4">
               <div class="row">
                 <div class="col-md-12 mt-2 border">
                   <div class="row">
                     <div class="col m-2">
-                      <% if uf.event.image.attached? %>
-                        <%= image_tag uf.event.image, class: "img-fluid" %>
+                      <% if favorite.event.image.attached? %>
+                        <%= image_tag favorite.event.image, class: "img-fluid" %>
                       <% else %>
                         <%= image_tag 'no_image', class: "img-fluid" %>
                       <% end %>
                     </div>
                     <div class="col mt-2">
-                      <div class="ml-1 mt-1"><%= link_to uf.event.name, event_path(uf.event.id) %></div>
-                        <% uf.event.event_categories.each do |ec| %>
-                          <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
+                      <div class="ml-1 mt-1"><%= link_to favorite.event.name, event_path(favorite.event.id) %></div>
+                        <% favorite.event.categories.each do |category| %>
+                          <span class="badge badge-primary mr-2"><%= category.name %></span>
                         <% end %>
-                      <div class="ml-1 mt-1">開催日時：<%= uf.event.date.strftime("%Y/%m/%d") %> <%= uf.event.time.strftime("%H:%M") %></div>
-                      <div class="ml-1 mt-1">募集人数：<%= uf.event.number %>人</div>
-                      <% if uf.event.minimum_number.present? %>
-                        <div class="ml-1 mt-1">人数：<%= uf.event.minimum_number %>人で予約してください。</div>
+                      <div class="ml-1 mt-1">開催日時：<%= favorite.event.date.strftime("%Y/%m/%d") %> <%= favorite.event.time.strftime("%H:%M") %></div>
+                      <div class="ml-1 mt-1">募集人数：<%= favorite.event.number %>人</div>
+                      <% if favorite.event.minimum_number.present? %>
+                        <div class="ml-1 mt-1">人数：<%= favorite.event.minimum_number %>人で予約してください。</div>
                       <% end %>
-                      <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[uf.event.prefecture_id] %></div>
+                      <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[favorite.event.prefecture_id] %></div>
                       <div class="ml-1 mt-1"><イベント概要><br>
-                                              <% if uf.event.outline.length > 40 %>
-                                                <%= uf.event.outline[0, 40] + "..." %>
+                                              <% if favorite.event.outline.length > 40 %>
+                                                <%= favorite.event.outline[0, 40] + "..." %>
                                               <% else %>
-                                                <%= uf.event.outline %>
+                                                <%= favorite.event.outline %>
                                               <% end %>
                       </div>
                     </div>

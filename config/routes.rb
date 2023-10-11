@@ -25,7 +25,9 @@ scope module: :public do
 end
 
 namespace :admin do
-  resources :categories
+  resources :categories, only: [:new, :index, :edit, :create, :update, :destroy]
+  resources :events, only: [:index, :show, :destroy]
+  get 'events/result' => "events#result", as: "result"
   get 'users/index' => "users#index", as: "index"
   get 'users/information/:id' => "users#show", as: "user"
   get 'users/information/:id/edit' => "users#edit", as: "edit"

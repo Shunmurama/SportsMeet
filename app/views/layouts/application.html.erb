@@ -67,6 +67,11 @@
               <% elsif admin_signed_in? %>
                 <!-- 管理者がログインしている場合 -->
                 <li class="nav-item">
+                  <%= link_to admin_events_path, class: "nav-link" do %>
+                    イベント一覧
+                  <% end %>
+                </li>
+                <li class="nav-item">
                   <%= link_to admin_categories_path, class: "nav-link" do %>
                     カテゴリー一覧
                   <% end %>

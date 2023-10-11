@@ -6,8 +6,12 @@
           <h4>マイページ</h4>
         </div>
 
+        <%# if @notification.present? %>
+
           <div id="mask" class="hidden"></div>
           <div id="modal" class="hidden"><%= link_to "招待が来ています。", user_notification_path, class: "btn btn-success btn-sm", remote: true %></div>
+
+        <%# end %>
 
 
         <div class="card-body">

@@ -1,0 +1,125 @@
+<div class="container mt-5">
+  <div class="text-center">
+    <h4>イベント詳細</h4>
+  </div>
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+      <div class="row">
+        <!-- イベント写真 -->
+        <div class="col-md-4">
+          <div class="text-center">
+            <% if @event.image.attached? %>
+              <%= image_tag @event.image, size: "300x300", class: "img-fluid rounded" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "300x300", class: "img-fluid rounded" %>
+            <% end %>
+          </div>
+        </div>
+        <!-- イベント詳細情報 -->
+        <div class="col-md-8">
+          <div class="mb-2"><h5><%= @event.name %></h5></div>
+          <div class="event-categories mb-2">
+            <% @event.event_categories.each do |ec| %>
+              <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
+            <% end %>
+          </div>
+          <div class="mt-2">
+            <p>開催日時：<%= @event.date.strftime("%Y/%m/%d") %> <%= @event.time.strftime("%H:%M") %></p>
+            <p>開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></p>
+            <script type="text/javascript">
+             function initMap() {
+               var test = {lat: <%= @event.latitude %>, lng: <%= @event.longitude %>};
+               var map = new google.maps.Map(document.getElementById('map'), {
+                         zoom: 15,
+                         center: test
+                         });
+               var transitLayer = new google.maps.TransitLayer();
+               transitLayer.setMap(map);
+               var contentString = '住所：<%= @event.place %>';
+               var infowindow = new google.maps.InfoWindow({
+                 content: contentString
+               });
+               var marker = new google.maps.Marker({
+                             position:test,
+                             map: map
+                           });
+               marker.addListener('click', function() {
+                 infowindow.open(map, marker);
+               });
+             }
+            </script>
+            <style type="text/css">
+              #map { height: 300px;
+                    width: 100%;}
+            </style>
+            <script async defer
+                       src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
+            </script>
+            <div id="map"></div>
+            <p>募集人数：<%= @event.number %>人</p>
+            <% if @event.minimum_number.present? %>
+              <p>・<%= @event.minimum_number %>人で予約してください。</p>
+            <% end %>
+            <p>参加料金：<%= @event.fee %>円</p>
+            <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- イベント概要 -->
+      <div class="text-center mt-4">
+        <h5>概要</h5>
+        <p><%= @event.outline %></p>
+      </div>
+
+      <!-- 予約ボタン -->
+      <div class="text-center mt-4">
+        <%= link_to '削除する', admin_event_path(@event.id), method: :delete, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-4">
+    <!-- いいねとコメント -->
+    <div class="col-md-8">
+      <div class="mb-3">
+        <% if user_signed_in? %>
+          <% if @event.favorited_by?(current_user) %>
+            <%= link_to event_favorites_path(@event), method: :delete do %>
+              <i class="fa-solid fa-heart" style="color: #ff0505;"></i>
+              <%= @event.favorites.count %> いいね
+            <% end %>
+          <% else %>
+            <%= link_to event_favorites_path(@event), method: :post do %>
+              <i class="fa-regular fa-heart" style="color: #ff0505;"></i>
+              <%= @event.favorites.count %> いいね
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <h5>コメント</h5>
+      <p>コメント件数:<%= @event.comments.count %></p>
+      <% @event.comments.each do |comment| %>
+        <div class="media mb-3">
+          <% if comment.user.image.attached? %>
+            <%= image_tag comment.user.image, size: "100x100", class: "rounded-circle" %>
+          <% else %>
+            <%= image_tag 'no_image', size: "100x100", class: "rounded-circle" %>
+          <% end %>
+          <div class="media-body ml-2">
+            <h6 class="mt-0"><%= comment.user.full_name %></h6>
+            <p><%= comment.created_at.strftime('%Y/%m/%d') %></p>
+            <p><%= comment.comment %></p>
+            <% if user_signed_in? && comment.user == current_user %>
+              <%= link_to "削除", event_comment_path(comment.event, comment), method: :delete, class: "text-danger" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>

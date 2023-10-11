@@ -1,0 +1,76 @@
+<div class="container">
+ <div class="mt-4 mb-3 text-center"><h4>イベント一覧</h4></div>
+
+  <div class="row">
+    <div class="col-md-4 mt-5">
+      <div class="container border border-dark">
+       <div class="text-center border-bottom">検索</div>
+        <div class="container">
+          <%= form_with url: admin_result_path(@events), method: :get, class: "form-inline justify-content-between" do |f| %>
+            <div class="mt-2 mb-2">
+              <%= f.text_field :keyword, placeholder: "キーワードを入力" %>
+            </div>
+            <div class="mb-2">
+              <%= f.date_field :start_date, value: Date.today %>
+            </div>
+            <div class="mb-2">
+              <%= f.select :prefecture, Prefecture.names %>
+            </div>
+            <div class="mb-2">
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+                 <%= b.check_box + b.text %>
+              <% end %>
+            </div>
+            <div class="mb-2">
+              <%= f.submit "検索", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="container mt-4">
+        <div class="row">
+          <% @events.each do |event| %>
+            <div class="col-md-12 mt-2 border">
+              <div class="row">
+                <div class="col m-2">
+                  <%= link_to event_path(event.id) do %>
+                    <% if event.image.attached? %>
+                      <%= image_tag event.image, class: "img-fluid" %>
+                    <% else %>
+                      <%= image_tag 'no_image', class: "img-fluid" %>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="col mt-2">
+                  <div class="ml-1 mt-1">
+                    <%= link_to event.name, admin_event_path(event.id) %>
+                  </div>
+                  <% event.event_categories.each do |ec| %>
+                    <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
+                  <% end %>
+                  <div class="ml-1 mt-1">開催日時：<%= event.date.strftime("%Y/%m/%d") %> <%= event.time.strftime("%H:%M") %></div>
+                  <div class="ml-1 mt-1">募集人数：<%= event.number %>人</div>
+                  <% if event.minimum_number.present? %>
+                    <div class="ml-1 mt-1">・<%= event.minimum_number %>人で予約してください。</div>
+                  <% end %>
+                  <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[event.prefecture_id] %></div>
+                  <div class="ml-1 mt-1"><イベント概要><br>
+                    <% if event.outline.length > 40 %>
+                      <%= event.outline[0, 40] + "..." %>
+                    <% else %>
+                      <%= event.outline %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

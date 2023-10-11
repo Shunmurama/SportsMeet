@@ -1,4 +1,5 @@
 class Public::EventsController < ApplicationController
+
   def new
     @event = Event.new
     @event.event_categories.build
@@ -64,4 +65,5 @@ class Public::EventsController < ApplicationController
       category_ids: []
       )
     end
+
 end
