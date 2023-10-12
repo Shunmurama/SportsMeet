@@ -20,14 +20,13 @@ scope module: :public do
    resources :reservations, only: [:new, :show, :create, :destroy, :index, :edit, :update]
   end
 
-  resources :notifications, only: [:create]
-
 end
 
 namespace :admin do
   resources :categories, only: [:new, :index, :edit, :create, :update, :destroy]
-  resources :events, only: [:index, :show, :destroy]
-  get 'events/result' => "events#result", as: "result"
+  resources :events, only: [:index, :show, :destroy] do
+    get 'events/result' => "events#result", as: "result"
+  end
   get 'users/index' => "users#index", as: "index"
   get 'users/information/:id' => "users#show", as: "user"
   get 'users/information/:id/edit' => "users#edit", as: "edit"
