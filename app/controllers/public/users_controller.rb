@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = current_user
     @users = User.all
-    @notifications = Notification.all
+    @notifications = Notification.where(user_id: @user.id)
   end
 
   def edit
@@ -43,13 +43,12 @@ class Public::UsersController < ApplicationController
   end
 
   def notification
-    @notifications = Notification.all
+    @notifications = Notification.where(user_id: current_user.id)
 
     respond_to do |format|
-    format.html
-    format.js # js形式で送信された場合はこちらが適応され、js.erbを探す
-
-  end
+      format.html
+      format.js # js形式で送信された場合はこちらが適応され、js.erbを探す
+    end
   end
 
  private

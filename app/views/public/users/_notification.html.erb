@@ -2,7 +2,7 @@
   <div class="mt-5 ml-3 text-center"><h4>イベントに参加してみませんか？</h4></div>
 
     <div class="mt-4">
-      <% @notifications.each do |notification| %>
+      <% notifications.each do |notification| %>
         <% if notification.event.user_id != current_user.id && notification.event.category_ids == current_user.category_ids && notification.event.date >= Date.today %>
           <div class="col-md-8 mx-auto">
             <div class="container mt-4">
@@ -18,13 +18,15 @@
                     </div>
                     <div class="col mt-2">
                       <div class="ml-1 mt-1"><%= link_to notification.event.name, event_path(notification.event.id) %></div>
-                        <% notification.event.event_categories.each do |nec| %>
-                          <span class="badge badge-primary mr-2"><%= nec.category.name %></span>
+                        <% notification.event.categories.each do |category| %>
+                          <span class="badge badge-primary mr-2"><%= category.name %></span>
                         <% end %>
                       <div class="ml-1 mt-1">開催日時：<%= notification.event.date.strftime("%Y/%m/%d") %> <%= notification.event.time.strftime("%H:%M") %></div>
                       <div class="ml-1 mt-1">募集人数：<%= notification.event.number %>人</div>
-                      <% if notification.event.minimum_number.present? %>
-                        <div class="ml-1 mt-1">人数：<%= notification.event.minimum_number %>人で予約してください。</div>
+                      <% if notification.event.fixed_number.present? %>
+                        <div class="ml-1 mt-1">・<%= notification.event.fixed_number %>人で予約してください。</div>
+                      <% elsif notification.event.minimum_number.present? %>
+                        <div class="ml-1 mt-1">・<%= notification.event.minimum_number %>人以上で予約してください。</div>
                       <% end %>
                       <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[notification.event.prefecture_id] %></div>
                       <div class="ml-1 mt-1"><イベント概要><br>

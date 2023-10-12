@@ -58,8 +58,10 @@
             </script>
             <div id="map"></div>
             <p>募集人数：<%= @event.number %>人</p>
-            <% if @event.minimum_number.present? %>
-              <p>・<%= @event.minimum_number %>人で予約してください。</p>
+            <% if @event.fixed_number.present? %>
+              <p>・<%= @event.fixed_number %>人で予約してください。</p>
+            <% elsif @event.minimum_number.present? %>
+              <p>・<%= @event.minimum_number %>人以上で予約してください。</p>
             <% end %>
             <p>参加料金：<%= @event.fee %>円</p>
             <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
@@ -79,8 +81,8 @@
         <% if user_signed_in? %>
           <% reservation = current_user.reservations.find_by(event_id: @event.id) %>
           <% if reservation %>
-            <% @user_reserved.each do |ur| %>
-              <%= link_to "詳細", event_reservation_path(ur.event, ur), class: "btn btn-success" %>
+            <% @user_reserved.each do |reserved| %>
+              <%= link_to "詳細", event_reservation_path(reserved.event, reserved), class: "btn btn-success" %>
             <% end %>
           <% else %>
             <% if @event.user_id == current_user.id %>

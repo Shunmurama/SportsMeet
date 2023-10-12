@@ -11,6 +11,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <main>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient">
         <div class="container">
@@ -101,8 +102,12 @@
     </header>
 
     <body>
+      <% flash.each do |message_type, message| %>
+        <div class="mt-5 ml-4 alert alert-info flash-message <%= message_type %>"><%= message %></div>
+      <% end %>
       <%= yield %>
     </body>
+  </main>
 
     <footer>
       <div class="mt-5 p-3 bg-primary bg-gradient">

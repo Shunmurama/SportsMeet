@@ -26,8 +26,10 @@
                     <% end %>
                     <div class="ml-1 mt-1">開催日時：<%= event.date.strftime("%Y/%m/%d") %> <%= event.time.strftime("%H:%M") %></div>
                     <div class="ml-1 mt-1">募集人数：<%= event.number %>人</div>
-                    <% if event.minimum_number.present? %>
-                      <div class="ml-1 mt-1">・<%= event.minimum_number %>人で予約してください。</div>
+                    <% if event.fixed_number.present? %>
+                      <div class="ml-1 mt-1">・<%= event.fixed_number %>人で予約してください。</div>
+                    <% elsif event.minimum_number.present? %>
+                      <div class="ml-1 mt-1">・<%= event.minimum_number %>人以上で予約してください。</div>
                     <% end %>
                     <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[event.prefecture_id] %></div>
                     <div class="ml-1 mt-1"><イベント概要><br>

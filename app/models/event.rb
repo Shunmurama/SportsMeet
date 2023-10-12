@@ -57,18 +57,18 @@ class Event < ApplicationRecord
   end
 
 
-  def create_notification_event!(current_user, event_id)
+  def create_notification_event!(event_id)
     categories.each do |category|
         user_ids = UserInterest.where(category_id: category_ids).pluck(:user_id)
         users = User.where(id: user_ids)
         users.each do |user|
-          save_notification_event!(current_user, event_id, user_id)
+          save_notification_event!(event_id, user.id)
         end
     end
   end
 
-  def save_notification_event!(current_user, event_id, user_id)
-      notification = current_user.notifications.new(
+  def save_notification_event!(event_id, user_id)
+      notification = Notification.new(
         user_id: user_id,
         event_id: event_id,
         read: false

@@ -11,18 +11,30 @@ class Public::ReservationsController < ApplicationController
     reserved_number = params[:reservation][:reserved_number].to_i
 
     if @event.date >= Date.today
-      if reserved_number <= @event.available_numbers && reserved_number >= @event.minimum_number
-        @reservation.date = @event.date
-        if @reservation.save
-          redirect_to user_mypage_path, notice: '予約しました'
+      if @event.fixed_number.present?
+        if reserved_number <= @event.available_numbers && reserved_number == @event.fixed_number
+          @reservation.date = @event.date
+          if @reservation.save
+            redirect_to user_mypage_path, notice: '予約しました'
+          end
+        else
+          flash.now[:alert] = '予約人数を確認してください。'
+          render :new
         end
       else
-        flash[:alert] = '予約人数を確認してください。'
-        render :new
+        if reserved_number <= @event.available_numbers && reserved_number >= @event.minimum_number
+          @reservation.date = @event.date
+          if @reservation.save
+            redirect_to user_mypage_path, notice: '予約しました'
+          end
+        else
+          flash.now[:alert] = '予約人数を確認してください。'
+          render :new
+        end
       end
     else
-      flash[:alert] = '既にこのイベントは終了しています。'
-      render :new
+        flash.now[:alert] = '既にこのイベントは終了しています。'
+        render :new
     end
   end
 
@@ -36,12 +48,22 @@ class Public::ReservationsController < ApplicationController
     @reservation = current_user.reservations.find(params[:id])
     reserved_number = params[:reservation][:reserved_number].to_i
 
-    if reserved_number <= @event.available_numbers && reserved_number >= @event.minimum_number
-      @reservation.update(reservation_params)
-      redirect_to event_reservation_path
+    if @event.fixed_number.present?
+      if reserved_number <= @event.available_numbers && reserved_number == @event.fixed_number
+        @reservation.update(reservation_params)
+        redirect_to event_reservation_path
+      else
+        flash.now[:alert] = '予約人数を確認してください。'
+        render :edit
+      end
     else
-      flash[:alert] = '予約人数を確認してください。'
-      render :edit
+      if reserved_number <= @event.available_numbers && reserved_number >= @event.minimum_number
+        @reservation.update(reservation_params)
+        redirect_to event_reservation_path
+      else
+        flash.now[:alert] = '予約人数を確認してください。'
+        render :edit
+      end
     end
   end
 
