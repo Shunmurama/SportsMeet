@@ -103,7 +103,7 @@
 
     <body>
       <% flash.each do |message_type, message| %>
-        <div class="mt-5 ml-4 alert alert-info flash-message <%= message_type %>"><%= message %></div>
+        <div class="mt-5 ml-4 alert alert-info flash-message <%= message_type %>" style="max-width: 300px;"><%= message %></div>
       <% end %>
       <%= yield %>
     </body>

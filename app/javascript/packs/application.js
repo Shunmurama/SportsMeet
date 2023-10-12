@@ -20,4 +20,4 @@ ActiveStorage.start()
 
 require ('jquery')
 
-require('custom.js')
+//require('custom.js')

@@ -3,9 +3,12 @@ var modal = document.getElementById('modal');
 <!--マスクを取得-->
 var mask = document.getElementById('mask');
 
+console.log({modal, mask})
+
 <!--// # モーダルの中身をshowビューに置き換え-->
 <!--// # 部分テンプレートを指定する-->
 modal.innerHTML = '<%= escape_javascript(render partial: 'notification', locals: { notifications: @notifications }) %>';
+
 
 <!--// # hiddenを削除してモーダルとマスクを表示させる。-->
 modal.classList.remove('hidden');
@@ -15,4 +18,4 @@ mask.classList.remove('hidden');
 mask.addEventListener('click', () => {
   modal.classList.add('hidden');
   mask.classList.add('hidden');
-  });
+});

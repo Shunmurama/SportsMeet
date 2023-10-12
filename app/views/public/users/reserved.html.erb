@@ -19,7 +19,7 @@
                       <% end %>
                     </div>
                     <div class="col mt-2">
-                      <div class="ml-1 mt-1"><%= link_to reserved.event.name, event_reservation_path(reserved.event, reserved) %></div>
+                      <div class="ml-1 mt-1"><h4><%= link_to reserved.event.name, event_reservation_path(reserved.event, reserved) %></h4></div>
                         <% reserved.event.categories.each do |category| %>
                           <span class="badge badge-primary mr-2"><%= category.name %></span>
                         <% end %>

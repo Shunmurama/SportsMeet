@@ -17,7 +17,7 @@ scope module: :public do
   get 'result' => "events#result"
    resource :favorites, only: [:create, :destroy]
    resources :comments, only: [:create, :destroy]
-   resources :reservations, only: [:new, :show, :create, :destroy, :index, :edit, :update]
+   resources :reservations, only: [:new, :show, :create, :destroy, :edit, :update]
   end
 
 end
