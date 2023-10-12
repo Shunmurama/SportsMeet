@@ -47,8 +47,9 @@ class Public::UsersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.js # js形式で送信された場合はこちらが適応され、js.erbを探す
+      format.js
     end
+
   end
 
  private

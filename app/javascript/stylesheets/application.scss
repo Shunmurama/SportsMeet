@@ -1,6 +1,6 @@
 @use '~bootstrap/scss/bootstrap';
 
-mask {
+#mask {
   background-color: rgba(0, 0, 0, 0.5);/*背景色の指定*/
   position: fixed; /* スクロールで移動しないようmodalの位置を固定 */
   top: 0;
@@ -10,7 +10,7 @@ mask {
   z-index: 1; /*z-index を持つ要素はより小さな要素の上に重なる*/
 }
 
-modal {
+#modal {
   position: fixed;/* スクロールで移動しないようmodalの位置を固定 */
   top: 20vh; /*上端からの距離の指定、今回は画面上から２０％の位置から配置*/
   left: 0; /*左からの距離の指定*/
@@ -24,12 +24,12 @@ modal {
   border-radius: 8px; /*角の処理、指定することで丸みを帯びる*/
 }
 
-mask.hidden {
+#mask.hidden {
   opacity: 0; /*透明度*/
   visibility: hidden; /*視認性、最初は隠しておきたいのでhiddenを指定*/
 }
 
-modal.hidden {
+#modal.hidden {
   opacity: 0;
   visibility: hidden;
   transform: translate(0, 0) scale(0.8);

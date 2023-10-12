@@ -8,13 +8,12 @@
 
         <% if @notifications.present? %>
 
-        <%= link_to "招待が来ています。", user_notification_path, class: "btn btn-success btn-sm", remote: true %>
+          <%= link_to "招待が届いています", user_notification_path, remote: true %>
 
           <div id="mask" class="hidden"></div>
           <div id="modal" class="hidden"></div>
 
         <% end %>
-
 
         <div class="card-body">
           <!-- プロフィール画像 -->
