@@ -13,13 +13,11 @@
             </div>
             <div class="mb-2">
               <%= f.date_field :start_date, value: Date.today %>
-            </div>
-            <div class="mb-2">
               <%= f.select :prefecture, Prefecture.names %>
             </div>
             <div class="mb-2">
               <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
-                 <%= b.check_box + b.text %>
+                 <%= b.check_box + b.text %><br>
               <% end %>
             </div>
             <div class="mb-2">

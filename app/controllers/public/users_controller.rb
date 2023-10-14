@@ -13,9 +13,13 @@ class Public::UsersController < ApplicationController
 
   def update
     @user = current_user
-   if @user.update(user_params)
-     redirect_to user_mypage_path
-   end
+    if @user.update(user_params)
+      flash[:notice] = "登録情報を更新しました。"
+      redirect_to user_mypage_path
+    else
+      flash.now[:alert] = "必須項目を入力してください。"
+      render :edit
+    end
   end
 
   def favorite
@@ -38,19 +42,23 @@ class Public::UsersController < ApplicationController
     events_to_delete.destroy_all
     @user.update(is_deleted: true)
     reset_session
-    flash[:notice] = "退会しました。"
+    flash.now[:alert] = "お気に入りを削除しました。"
     redirect_to root_path
   end
 
   def notification
     @notifications = Notification.where(user_id: current_user.id)
+    @notifications.where(read: false).each do |notification|
+      notification.update(read: true)
+    end
 
     respond_to do |format|
       format.html
       format.js
     end
-
   end
+
+
 
  private
 

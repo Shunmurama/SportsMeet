@@ -20,6 +20,7 @@ class Admin::EventsController < ApplicationController
   def destroy
     event = Event.find(params[:id])
     event.destroy
+    flash.now[:alert] = "イベントを削除しました。"
     redirect_to admin_events_path
   end
 

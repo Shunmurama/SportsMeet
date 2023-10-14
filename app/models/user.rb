@@ -13,8 +13,17 @@ class User < ApplicationRecord
   has_many :user_interests
   has_many :categories, through: :user_interests
   has_one :prefecture
-
   has_one_attached :image
+  
+  validates :email, presence: true
+  validates :last_name, presence: true
+  validates :first_name, presence: true
+  validates :phone_number, presence: true
+  validates :prefecture_id, presence: true
+  validates :postal_code, presence: true
+  validates :address, presence: true
+  validates :birthday, presence: true
+  validates :gender, presence: true
 
   enum gender: {"--":0, 男性:1, 女性:2}
 

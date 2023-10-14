@@ -15,7 +15,8 @@ class Public::ReservationsController < ApplicationController
         if reserved_number <= @event.available_numbers && reserved_number == @event.fixed_number
           @reservation.date = @event.date
           if @reservation.save
-            redirect_to user_mypage_path, notice: '予約しました'
+            flash[:notice] = "予約しました。"
+            redirect_to user_mypage_path
           end
         else
           flash.now[:alert] = '予約人数を確認してください。'
@@ -25,7 +26,8 @@ class Public::ReservationsController < ApplicationController
         if reserved_number <= @event.available_numbers && reserved_number >= @event.minimum_number
           @reservation.date = @event.date
           if @reservation.save
-            redirect_to user_mypage_path, notice: '予約しました'
+            flash[:notice] = "予約しました。"
+            redirect_to user_mypage_path
           end
         else
           flash.now[:alert] = '予約人数を確認してください。'
@@ -51,6 +53,7 @@ class Public::ReservationsController < ApplicationController
     if @event.fixed_number.present?
       if reserved_number <= @event.available_numbers && reserved_number == @event.fixed_number
         @reservation.update(reservation_params)
+        flash[:notice] = "予約内容を更新しました。"
         redirect_to event_reservation_path
       else
         flash.now[:alert] = '予約人数を確認してください。'
@@ -59,6 +62,7 @@ class Public::ReservationsController < ApplicationController
     else
       if reserved_number <= @event.available_numbers && reserved_number >= @event.minimum_number
         @reservation.update(reservation_params)
+        flash[:notice] = "予約内容を更新しました。"
         redirect_to event_reservation_path
       else
         flash.now[:alert] = '予約人数を確認してください。'
@@ -75,7 +79,8 @@ class Public::ReservationsController < ApplicationController
   def destroy
     @reservation = current_user.reservations.find(params[:id])
     @reservation.destroy
-    redirect_to user_reserved_path, notice: '予約を取り消しました'
+    flash.now[:alert] = '予約人数を確認してください。'
+    redirect_to user_reserved_path
   end
 
   private

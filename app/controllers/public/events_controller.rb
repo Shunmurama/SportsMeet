@@ -10,9 +10,11 @@ class Public::EventsController < ApplicationController
     @event.user_id = current_user.id
     if @event.save
       @event.create_notification_event!(@event.id)
+      flash[:notice] = "イベントを投稿しました。"
       redirect_to events_path
     else
       @event.event_categories.build
+      flash.now[:alert] = "必須項目を入力してください。"
       render :new
     end
   end
@@ -24,8 +26,10 @@ class Public::EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update(event_params)
+      flash[:notice] = "イベントが編集されました。"
       redirect_to event_path(@event.id)
     else
+      flash.now[:alert] = "必須項目を入力してください。"
       render :edit
     end
   end
@@ -55,6 +59,7 @@ class Public::EventsController < ApplicationController
   def destroy
     event = Event.find(params[:id])
     event.destroy
+    flash.now[:alert] = "イベントを削除しました。"
     redirect_to events_path
   end
 
