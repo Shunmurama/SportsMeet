@@ -12,6 +12,7 @@
 
         </div>
         <div class="card-body">
+        <!--イベント登録フォーム-->
           <%= form_with model: @event, url: events_path, method: :post, html: { class: "mt-4" } do |f| %>
             <div class="form-group">
               <%= f.label :name, "イベント名" %>

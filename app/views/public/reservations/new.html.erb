@@ -8,6 +8,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="text-center">
+          <!--イベント画像-->
             <% if @event.image.attached? %>
               <%= image_tag @event.image, size: "250x250", class: "img-fluid rounded" %>
             <% else %>
@@ -16,6 +17,7 @@
           </div>
         </div>
         <div class="col-md-8">
+        <!--イベント情報-->
           <div class="mb-2"><h2><%= @event.name %></h2></div>
           <div class="event-categories">
             <% @event.event_categories.each do |ec| %>
@@ -26,9 +28,9 @@
           <div class="mt-2">開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></div>
           <div class="mt-2">募集人数：<%= @event.number %>人</div>
           <% if @event.fixed_number.present? %>
-              <div class="mt-2"><%= @event.fixed_number %>人で予約してください。</div class="mt-2">
+              <div class="mt-2"><h4>※<%= @event.fixed_number %>人で予約してください。</h4></div class="mt-2">
             <% elsif @event.minimum_number.present? %>
-              <div class="mt-2">・<%= @event.minimum_number %>人以上で予約してください。</div class="mt-2">
+              <div class="mt-2"><h4>※<%= @event.minimum_number %>人以上で予約してください。</h4></div class="mt-2">
             <% end %>
           <div class="mt-2">参加料金：<%= @event.fee %>円</div>
           <div class="mt-2">お支払い方法：<%= @event.how_to_pay_i18n %></div>
@@ -40,29 +42,32 @@
         <div class="event-outline"><%= @event.outline %></div>
       </div>
 
-      <div class="mt-4">
-        <h4>予約者名：<%= current_user.last_name %> <%= current_user.first_name %>様</h4>
+      <div class="mt-4 text-center">
+        <!--予約フォーム-->
+        <h4>予約者名：<%= current_user.last_name %> <%= current_user.first_name %> 様</h4>
         <% if @event.available_numbers > 0 %>
-          <div class="alert alert-success text-center" style="max-width: 300px;">
+          <div class="alert alert-success mx-auto" style="width: 300px;">
             現在<%= @event.available_numbers %>人予約可能です。
           </div>
           <%= form_with model: @reservation, url: event_reservations_path, method: :post do |f| %>
             <div class="form-group">
-              <%= f.label :reserved_number, "予約人数" %>
-              <div class="input-group" style="max-width: 300px;">
-                <%= f.number_field :reserved_number,  class: "form-control" %>
-                <div class="input-group-append">
-                  <span class="input-group-text">人</span>
+              <div class="mx-auto">
+                <%= f.label :reserved_number, "予約人数" %>
+                <div class="input-group mx-auto" style="max-width: 200px;">
+                  <%= f.number_field :reserved_number,  class: "form-control" %>
+                  <div class="input-group-append">
+                    <span class="input-group-text">人</span>
+                  </div>
                 </div>
               </div>
             </div>
-            <%= f.hidden_field :event_id, value: @event.id %>
-            <%= f.hidden_field :date, value: @event.date %>
-            <%= f.submit "予約する", class: "btn btn-success" %>
-            <div class="text-right">
-              <%= link_to "戻る", event_path(@event.id), class: "btn btn-secondary" %>
-            </div>
-          <% end %>
+              <%= f.hidden_field :event_id, value: @event.id %>
+              <%= f.hidden_field :date, value: @event.date %>
+              <div class="text-center m-2">
+                <%= f.submit "予約する", class: "btn btn-success mr-4" %>
+                <%= link_to "戻る", event_path(@event.id), class: "btn btn-secondary" %>
+              </div>
+            <% end %>
         <% else %>
           <div class="alert alert-danger">
             満員のため受付は終了しました。たくさんのご応募ありがとうございました。

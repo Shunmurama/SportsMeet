@@ -7,11 +7,12 @@
         </div>
 
         <% if @notifications.present? %>
+        <!--通知-->
 
-          <%= link_to "招待が届いています", user_notification_path, remote: true %>
+          <%= link_to "招待が届いています", user_notification_path,class: "btn btn-warning", remote: true %>
 
           <div id="mask" class="hidden"></div>
-          <div id="modal" class="hidden"></div>
+          <div id="modal" class="hidden overlay modal-content"></div>
 
         <% end %>
 

@@ -11,6 +11,7 @@
               <div class="col-md-12 mt-2 border">
                 <div class="row">
                   <div class="col">
+                  <!--イベント画像-->
                     <%= link_to event_path(event.id) do %>
                       <% if event.image.attached? %>
                         <%= image_tag event.image, class: "img-fluid" %>
@@ -20,6 +21,7 @@
                     <% end %>
                   </div>
                   <div class="col mt-2">
+                  <!--イベント情報-->
                     <div class="ml-1 mt-1"><h4><%= link_to event.name, event_path(event.id) %></h4></div>
                     <% event.event_categories.each do |ec| %>
                       <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
