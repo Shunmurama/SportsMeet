@@ -11,9 +11,10 @@ class Public::ReservationsController < ApplicationController
     reserved_number = params[:reservation][:reserved_number].to_i
 
     if @event.date >= Date.today
+      @reservation.date = @event.date
+      # 人数指定がある場合
       if @event.fixed_number.present?
         if reserved_number <= @event.available_numbers && reserved_number == @event.fixed_number
-          @reservation.date = @event.date
           if @reservation.save
             flash[:notice] = "予約しました。"
             redirect_to user_mypage_path
@@ -22,9 +23,20 @@ class Public::ReservationsController < ApplicationController
           flash.now[:alert] = '予約人数を確認してください。'
           render :new
         end
-      else
+        # 最小の人数制限がある場合
+      elsif @event.minimum_number.present?
         if reserved_number <= @event.available_numbers && reserved_number >= @event.minimum_number
-          @reservation.date = @event.date
+          if @reservation.save
+            flash[:notice] = "予約しました。"
+            redirect_to user_mypage_path
+          end
+        else
+          flash.now[:alert] = '予約人数を確認してください。'
+          render :new
+        end
+        # 個人または代表者がまとめて予約する場合
+      else
+        if reserved_number <= @event.available_numbers
           if @reservation.save
             flash[:notice] = "予約しました。"
             redirect_to user_mypage_path
@@ -34,6 +46,7 @@ class Public::ReservationsController < ApplicationController
           render :new
         end
       end
+
     else
         flash.now[:alert] = '既にこのイベントは終了しています。'
         render :new
@@ -49,7 +62,7 @@ class Public::ReservationsController < ApplicationController
     @event = Event.find(params[:event_id])
     @reservation = current_user.reservations.find(params[:id])
     reserved_number = params[:reservation][:reserved_number].to_i
-
+    # 人数指定がある場合
     if @event.fixed_number.present?
       if reserved_number <= @event.available_numbers && reserved_number == @event.fixed_number
         @reservation.update(reservation_params)
@@ -59,7 +72,8 @@ class Public::ReservationsController < ApplicationController
         flash.now[:alert] = '予約人数を確認してください。'
         render :edit
       end
-    else
+    # 最小の人数制限がある場合
+    elsif @event.minimum_number.present?
       if reserved_number <= @event.available_numbers && reserved_number >= @event.minimum_number
         @reservation.update(reservation_params)
         flash[:notice] = "予約内容を更新しました。"

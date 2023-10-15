@@ -76,14 +76,12 @@
         <p><%= @event.outline %></p>
       </div>
 
-      <!-- 予約ボタン -->
       <div class="text-center mt-4">
+        <!--ログインしているか-->
         <% if user_signed_in? %>
           <% reservation = current_user.reservations.find_by(event_id: @event.id) %>
           <% if reservation %>
-            <% @user_reserved.each do |reserved| %>
-              <%= link_to "詳細", event_reservation_path(reserved.event, reserved), class: "btn btn-success" %>
-            <% end %>
+              <%= link_to "詳細", event_reservation_path(@event.id, @user_reserved), class: "btn btn-success" %>
           <% else %>
             <% if @event.user_id == current_user.id %>
               <%= link_to "編集", edit_event_path(@event.id), class: "btn btn-success" %>

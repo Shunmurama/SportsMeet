@@ -35,7 +35,7 @@ class Public::EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all
+    @events = Event.all.order(created_at: :desc)
   end
 
   def show
@@ -59,7 +59,7 @@ class Public::EventsController < ApplicationController
   def destroy
     event = Event.find(params[:id])
     event.destroy
-    flash.now[:alert] = "イベントを削除しました。"
+    flash[:alert] = "イベントを削除しました。"
     redirect_to events_path
   end
 

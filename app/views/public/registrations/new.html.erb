@@ -3,95 +3,109 @@
     <div class="col-sm-8">
       <div class="text-center py-2">新規ユーザー登録</div>
       <%= form_with model: @user, url: user_registration_path, method: :post do |f| %>
-        <%= render "public/shared/error_messages", resource: resource %>
         <div class="mt-4">
-          <div class="form-group row">
-            <label for="image" class="col-sm-3 col-form-label">お写真</label>
-            <div class="col-sm-9">
-              <%= f.file_field :image, accept: "image/*", class: "form-control" %>
-            </div>
-          </div>
+
           <div class="form-group row">
             <label for="last_name" class="col-sm-3 col-form-label">お名前（姓）</label>
             <div class="col-sm-3">
-              <%= f.text_field :last_name, class: "form-control" %>
+              <%= f.text_field :last_name, class: "form-control", placeholder: "必須" %>
             </div>
             <label for="first_name" class="col-sm-1 col-form-label">（名）</label>
             <div class="col-sm-5">
-              <%= f.text_field :first_name, class: "form-control" %>
+              <%= f.text_field :first_name, class: "form-control", placeholder: "必須" %>
             </div>
           </div>
+
+          <div class="form-group row">
+            <label for="image" class="col-sm-3 col-form-label">写真</label>
+            <div class="col-sm-9">
+              <%= f.file_field :image, accept: "image/*" %>
+            </div>
+          </div>
+
           <div class="form-group row">
             <label for="gender" class="col-sm-3 col-form-label">性別</label>
             <div class="col-sm-9">
               <%= f.select :gender, User.genders_i18n.invert, {}, class: "form-control" %>
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="birthday" class="col-sm-3 col-form-label">お誕生日</label>
+            <label for="birthday" class="col-sm-3 col-form-label">生年月日</label>
             <div class="col-sm-9">
-              <%= f.date_select :birthday, { start_year: 1950, end_year: 2020, include_blank: true, use_two_digit_numbers: true } %>
+              <%= f.date_select :birthday, { start_year: 1950, end_year: 2020, use_two_digit_numbers: true } %>
             </div>
           </div>
+
           <div class="form-group row">
             <label for="group" class="col-sm-3 col-form-label">団体名</label>
             <div class="col-sm-9">
-              <%= f.text_field :group %>
+              <%= f.text_field :group, placeholder: "※任意" %>
             </div>
           </div>
+
           <div class="form-group row">
             <label for="email" class="col-sm-3 col-form-label">メールアドレス</label>
             <div class="col-sm-9">
-              <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "必須" %>
             </div>
           </div>
+
           <div class="form-group row">
             <label for="phone_number" class="col-sm-3 col-form-label">電話番号</label>
             <div class="col-sm-9">
-              <%= f.text_field :phone_number %>
+              <%= f.text_field :phone_number, placeholder: "必須" %>
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="postal_code" class="col-sm-3 col-form-label">郵便番号（ハイフンなし）</label>
+            <label for="postal_code" class="col-sm-3 col-form-label">郵便番号<br>（ハイフンなし）</label>
             <div class="col-sm-9">
-              <%= f.text_field :postal_code%>
+              <%= f.text_field :postal_code, placeholder: "必須" %>
             </div>
           </div>
+
           <div class="form-group row">
             <label for="prefecture_id" class="col-sm-3 col-form-label">都道府県</label>
             <div class="col-sm-9">
-              <%= f.select :prefecture_id, Prefecture.names %>
+              <%= f.select :prefecture_id, Prefecture.names.except("--") %>
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="address" class="col-sm-3 col-form-label">市区町村　番地　マンション等</label>
+            <label for="address" class="col-sm-3 col-form-label">市区町村　番地<br>マンション等</label>
             <div class="col-sm-9">
-              <%= f.text_field :address, class: "hogehoge", size: "50x1" %>
+              <%= f.text_field :address, class: "hogehoge", size: "50x1", placeholder: "必須" %>
             </div>
           </div>
+
           <div class="form-group row">
-            <label for="category_ids" class="col-sm-3 col-form-label">興味のある種目 ※任意選択・複数回答</label>
+            <label for="category_ids" class="col-sm-3 col-form-label">興味のある種目<br>※任意・複数回答</label>
             <div class="col-sm-9">
               <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
                  <%= b.check_box + b.text %>
               <% end %>
             </div>
           </div>
+
           <div class="form-group row">
             <label for="password" class="col-sm-3 col-form-label">パスワード</label>
             <div class="col-sm-9">
-              <%= f.password_field :password, autocomplete: "new-password" %>
+              <%= f.password_field :password, autocomplete: "new-password", placeholder: "必須" %>
             </div>
           </div>
+
           <div class="form-group row">
             <label for="password_confirmation" class="col-sm-3 col-form-label">パスワード（確認用）</label>
             <div class="col-sm-9">
-              <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "必須" %>
             </div>
           </div>
+
           <div class="text-center">
             <%= f.submit "登録", class: "btn btn-success w-50" %>
           </div>
+
         </div>
       <% end %>
       <%= render "public/shared/links" %>

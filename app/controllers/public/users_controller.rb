@@ -23,11 +23,11 @@ class Public::UsersController < ApplicationController
   end
 
   def favorite
-    @user_favorites = current_user.favorites
+    @user_favorites = current_user.favorites.order(date: :desc)
   end
 
   def reserved
-    @user_reserved = current_user.reservations
+    @user_reserved = current_user.reservations.order(date: :desc)
   end
 
   def unsubscribe

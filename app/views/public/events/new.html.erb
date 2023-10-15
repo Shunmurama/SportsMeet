@@ -5,23 +5,18 @@
         <div class="card-header text-center">
           <h4>新規イベント登録</h4>
 
-          <% if @event.errors.any? %>
-            必要事項を登録してください
-          <% end %>
-
-
         </div>
         <div class="card-body">
         <!--イベント登録フォーム-->
           <%= form_with model: @event, url: events_path, method: :post, html: { class: "mt-4" } do |f| %>
             <div class="form-group">
               <%= f.label :name, "イベント名" %>
-              <%= f.text_field :name, class: "form-control" %>
+              <%= f.text_field :name, class: "form-control", placeholder: "必須" %>
             </div>
 
             <div class="form-group">
               <%= f.label :outline, "概要" %>
-              <%= f.text_area :outline, class: "form-control hogehoge", rows: "3" %>
+              <%= f.text_area :outline, class: "form-control hogehoge", rows: "3", placeholder: "必須" %>
             </div>
 
             <div class="form-group">
@@ -31,7 +26,7 @@
             </div>
 
             <div class="form-group">
-              <%= f.label :image, "会場イメージ" %>
+              <%= f.label :image, "イメージ画像" %>
               <%= f.file_field :image, class: "form-control-file", accept: "image/*" %>
             </div>
 
@@ -74,11 +69,11 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <%= f.label :prefecture_id, "都道府県" %>
-                <%= f.select :prefecture_id, Prefecture.names, {}, class: "form-control" %>
+                <%= f.select :prefecture_id, Prefecture.names.except("--"), {}, class: "form-control" %>
               </div>
               <div class="form-group col-md-6">
                 <%= f.label :place, "開催地" %>
-                <%= f.text_field :place, class: "form-control" %>
+                <%= f.text_field :place, class: "form-control", placeholder: "必須" %>
               </div>
             </div>
 
@@ -86,7 +81,7 @@
               <div class="form-group col-md-6">
                 <%= f.label :fee, "参加費" %>
                 <div class="input-group">
-                  <%= f.text_field :fee, class: "form-control" %>
+                  <%= f.text_field :fee, class: "form-control", placeholder: "必須" %>
                   <div class="input-group-append">
                     <span class="input-group-text">円</span>
                   </div>
