@@ -11,12 +11,10 @@
                   <div class="col-md-12 mt-2 border">
                     <div class="row">
                       <div class="col m-2">
-                        <%= link_to event_path(reserved.event.id) do %>
-                          <% if reserved.event.image.attached? %>
-                            <%= image_tag reserved.event.image, class: "img-fluid" %>
-                          <% else %>
-                            <%= image_tag 'no_image', class: "img-fluid" %>
-                          <% end %>
+                        <% if reserved.event.image.attached? %>
+                          <%= image_tag reserved.event.image, class: "img-fluid" %>
+                        <% else %>
+                          <%= image_tag 'no_image', class: "img-fluid" %>
                         <% end %>
                       </div>
                       <div class="col mt-2">

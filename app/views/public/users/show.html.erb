@@ -28,8 +28,10 @@
           <div class="mt-3">
             <h4 class="font-weight-bold">登録情報</h4>
             <%= link_to "編集する", user_information_edit_path, class: "btn btn-success btn-sm" %>
-            <%= link_to "予約履歴", user_reserved_path, class: "btn btn-secondary btn-sm" %>
-            <%= link_to "お気に入り", user_favorite_path, class: "btn btn-danger btn-sm" %>
+            <div class="text-right">
+              <%= link_to "予約履歴", user_reserved_path, class: "btn btn-secondary btn-sm" %>
+              <%= link_to "お気に入り", user_favorite_path, class: "btn btn-danger btn-sm" %>
+            </div>
           </div>
 
           <table class="table table-bordered mt-3">

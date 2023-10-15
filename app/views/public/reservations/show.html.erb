@@ -20,8 +20,8 @@
         <div class="col-md-8">
           <div class="mb-2"><h5><%= @event.name %></h5></div>
           <div class="event-categories mb-2">
-            <% @event.event_categories.each do |ec| %>
-              <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
+            <% @event.event_categories.each do |event| %>
+              <span class="badge badge-primary mr-2"><%= event.category.name %></span>
             <% end %>
           </div>
           <div class="mt-2">
