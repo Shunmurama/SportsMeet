@@ -51,7 +51,7 @@ class Event < ApplicationRecord
       events = events.where(id: event_ids)
     end
 
-    events = events.order(date: :asc)
+    events = events.order(created_at: :asc)
 
     return events
   end

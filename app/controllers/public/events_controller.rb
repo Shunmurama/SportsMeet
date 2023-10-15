@@ -35,14 +35,14 @@ class Public::EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all.order(created_at: :desc)
+    @events = Event.all.order(created_at: :asc)
   end
 
   def show
     @event = Event.find(params[:id])
     @comment = Comment.new
     if user_signed_in?
-      @user_reserved = current_user.reservations
+      @reservation = current_user.reservations.where(event_id: @event.id)
     end
   end
 

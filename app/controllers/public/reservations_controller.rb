@@ -87,7 +87,7 @@ class Public::ReservationsController < ApplicationController
 
   def show
     @event = Event.find(params[:event_id])
-    @reservation = @event.reservations.find(params[:id])
+    @reservation = @event.reservations.find(params[:id][:event_id])
   end
 
   def destroy
