@@ -18,11 +18,13 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :last_name, presence: true
   validates :first_name, presence: true
-  validates :phone_number, presence: true
   validates :prefecture_id, presence: true
-  validates :postal_code, presence: true
   validates :address, presence: true
   validates :birthday, presence: true
+  validates :phone_number, presence: true, length: { is: 11 },
+                  format: { with: /\A[0-9]+\z/ }
+  validates :postal_code, presence: true, length: { is: 7 },
+                  format: { with: /\A[0-9]+\z/ }
 
   enum gender: {"--":0, 男性:1, 女性:2}
 
