@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   namespace :public do
-    get 'homes/index'
+    get 'home' => "homes#home"
+    get 'about' => "homes#about"
   end
 scope module: :public do
   get 'user/mypage' => "users#show"
@@ -46,6 +47,6 @@ devise_for :admin, skip: [:registrations, :passwords], controllers: {
   sessions: "admin/sessions"
 }
 
-root to: 'public/homes#index'
+root to: 'public/homes#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

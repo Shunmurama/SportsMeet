@@ -16,7 +16,8 @@ class Event < ApplicationRecord
   validates :date, presence: true
   validates :prefecture_id, presence: true
   validates :place, presence: true
-  validates :fee, presence: true
+  validates :fee, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 9_999_999 },
+                  format: { with: /\A[0-9]+\z/ }
   validates :how_to_pay, presence: true
 
   enum how_to_pay: { local_pay: 0, transfer: 1 }
@@ -26,14 +27,17 @@ class Event < ApplicationRecord
    geocoded_by :place
    after_validation :geocode, if: :place_changed?
 
+# お気に入りがするか
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
 
+# 残りの予約人数の計算
   def available_numbers
     number - reservations.sum(:reserved_number)
   end
 
+# 検索機能
   def self.search(keyword, start_date, category_ids, prefecture)
     events = Event.all
 
@@ -56,7 +60,7 @@ class Event < ApplicationRecord
     return events
   end
 
-
+# 通知の作成
   def create_notification_event!(event_id)
     categories.each do |category|
         user_ids = UserInterest.where(category_id: category_ids).pluck(:user_id)
@@ -67,6 +71,7 @@ class Event < ApplicationRecord
     end
   end
 
+# 通知の保存
   def save_notification_event!(event_id, user_id)
       notification = Notification.new(
         user_id: user_id,

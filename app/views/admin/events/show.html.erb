@@ -58,8 +58,10 @@
             </script>
             <div id="map"></div>
             <p>募集人数：<%= @event.number %>人</p>
-            <% if @event.minimum_number.present? %>
-              <p>・<%= @event.minimum_number %>人で予約してください。</p>
+            <% if @event.fixed_number.present? %>
+              <p>・<%= @event.fixed_number %>人で予約してください。</p>
+            <% elsif @event.minimum_number.present? %>
+              <p>・<%= @event.minimum_number %>人以上で予約してください。</p>
             <% end %>
             <p>参加料金：<%= @event.fee %>円</p>
             <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
@@ -74,30 +76,16 @@
         <p><%= @event.outline %></p>
       </div>
 
-      <!-- 予約ボタン -->
       <div class="text-center mt-4">
-        <%= link_to '削除する', admin_event_path(@event.id), method: :delete, class: "btn btn-danger" %>
+        <%= link_to "削除する", admin_event_path(@event.id), method: :delete, class: "w-25 btn btn-danger" %>
       </div>
-    </div>
-  </div>
 
   <div class="row justify-content-center mt-4">
     <!-- いいねとコメント -->
     <div class="col-md-8">
       <div class="mb-3">
-        <% if user_signed_in? %>
-          <% if @event.favorited_by?(current_user) %>
-            <%= link_to event_favorites_path(@event), method: :delete do %>
-              <i class="fa-solid fa-heart" style="color: #ff0505;"></i>
-              <%= @event.favorites.count %> いいね
-            <% end %>
-          <% else %>
-            <%= link_to event_favorites_path(@event), method: :post do %>
-              <i class="fa-regular fa-heart" style="color: #ff0505;"></i>
-              <%= @event.favorites.count %> いいね
-            <% end %>
-          <% end %>
-        <% end %>
+        <i class="fa-solid fa-heart" style="color: #ff0505;"></i>
+        <%= @event.favorites.count %> いいね
       </div>
 
       <h5>コメント</h5>
@@ -113,9 +101,7 @@
             <h6 class="mt-0"><%= comment.user.full_name %></h6>
             <p><%= comment.created_at.strftime('%Y/%m/%d') %></p>
             <p><%= comment.comment %></p>
-            <% if user_signed_in? && comment.user == current_user %>
               <%= link_to "削除", event_comment_path(comment.event, comment), method: :delete, class: "text-danger" %>
-            <% end %>
           </div>
         </div>
       <% end %>
