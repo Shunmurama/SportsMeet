@@ -57,12 +57,14 @@
                        src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
             </script>
             <div id="map"></div>
+
             <p>募集人数：<%= @event.number %>人</p>
             <% if @event.date >= Date.today %>
               <p><%= @reservation.reserved_number %>人で予約しています。</p>
             <% else %>
               <p><%= @reservation.reserved_number %>人でご参加されました。</p>
             <% end %>
+
             <% if @reservation.reserved_number >= 2 %>
               <p><h4>代表者名：<%= @reservation.user.last_name %> <%= @reservation.user.first_name %> 様</h4></p>
             <% else %>
@@ -85,6 +87,8 @@
           <%= link_to '登録内容を変更する', edit_event_reservation_path(@event, @reservation), class: "btn btn-success" %>
           <%= link_to '取り消す', event_reservation_path(@event, @reservation), method: :delete, class: "btn btn-danger" %>
         </div>
+      <% else %>
+        <div class="text-center">ご参加ありがとうございました。</div>
       <% end %>
     </div>
   </div>

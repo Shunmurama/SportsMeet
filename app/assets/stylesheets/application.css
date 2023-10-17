@@ -14,6 +14,13 @@
  *= require_self
  */
 
+ header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
 .flash-message {
   border-radius: 5px;
   padding: 16px 24px;
