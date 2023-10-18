@@ -31,7 +31,7 @@
     <div class="col-md-8">
       <div class="container mt-4">
         <% @events.each do |event| %>
-          <% if event.date >= Date.today %>
+          <% if event.date.to_date >= Date.today.in_time_zone("Tokyo") %>
             <div class="row">
               <div class="col-md-12 mt-2 border">
                 <div class="row">
@@ -72,7 +72,7 @@
                 </div>
               </div>
             </div>
-          <% elsif event.date < Date.today %>
+          <% elsif event.date.to_date < Date.today.in_time_zone("Tokyo") %>
             <div class="mt-4 mb-3 text-center"><h6>過去のイベント</h6></div>
               <div class="row">
                 <div class="col-md-12 mt-2 border">

@@ -126,7 +126,7 @@
       <div class="mt-4">
         <div class="d-flex justify-content-between">
           <%= f.submit "編集する", class: "w-25 btn btn-success" %>
-          <%= link_to "削除する", event_path(@event.id), method: :delete, class: "w-25 btn btn-danger" %>
+          <%= link_to "削除する", event_path(@event.id), method: :delete, class: "w-25 btn btn-danger", data: {confirm: "イベントを削除しますか？"} %>
         </div>
       </div>
     </div>

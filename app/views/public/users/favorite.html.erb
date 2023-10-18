@@ -2,7 +2,7 @@
   <!--お気に入りがあるか確認-->
   <% if @user_favorites.any? %>
     <% @user_favorites.each do |favorite| %>
-      <% if favorite.date > Date.today %>
+      <% if favorite.event.date > Date.today %>
         <div class="mt-5 ml-3 text-center"><h4>お気に入りイベント一覧</h4></div>
           <div class="mt-4">
             <div class="col-md-8 mx-auto">
@@ -44,7 +44,7 @@
               </div>
             </div>
           </div>
-      <% elsif favorite.date <= Date.today %>
+      <% elsif favorite.event.date <= Date.today %>
           <div class="mt-5 ml-3 text-center"><h4>過去のイベント</h4></div>
             <div class="mt-4">
               <div class="col-md-8 mx-auto">

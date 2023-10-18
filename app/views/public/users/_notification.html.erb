@@ -4,11 +4,12 @@
     <div class="mt-4">
     <!--招待通知表示-->
       <% notifications.each do |notification| %>
-        <% if notification.read == false %>
+        <% if notification.read == "unread" %>
           <% if notification.event.user_id != current_user.id && notification.event.category_ids == current_user.category_ids && notification.event.date >= Date.today %>
             <div class="mx-auto">
               <div class="container mt-4">
                   <div class="mt-2 border">
+                    <%= link_to "既読にする", user_notification_read_path(notification) %>
                     <div class="row">
                       <div class="col m-2">
                         <% if notification.event.image.attached? %>

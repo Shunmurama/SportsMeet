@@ -7,7 +7,6 @@ var mask = document.getElementById('mask');
 <!--// # 部分テンプレートを指定する-->
 modal.innerHTML = '<%= escape_javascript(render partial: 'notification', locals: { notifications: @notifications }) %>';
 
-
 <!--// # hiddenを削除してモーダルとマスクを表示させる。-->
 modal.classList.remove('hidden');
 mask.classList.remove('hidden');

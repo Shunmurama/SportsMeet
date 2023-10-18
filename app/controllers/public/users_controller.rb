@@ -3,7 +3,7 @@ class Public::UsersController < ApplicationController
   def show
     @user = current_user
     @users = User.all
-    @notifications = Notification.where(user_id: @user.id)
+    @notifications = Notification.where(user_id: @user.id, read: "unread")
   end
 
   def edit
@@ -48,13 +48,20 @@ class Public::UsersController < ApplicationController
 
   def notification
     @notifications = Notification.where(user_id: current_user.id)
-    @notifications.where(read: false).each do |notification|
-      notification.update(read: true)
-    end
+    # @notifications.where(read: false).each do |notification|
+    #   notification.update(read: true)
+    # end
 
     respond_to do |format|
       format.html
       format.js
+    end
+
+    def notification_read
+      notification = Notification.find(params[:id])
+      redirect_to root_path and return unless notification.user_id == current_user.id
+      notification.update(read: "read")
+      redirect_to user_mypage_path
     end
   end
 
