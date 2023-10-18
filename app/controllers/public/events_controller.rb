@@ -35,7 +35,9 @@ class Public::EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all.order(created_at: :desc)
+    @events = Event.all
+    @events_run = @events.where('date >= ?', Date.today)
+    @events_past = @events.where('date < ?', Date.today)
   end
 
   def show
