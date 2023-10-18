@@ -35,7 +35,7 @@ class Public::EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all.order(created_at: :asc)
+    @events = Event.all.order(created_at: :desc)
   end
 
   def show

@@ -3,7 +3,7 @@
   <% if @user_favorites.any? %>
     <% @user_favorites.each do |favorite| %>
       <% if favorite.event.date > Date.today %>
-        <div class="mt-5 ml-3 text-center"><h4>お気に入りイベント一覧</h4></div>
+        <div class="mt-5 ml-3 text-center"><h4 class="m-0">お気に入りイベント一覧</h4></div>
           <div class="mt-4">
             <div class="col-md-8 mx-auto">
               <div class="container mt-4">

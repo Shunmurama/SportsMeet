@@ -3,7 +3,7 @@
   <% if @user_reserved.any? %>
     <% @user_reserved.each do |reserved| %>
       <% if reserved.date > Date.today %>
-        <div class="mt-5 ml-3 text-center"><h4>予約中のイベント一覧</h4></div>
+        <div class="mt-5 ml-3 text-center"><h4 class="m-0">予約中のイベント一覧</h4></div>
           <div class="mt-4">
             <div class="col-md-8 mx-auto">
               <div class="container mt-4">

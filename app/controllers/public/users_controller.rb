@@ -48,9 +48,6 @@ class Public::UsersController < ApplicationController
 
   def notification
     @notifications = Notification.where(user_id: current_user.id)
-    # @notifications.where(read: false).each do |notification|
-    #   notification.update(read: true)
-    # end
 
     respond_to do |format|
       format.html
