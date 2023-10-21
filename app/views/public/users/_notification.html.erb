@@ -9,7 +9,7 @@
             <div class="mx-auto">
               <div class="container mt-4">
                   <div class="mt-2 border">
-                    <%= link_to "表示しない", user_notification_read_path(notification) %>
+                    <%= link_to "参加しない", user_notification_read_path(notification), data: {confirm: "このイベントの通知は表示されなくなります。よろしいですか？"} %>
                     <div class="row">
                       <div class="col m-2">
                         <% if notification.event.image.attached? %>
