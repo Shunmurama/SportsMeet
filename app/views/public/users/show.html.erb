@@ -2,14 +2,18 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header text-center" style="background-color: #32EEFF; color: white;">
+        <div class="card-header text-center" style="background-color: #00FFFF; color: white;">
           <h4 class="m-0">マイページ</h4>
         </div>
         <% if @notifications.present? %>
-          <!--通知-->
-          <%= link_to "招待が届いています", user_notification_path,class: "btn btn-warning btn-sm", remote: true %>
-          <div id="mask" class="hidden"></div>
-          <div id="modal" class="hidden overlay modal-content"></div>
+          <% @notifications.each do |notification| %>
+            <% if notification.event.user_id != current_user.id %>
+              <!--通知-->
+              <%= link_to "招待が届いています", user_notification_path,class: "btn btn-warning btn-sm", remote: true %>
+              <div id="mask" class="hidden"></div>
+              <div id="modal" class="hidden overlay modal-content"></div>
+            <% end %>
+          <% end %>
         <% end %>
 
         <div class="card-body">
