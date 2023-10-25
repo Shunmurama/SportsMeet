@@ -6,14 +6,16 @@
           <h4 class="m-0">マイページ</h4>
         </div>
         <% if @notifications.present? %>
-          <% @notifications.each do |notification| %>
-            <% if notification.event.user_id != current_user.id %>
+        <%= @notifications.inspect %>
+          <%# @notifications.each do |notification| %>
+          <%#= notification.event.inspect %>
+            <%# if notification.event.user_id != current_user.id %>
               <!--通知-->
               <%= link_to "招待が届いています", user_notification_path,class: "btn btn-warning btn-sm", remote: true %>
               <div id="mask" class="hidden"></div>
               <div id="modal" class="hidden overlay modal-content"></div>
-            <% end %>
-          <% end %>
+            <%# end %>
+          <%# end %>
         <% end %>
 
         <div class="card-body">

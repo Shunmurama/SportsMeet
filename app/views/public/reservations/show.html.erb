@@ -18,7 +18,7 @@
         </div>
         <!-- イベント詳細情報 -->
         <div class="col-md-8">
-          <div class="mb-2"><h5><%= @event.name %></h5></div>
+          <div class="mb-2"><h4><%= @event.name %></h4></div>
           <div class="event-categories mb-2">
             <% @event.event_categories.each do |event| %>
               <span class="badge badge-primary mr-2"><%= event.category.name %></span>
@@ -83,10 +83,14 @@
       </div>
 
       <% if @event.date >= Date.today %>
-        <div class="d-flex justify-content-between">
-          <%= link_to '登録内容を変更する', edit_event_reservation_path(@event, @reservation), class: "btn btn-success" %>
-          <%= link_to '取り消す', event_reservation_path(@event, @reservation), method: :delete, class: "btn btn-danger", data: {confirm: "予約を取り消しますか？"} %>
-        </div>
+        <% if @event.fixed_number.present? %>
+          <div class="d-flex justify-content-between">
+            <%= link_to '登録内容を変更する', edit_event_reservation_path(@event, @reservation), class: "btn btn-success" %>
+            <%= link_to '取り消す', event_reservation_path(@event, @reservation), method: :delete, class: "btn btn-danger", data: {confirm: "予約を取り消しますか？"} %>
+          <% else %>
+            <%= link_to '取り消す', event_reservation_path(@event, @reservation), method: :delete, class: "btn btn-danger", data: {confirm: "予約を取り消しますか？"} %>
+          </div>
+        <% end %>
       <% else %>
         <div class="text-center">ご参加ありがとうございました。</div>
       <% end %>

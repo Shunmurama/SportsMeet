@@ -3,11 +3,9 @@
     <h4 class="m-0">予約編集</h4>
   </div>
 
-  <% if flash[:alert] %>
-    <div class="alert alert-danger">
-      <%= flash[:alert] %>
-    </div>
-　<% end %>
+      <div class="mt-4 text-center">
+        イベント募集人数：<%= @event.number %>人
+      </div>
 
       <div class="mt-4 text-center">
         <% if @event.fixed_number.present? %>
@@ -19,30 +17,39 @@
             ※<%= @event.minimum_number %>人以上で予約してください。
           </h4>
         <% end %>
-        <% if @event.available_numbers > 0 %>
+
           <div class="alert alert-success mx-auto" style = "width: 300px;">
-            現在<%= @event.available_numbers %>人予約可能です。
+            現在<%= @reservation.reserved_number %>人の予約があります。
           </div>
-          <%= form_with model: @reservation, url: event_reservation_path, method: :patch do |f| %>
-            <div class="form-group">
-              <div class="mx-auto">
-                <%= f.label :reserved_number, "予約人数" %>
-                <div class="input-group mx-auto" style="width: 200px;">
-                  <%= f.number_field :reserved_number, class: "form-control" %>
-                  <div class="input-group-append">
-                    <span class="input-group-text">人</span>
+          <!--人数指定があれば取り消しのみ表示する-->
+          <% if !@event.fixed_number.present? %>
+            <%= form_with model: @reservation, url: event_reservation_path, method: :patch do |f| %>
+              <div class="form-group">
+                <div class="mx-auto">
+                  <%= f.label :reserved_number, "予約人数" %>
+                  <div class="input-group mx-auto" style="width: 300px;">
+                    <%= f.number_field :reserved_number, min: 1, class: "form-control" %>
+                    <div class="input-group-append">
+                      <span class="input-group-text">人</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <%= f.hidden_field :event_id, value: @event.id %>
-            <%= f.hidden_field :date, value: @event.date %>
-            <div class="text-center m-2">
-              <%= f.submit "予約する", class: "btn btn-success mr-4" %>
-              <%= link_to "戻る", event_reservation_path, class: "btn btn-secondary" %>
-            </div>
-          <% end %>
-        <% else %>
+              <%= f.hidden_field :event_id, value: @event.id %>
+              <%= f.hidden_field :date, value: @event.date %>
+              <div class="text-center m-2">
+                <%= f.submit "予約する", class: "btn btn-success mr-4" %>
+                <%= link_to "戻る", event_reservation_path, class: "btn btn-secondary" %>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="form-group">
+                <div class="mx-auto">
+                  <%= @reservation.reserved_number %>人で予約しています。
+                </div>
+              </div>
+            <% end %>
+        <% if @event.date < Date.today %>
           <div class="alert alert-danger">
             満員のため受付は終了しました。たくさんのご応募ありがとうございました。
           </div>

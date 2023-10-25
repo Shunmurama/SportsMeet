@@ -22,6 +22,21 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def unsubscribe
+    @user = User.find(params[:id])
+  end
+
+  def withdrawal
+    @user = User.find(params[:id])
+    reservations_to_delete = @user.reservations
+    reservations_to_delete.destroy_all
+    events_to_delete = @user.events
+    events_to_delete.destroy_all
+    @user.update(is_deleted: true)
+    reset_session
+    redirect_to admin_index
+  end
+
  private
   def user_params
     params.require(:user).permit(

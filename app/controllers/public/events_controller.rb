@@ -9,7 +9,7 @@ class Public::EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.user_id = current_user.id
     if @event.save
-      @event.create_notification_event!(@event.id)
+      @event.create_notification_event!(@event.id, current_user)
       flash[:notice] = "イベントを投稿しました。"
       redirect_to events_path
     else
@@ -60,6 +60,8 @@ class Public::EventsController < ApplicationController
 
   def destroy
     event = Event.find(params[:id])
+    notification_to_delete = @event.reservations
+    notification_to_delete.destroy_all
     event.destroy
     flash[:alert] = "イベントを削除しました。"
     redirect_to events_path

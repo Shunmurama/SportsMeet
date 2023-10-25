@@ -44,8 +44,8 @@
 
       <div class="mt-4 text-center">
         <!--予約フォーム-->
-        <h4>予約者名：<%= current_user.last_name %> <%= current_user.first_name %> 様</h4>
         <% if @event.available_numbers > 0 %>
+        <h4 class="mt-1">予約者名：<%= current_user.last_name %> <%= current_user.first_name %> 様</h4>
           <div class="alert alert-success mx-auto" style="width: 300px;">
             現在<%= @event.available_numbers %>人予約可能です。
           </div>
@@ -70,7 +70,7 @@
             <% end %>
         <% else %>
           <div class="alert alert-danger">
-            満員のため受付は終了しました。たくさんのご応募ありがとうございました。
+            満員のため受付は終了しました。またの機会をお待ちください。
           </div>
         <% end %>
       </div>

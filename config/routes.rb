@@ -33,6 +33,8 @@ namespace :admin do
   get 'users/information/:id' => "users#show", as: "user"
   get 'users/information/:id/edit' => "users#edit", as: "edit"
   patch 'users/information/:id/edit' => "users#update", as: "update"
+  get 'users/information/:id/unsubscribe' => "users#unsubscribe", as: "unsubscribe"
+  patch 'users/information/:id/withdrawal' => "users#withdrawal", as: "withdrawal"
 end
 
 # 顧客用

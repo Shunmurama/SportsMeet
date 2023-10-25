@@ -3,7 +3,9 @@ class Public::UsersController < ApplicationController
   def show
     @user = current_user
     @users = User.all
-    @notifications = Notification.where(user_id: @user.id, read: "unread")
+    @notifications = Notification.joins(:event)
+                                .where(user_id: @user.id, read: "unread")
+                                .where("events.date >= ?", Date.today)
   end
 
   def edit
@@ -23,11 +25,15 @@ class Public::UsersController < ApplicationController
   end
 
   def favorite
-    @user_favorites = current_user.favorites.order(date: :desc)
+    @user_favorites = current_user.favorites
+    @event_run = @user_favorites.joins(:event).where("events.date >= ?", Date.today)
+    @event_past = @user_favorites.joins(:event).where("events.date < ?", Date.today)
   end
 
   def reserved
-    @user_reserved = current_user.reservations.order(date: :desc)
+    @user_reserved = current_user.reservations
+    @event_run = @user_reserved.joins(:event).where("events.date >= ?", Date.today)
+    @event_past = @user_reserved.joins(:event).where("events.date < ?", Date.today)
   end
 
   def unsubscribe
@@ -42,7 +48,6 @@ class Public::UsersController < ApplicationController
     events_to_delete.destroy_all
     @user.update(is_deleted: true)
     reset_session
-    flash.now[:alert] = "お気に入りを削除しました。"
     redirect_to root_path
   end
 

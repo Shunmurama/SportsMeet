@@ -3,7 +3,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header text-center bg-secondary">
-          <h4><%= @user.full_name %>さんのマイページ</h4>
+          <h4 class="m-0"><%= @user.full_name %>さんのマイページ</h4>
         </div>
 
         <div class="card-body">
@@ -20,7 +20,7 @@
           <div class="mt-3">
             <h4 class="font-weight-bold">登録情報</h4>
             <%= link_to "編集する", admin_edit_path(@user.id), class: "btn btn-success btn-sm" %>
-            <%= link_to "退会させる", user_unsubscribe_path(@user.id), class: "btn btn-danger btn-sm" %>
+            <%= link_to "退会させる", admin_unsubscribe_path(@user.id), class: "btn btn-danger btn-sm" %>
           </div>
 
           <table class="table table-bordered mt-3">

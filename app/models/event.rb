@@ -12,7 +12,7 @@ class Event < ApplicationRecord
 
   validates :name, presence: true
   validates :outline, presence: true
-  validates :number, presence: true
+  validates :number, numericality: { greater_than: 0 }
   validates :date, presence: true
   validates :prefecture_id, presence: true
   validates :place, presence: true
@@ -61,10 +61,10 @@ class Event < ApplicationRecord
   end
 
 # 通知の作成
-  def create_notification_event!(event_id)
+  def create_notification_event!(event_id, current_user)
     categories.each do |category|
         user_ids = UserInterest.where(category_id: category_ids).pluck(:user_id)
-        users = User.where(id: user_ids)
+        users = User.where(id: user_ids).where.not(id: current_user.id)
         users.each do |user|
           save_notification_event!(event_id, user.id)
         end

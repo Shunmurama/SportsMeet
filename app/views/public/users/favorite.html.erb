@@ -1,42 +1,83 @@
 <div class="container">
   <!--お気に入りがあるか確認-->
   <% if @user_favorites.any? %>
-    <% @user_favorites.each do |favorite| %>
-      <% if favorite.event.date > Date.today %>
-        <div class="mt-5 ml-3 text-center"><h4 class="m-0">お気に入りイベント一覧</h4></div>
-          <div class="mt-4">
-            <div class="col-md-8 mx-auto">
-              <div class="container mt-4">
+    <% @event_run.each do |favorite| %>
+      <div class="mt-5 ml-3 text-center"><h4 class="m-0">お気に入りイベント一覧</h4></div>
+        <div class="col-md-8 mx-auto">
+          <div class="container mt-4">
+            <div class="row">
+              <div class="col-md-12 mt-2 border">
                 <div class="row">
-                  <div class="col-md-12 mt-2 border">
-                    <div class="row">
-                      <div class="col m-2">
-                        <% if favorite.event.image.attached? %>
-                          <%= image_tag favorite.event.image, class: "img-fluid" %>
-                        <% else %>
-                          <%= image_tag 'no_image', class: "img-fluid" %>
+                  <div class="col m-2">
+                    <% if favorite.event.image.attached? %>
+                      <%= image_tag favorite.event.image, class: "img-fluid" %>
+                    <% else %>
+                      <%= image_tag 'no_image', class: "img-fluid" %>
+                    <% end %>
+                  </div>
+                  <div class="col mt-2">
+                    <div class="ml-1 mt-1"><h4 class="mt-0"><%= link_to favorite.event.name, event_path(favorite.event.id) %></h4></div>
+                      <% favorite.event.categories.each do |category| %>
+                        <span class="badge badge-primary mr-2"><%= category.name %></span>
+                      <% end %>
+                    <div class="ml-1 mt-1">開催日時：<%= favorite.event.date.strftime("%Y/%m/%d") %> <%= favorite.event.time.strftime("%H:%M") %></div>
+                    <div class="ml-1 mt-1">募集人数：<%= favorite.event.number %>人</div>
+                    <% if favorite.event.fixed_number.present? %>
+                      <div class="ml-1 mt-1">・<%= favorite.event.fixed_number %>人で予約してください。</div>
+                    <% elsif favorite.event.minimum_number.present? %>
+                      <div class="ml-1 mt-1">・<%= favorite.event.minimum_number %>人以上で予約してください。</div>
+                    <% end %>
+                    <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[favorite.event.prefecture_id] %></div>
+                    <div class="ml-1 mt-1"><イベント概要><br>
+                                            <% if favorite.event.outline.length > 40 %>
+                                              <%= favorite.event.outline[0, 40] + "..." %>
+                                            <% else %>
+                                              <%= favorite.event.outline %>
+                                            <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @event_past.any? %>
+        <div class="mt-5 ml-3 text-center"><h5 class="mt-0">過去のイベント</h4></div>
+      <% end %>
+        <% @event_past.each do |favorite| %>
+          <div class="col-md-8 mx-auto">
+            <div class="container mt-2">
+              <div class="row">
+                <div class="col-md-12 mt-2 border">
+                  <div class="row">
+                    <div class="col m-2">
+                      <% if favorite.event.image.attached? %>
+                        <%= image_tag favorite.event.image, class: "img-fluid" %>
+                      <% else %>
+                        <%= image_tag 'no_image', class: "img-fluid" %>
+                      <% end %>
+                    </div>
+                    <div class="col mt-2">
+                      <div class="ml-1 mt-1"><h4><%= link_to favorite.event.name, event_path(favorite.event.id) %></h4></div>
+                        <% favorite.event.categories.each do |category| %>
+                          <span class="badge badge-primary mr-2"><%= category.name %></span>
                         <% end %>
-                      </div>
-                      <div class="col mt-2">
-                        <div class="ml-1 mt-1"><h4><%= link_to favorite.event.name, event_path(favorite.event.id) %></h4></div>
-                          <% favorite.event.categories.each do |category| %>
-                            <span class="badge badge-primary mr-2"><%= category.name %></span>
-                          <% end %>
-                        <div class="ml-1 mt-1">開催日時：<%= favorite.event.date.strftime("%Y/%m/%d") %> <%= favorite.event.time.strftime("%H:%M") %></div>
-                        <div class="ml-1 mt-1">募集人数：<%= favorite.event.number %>人</div>
-                        <% if favorite.event.fixed_number.present? %>
-                          <div class="ml-1 mt-1">・<%= favorite.event.fixed_number %>人で予約してください。</div>
-                        <% elsif favorite.event.minimum_number.present? %>
-                          <div class="ml-1 mt-1">・<%= favorite.event.minimum_number %>人以上で予約してください。</div>
-                        <% end %>
-                        <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[favorite.event.prefecture_id] %></div>
-                        <div class="ml-1 mt-1"><イベント概要><br>
-                                                <% if favorite.event.outline.length > 40 %>
-                                                  <%= favorite.event.outline[0, 40] + "..." %>
-                                                <% else %>
-                                                  <%= favorite.event.outline %>
-                                                <% end %>
-                        </div>
+                      <div class="ml-1 mt-1">開催日時：<%= favorite.event.date.strftime("%Y/%m/%d") %> <%= favorite.event.time.strftime("%H:%M") %></div>
+                      <div class="ml-1 mt-1">募集人数：<%= favorite.event.number %>人</div>
+                      <% if favorite.event.fixed_number.present? %>
+                        <div class="ml-1 mt-1">・<%= favorite.event.fixed_number %>人で予約してください。</div>
+                      <% elsif favorite.event.minimum_number.present? %>
+                        <div class="ml-1 mt-1">・<%= favorite.event.minimum_number %>人以上で予約してください。</div>
+                      <% end %>
+                      <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[favorite.event.prefecture_id] %></div>
+                      <div class="ml-1 mt-1"><イベント概要><br>
+                                              <% if favorite.event.outline.length > 40 %>
+                                                <%= favorite.event.outline[0, 40] + "..." %>
+                                              <% else %>
+                                                <%= favorite.event.outline %>
+                                              <% end %>
                       </div>
                     </div>
                   </div>
@@ -44,52 +85,9 @@
               </div>
             </div>
           </div>
-      <% elsif favorite.event.date <= Date.today %>
-          <div class="mt-5 ml-3 text-center"><h4>過去のイベント</h4></div>
-            <div class="mt-4">
-              <div class="col-md-8 mx-auto">
-                <div class="container mt-4">
-                  <div class="row">
-                    <div class="col-md-12 mt-2 border">
-                      <div class="row">
-                        <div class="col m-2">
-                          <% if favorite.event.image.attached? %>
-                            <%= image_tag favorite.event.image, class: "img-fluid" %>
-                          <% else %>
-                            <%= image_tag 'no_image', class: "img-fluid" %>
-                          <% end %>
-                        </div>
-                        <div class="col mt-2">
-                          <div class="ml-1 mt-1"><h4><%= link_to favorite.event.name, event_path(favorite.event.id) %></h4></div>
-                            <% favorite.event.categories.each do |category| %>
-                              <span class="badge badge-primary mr-2"><%= category.name %></span>
-                            <% end %>
-                          <div class="ml-1 mt-1">開催日時：<%= favorite.event.date.strftime("%Y/%m/%d") %> <%= favorite.event.time.strftime("%H:%M") %></div>
-                          <div class="ml-1 mt-1">募集人数：<%= favorite.event.number %>人</div>
-                          <% if favorite.event.fixed_number.present? %>
-                            <div class="ml-1 mt-1">・<%= favorite.event.fixed_number %>人で予約してください。</div>
-                          <% elsif favorite.event.minimum_number.present? %>
-                            <div class="ml-1 mt-1">・<%= favorite.event.minimum_number %>人以上で予約してください。</div>
-                          <% end %>
-                          <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[favorite.event.prefecture_id] %></div>
-                          <div class="ml-1 mt-1"><イベント概要><br>
-                                                  <% if favorite.event.outline.length > 40 %>
-                                                    <%= favorite.event.outline[0, 40] + "..." %>
-                                                  <% else %>
-                                                    <%= favorite.event.outline %>
-                                                  <% end %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-      <% end %>
-    <% end %>
+        <% end %>
   <% else %>
-    <div class="mt-5 ml-3 text-center"><h4>お気に入りにしたイベントはありません。</h4></div>
+    <div class="mt-5 ml-3 text-center"><h4 class="m-0">お気に入りにしたイベントはありません。</h4></div>
   <% end %>
 
 </div>
