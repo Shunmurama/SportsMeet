@@ -25,13 +25,13 @@ class Public::UsersController < ApplicationController
   end
 
   def favorite
-    @user_favorites = current_user.favorites
+    @user_favorites = current_user.favorites.page(params[:page])
     @event_run = @user_favorites.joins(:event).where("events.date >= ?", Date.today)
     @event_past = @user_favorites.joins(:event).where("events.date < ?", Date.today)
   end
 
   def reserved
-    @user_reserved = current_user.reservations
+    @user_reserved = current_user.reservations.page(params[:page])
     @event_run = @user_reserved.joins(:event).where("events.date >= ?", Date.today)
     @event_past = @user_reserved.joins(:event).where("events.date < ?", Date.today)
   end
