@@ -1,5 +1,5 @@
 class ChangeDatatypenameOfPrefectures < ActiveRecord::Migration[6.1]
   def change
-    change_column :Prefectures, :name, :integer
+    change_column :prefectures, :name, :integer
   end
 end
