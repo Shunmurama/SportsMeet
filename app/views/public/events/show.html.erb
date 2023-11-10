@@ -12,7 +12,7 @@
             <% if @event.image.attached? %>
               <%= image_tag @event.image, size: "300x300", class: "img-fluid rounded" %>
             <% else %>
-              <%= image_tag 'no_image', size: "300x300", class: "img-fluid rounded" %>
+              <%= image_tag 'no_image.jpg', size: "300x300", class: "img-fluid rounded" %>
             <% end %>
           </div>
         </div>
@@ -125,7 +125,7 @@
           <% if comment.user.image.attached? %>
             <%= image_tag comment.user.image, size: "100x100", class: "rounded-circle" %>
           <% else %>
-            <%= image_tag 'no_image', size: "100x100", class: "rounded-circle" %>
+            <%= image_tag 'no_image.jpg', size: "100x100", class: "rounded-circle" %>
           <% end %>
           <div class="media-body ml-2">
             <h6 class="mt-0"><%= comment.user.full_name %></h6>
