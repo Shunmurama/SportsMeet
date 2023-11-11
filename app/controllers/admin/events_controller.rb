@@ -1,6 +1,8 @@
 class Admin::EventsController < ApplicationController
   def index
     @events = Event.page(params[:page])
+    @events_run = @events.where('date >= ?', Date.today)
+    @events_past = @events.where('date < ?', Date.today)
   end
 
   def result
