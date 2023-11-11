@@ -83,7 +83,7 @@
       </div>
 
       <% if @event.date >= Date.today %>
-        <% if @event.fixed_number.present? %>
+        <% if !@event.fixed_number.present? %>
           <div class="d-flex justify-content-between">
             <%= link_to '登録内容を変更する', edit_event_reservation_path(@event, @reservation), class: "btn btn-success" %>
             <%= link_to '取り消す', event_reservation_path(@event, @reservation), method: :delete, class: "btn btn-danger", data: {confirm: "予約を取り消しますか？"} %>

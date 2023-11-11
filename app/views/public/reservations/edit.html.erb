@@ -44,11 +44,11 @@
             <% end %>
           <% else %>
             <div class="form-group">
-                <div class="mx-auto">
-                  <%= @reservation.reserved_number %>人で予約しています。
-                </div>
+              <div class="mx-auto">
+                <%= @reservation.reserved_number %>人で予約しています。
               </div>
-            <% end %>
+            </div>
+          <% end %>
         <% if @event.date < Date.today %>
           <div class="alert alert-danger">
             満員のため受付は終了しました。たくさんのご応募ありがとうございました。
