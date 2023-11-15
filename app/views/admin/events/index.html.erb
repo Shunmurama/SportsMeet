@@ -4,6 +4,7 @@
   <div class="row">
     <div class="col-md-4 mt-5">
       <div class="container border border-dark">
+        <!--検索機能-->
        <div class="text-center border-bottom">検索</div>
         <div class="container">
           <%= form_with url: admin_event_result_path(@events), method: :get, class: "form-inline justify-content-between" do |f| %>
@@ -74,7 +75,9 @@
           </div>
         <% end %>
 
-        <div class="mt-4 mb-3 text-center"><h6>過去のイベント</h6></div>
+        <% if @events_past.present? %>
+          <div class="mt-4 mb-3 text-center"><h4 class="mt-0">過去のイベント</h4></div>
+        <% end %>
           <% @events_past.each do |event| %>
             <div class="row">
               <div class="col-md-12 mt-2 border">

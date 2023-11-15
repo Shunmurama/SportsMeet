@@ -104,7 +104,8 @@ class Public::ReservationsController < ApplicationController
 
   def show
     @event = Event.find(params[:event_id])
-    @reservation = @event.reservations.find_by(event_id: params[:event_id])
+    @reservation = current_user.reservations.find(params[:id])
+    # @reservation = @event.reservations.find_by(event_id: params[:event_id])
   end
 
   def destroy

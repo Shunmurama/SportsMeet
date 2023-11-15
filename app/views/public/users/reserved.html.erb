@@ -1,85 +1,87 @@
 <div class="container">
   <!--予約したことがあるか確認-->
   <% if @user_reserved.any? %>
+    <div class="mt-5 ml-3 text-center"><h4 class="m-0">予約中のイベント一覧</h4></div>
+  <% end %>
     <% @event_run.each do |reserved| %>
-        <div class="mt-5 ml-3 text-center"><h4 class="m-0">予約中のイベント一覧</h4></div>
-          <div class="col-md-8 mx-auto">
-            <div class="container mt-4">
+      <div class="col-md-8 mx-auto">
+        <div class="container mt-4">
+          <div class="row">
+            <div class="col-md-12 mt-2 border">
               <div class="row">
-                <div class="col-md-12 mt-2 border">
-                  <div class="row">
-                    <div class="col m-2">
-                      <% if reserved.event.image.attached? %>
-                        <%= image_tag reserved.event.image, class: "img-fluid" %>
-                      <% else %>
-                        <%= image_tag 'no_image.jpg', class: "img-fluid" %>
-                      <% end %>
-                    </div>
-                    <div class="col mt-2">
-                      <div class="ml-1 mt-1"><h4><%= link_to reserved.event.name, event_reservation_path(reserved.event, reserved) %></h4></div>
-                        <% reserved.event.categories.each do |category| %>
-                          <span class="badge badge-primary mr-2"><%= category.name %></span>
-                        <% end %>
-                      <div class="ml-1 mt-1">開催日時：<%= reserved.event.date.strftime("%Y/%m/%d") %> <%= reserved.event.time.strftime("%H:%M") %></div>
-                      <div class="ml-1 mt-1">募集人数：<%= reserved.event.number %>人</div>
-                        <!--予約人数表示-->
-                        <div class="ml-1 mt-1">・<%= reserved.reserved_number %>人で予約しています。</div>
-                      <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[reserved.event.prefecture_id] %></div>
-                      <div class="ml-1 mt-1"><イベント概要><br>
-                                             <% if reserved.event.outline.length > 40 %>
-                                               <%= reserved.event.outline[0, 40] + "..." %>
-                                             <% else %>
-                                               <%= reserved.event.outline %>
-                                             <% end %>
-                      </div>
-                    </div>
-                  </div>
+                <div class="col m-2">
+                  <% if reserved.event.image.attached? %>
+                    <%= image_tag reserved.event.image, class: "img-fluid" %>
+                  <% else %>
+                    <%= image_tag 'no_image.jpg', class: "img-fluid" %>
+                  <% end %>
                 </div>
-              </div>
-            </div>
-          </div>
-      <% end %>
-
-    <% if @event_past.any? %>
-      <div class="mt-5 ml-3 text-center"><h4 class="mt-0">過去の予約イベント一覧</h4></div>
-    <% end %>
-    <% @event_past.each do |reserved| %>
-        <div class="col-md-8 mx-auto">
-          <div class="container mt-4">
-            <div class="row">
-              <div class="col-md-12 mt-2 border">
-                <div class="row">
-                  <div class="col m-2">
-                    <% if reserved.event.image.attached? %>
-                      <%= image_tag reserved.event.image, class: "img-fluid" %>
-                    <% else %>
-                      <%= image_tag 'no_image.jpg', class: "img-fluid" %>
+                <div class="col mt-2">
+                  <div class="ml-1 mt-1"><h4><%= link_to reserved.event.name, event_reservation_path(reserved.event, reserved) %></h4></div>
+                    <% reserved.event.categories.each do |category| %>
+                      <span class="badge badge-primary mr-2"><%= category.name %></span>
                     <% end %>
-                  </div>
-                  <div class="col mt-2">
-                    <div class="ml-1 mt-1"><h4 class="mt-0"><%= link_to reserved.event.name, event_reservation_path(reserved.event, reserved) %></h4></div>
-                      <% reserved.event.categories.each do |category| %>
-                        <span class="badge badge-primary mr-2"><%= category.name %></span>
-                      <% end %>
-                    <div class="ml-1 mt-1">開催日時：<%= reserved.event.date.strftime("%Y/%m/%d") %> <%= reserved.event.time.strftime("%H:%M") %></div>
-                    <div class="ml-1 mt-1">募集人数：<%= reserved.event.number %>人</div>
-                    <div class="ml-1 mt-1">・<%= reserved.reserved_number %>人でご参加されました。</div>
-                    <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[reserved.event.prefecture_id] %></div>
-                    <div class="ml-1 mt-1"><イベント概要><br>
-                                             <% if reserved.event.outline.length > 40 %>
-                                               <%= reserved.event.outline[0, 40] + "..." %>
-                                             <% else %>
-                                               <%= reserved.event.outline %>
-                                             <% end %>
-                    </div>
+                  <div class="ml-1 mt-1">開催日時：<%= reserved.event.date.strftime("%Y/%m/%d") %> <%= reserved.event.time.strftime("%H:%M") %></div>
+                  <div class="ml-1 mt-1">募集人数：<%= reserved.event.number %>人</div>
+                    <!--予約人数表示-->
+                    <div class="ml-1 mt-1">・<%= reserved.reserved_number %>人で予約しています。</div>
+                  <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[reserved.event.prefecture_id] %></div>
+                  <div class="ml-1 mt-1"><イベント概要><br>
+                                         <% if reserved.event.outline.length > 40 %>
+                                           <%= reserved.event.outline[0, 40] + "..." %>
+                                         <% else %>
+                                           <%= reserved.event.outline %>
+                                         <% end %>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      <% end %>
-  <% else %>
+      </div>
+    <% end %>
+
+  <% if @event_past.any? %>
+    <div class="mt-5 ml-3 text-center"><h4 class="mt-0">過去の予約イベント一覧</h4></div>
+  <% end %>
+    <% @event_past.each do |reserved| %>
+      <div class="col-md-8 mx-auto">
+        <div class="container mt-4">
+          <div class="row">
+            <div class="col-md-12 mt-2 border">
+              <div class="row">
+                <div class="col m-2">
+                  <% if reserved.event.image.attached? %>
+                    <%= image_tag reserved.event.image, class: "img-fluid" %>
+                  <% else %>
+                    <%= image_tag 'no_image.jpg', class: "img-fluid" %>
+                  <% end %>
+                </div>
+                <div class="col mt-2">
+                  <div class="ml-1 mt-1"><h4 class="mt-0"><%= link_to reserved.event.name, event_reservation_path(reserved.event, reserved) %></h4></div>
+                    <% reserved.event.categories.each do |category| %>
+                      <span class="badge badge-primary mr-2"><%= category.name %></span>
+                    <% end %>
+                  <div class="ml-1 mt-1">開催日時：<%= reserved.event.date.strftime("%Y/%m/%d") %> <%= reserved.event.time.strftime("%H:%M") %></div>
+                  <div class="ml-1 mt-1">募集人数：<%= reserved.event.number %>人</div>
+                  <div class="ml-1 mt-1">・<%= reserved.reserved_number %>人でご参加されました。</div>
+                  <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[reserved.event.prefecture_id] %></div>
+                  <div class="ml-1 mt-1"><イベント概要><br>
+                                           <% if reserved.event.outline.length > 40 %>
+                                             <%= reserved.event.outline[0, 40] + "..." %>
+                                           <% else %>
+                                             <%= reserved.event.outline %>
+                                           <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <!--予約がなければ-->
+  <% if !@user_reserved.any? %>
     <div class="mt-5 ml-3 text-center"><h4>予約したイベントはありません。</h4></div>
   <% end %>
 
