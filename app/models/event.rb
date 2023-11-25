@@ -27,7 +27,7 @@ class Event < ApplicationRecord
    geocoded_by :place
    after_validation :geocode, if: :place_changed?
 
-# お気に入りがするか
+# お気に入りにするか
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end

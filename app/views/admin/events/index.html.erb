@@ -32,6 +32,7 @@
 
     <div class="col-md-8">
       <div class="container mt-4">
+        <!--本日以降開催のイベントを表示-->
         <% @events_run.each do |event| %>
           <div class="row">
             <div class="col-md-12 mt-2 border">
@@ -75,6 +76,7 @@
           </div>
         <% end %>
 
+        <!--既に開催されたイベントを表示-->
         <% if @events_past.present? %>
           <div class="mt-4 mb-3 text-center"><h4 class="mt-0">過去のイベント</h4></div>
         <% end %>
