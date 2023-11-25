@@ -57,14 +57,18 @@
                        src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
             </script>
             <div id="map"></div>
-            <p>募集人数：<%= @event.number %>人</p>
-            <% if @event.fixed_number.present? %>
-              <p>・<%= @event.fixed_number %>人で予約してください。</p>
-            <% elsif @event.minimum_number.present? %>
-              <p>・<%= @event.minimum_number %>人以上で予約してください。</p>
-            <% end %>
-            <p>参加料金：<%= @event.fee %>円</p>
-            <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
+
+            <div class="mt-2">
+              <p>募集人数：<%= @event.number %>人</p>
+              <% if @event.fixed_number.present? %>
+                <p>・<%= @event.fixed_number %>人で予約してください。</p>
+              <% elsif @event.minimum_number.present? %>
+                <p>・<%= @event.minimum_number %>人以上で予約してください。</p>
+              <% end %>
+              <p>参加料金：<%= @event.fee %>円</p>
+              <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
+            </div>
+
           </div>
         </div>
 

@@ -58,20 +58,23 @@
             </script>
             <div id="map"></div>
 
-            <p>募集人数：<%= @event.number %>人</p>
-            <% if @event.date >= Date.today %>
-              <p><%= @reservation.reserved_number %>人で予約しています。</p>
-            <% else %>
-              <p><%= @reservation.reserved_number %>人でご参加されました。</p>
-            <% end %>
+            <div class="mt-2">
+              <p>募集人数：<%= @event.number %>人</p>
+              <% if @event.date >= Date.today %>
+                <p><%= @reservation.reserved_number %>人で予約しています。</p>
+              <% else %>
+                <p><%= @reservation.reserved_number %>人でご参加されました。</p>
+              <% end %>
 
-            <% if @reservation.reserved_number >= 2 %>
-              <p><h4>代表者名：<%= @reservation.user.last_name %> <%= @reservation.user.first_name %> 様</h4></p>
-            <% else %>
-              <p>予約者名：<%= @reservation.user.last_name %> <%= @reservation.user.first_name %> 様</p>
-            <% end %>
-            <p>参加料金：<%= @event.fee %>円</p>
-            <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
+              <% if @reservation.reserved_number >= 2 %>
+                <p><h4>代表者名：<%= @reservation.user.last_name %> <%= @reservation.user.first_name %> 様</h4></p>
+              <% else %>
+                <p>予約者名：<%= @reservation.user.last_name %> <%= @reservation.user.first_name %> 様</p>
+              <% end %>
+              <p>参加料金：<%= @event.fee %>円</p>
+              <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
+            </div>
+
           </div>
         </div>
       </div>
