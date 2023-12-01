@@ -21,7 +21,7 @@
           <div class="mb-2"><h4><%= @event.name %></h4></div>
           <div class="event-categories mb-2">
             <% @event.event_categories.each do |event| %>
-              <div class="badge badge-primary mr-2"><%= event.category.name %></span>
+              <div class="badge badge-primary mr-2"><%= event.category.name %></div>
             <% end %>
           </div>
           <div class="mt-2">
@@ -80,14 +80,15 @@
       </div>
 
       <!-- イベント概要 -->
-      <div class="text-center mt-4">
-        <h5>概要</h5>
-        <p><%= @event.outline %></p>
+      <div class="row justify-content-center border-top">
+        <div class="mt-3 col-md-6 text-left"><h5>概要</h5>
+          <div class="mt-3 text-break" style="word-wrap:8rem"><%= simple_format(@event.outline, sanitize: true) %></div>
+        </div>
       </div>
 
       <% if @event.date >= Date.today %>
         <% if !@event.fixed_number.present? %>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-between mt-5">
             <%= link_to '登録内容を変更する', edit_event_reservation_path(@event, @reservation), class: "btn btn-success" %>
             <%= link_to '取り消す', event_reservation_path(@event, @reservation), method: :delete, class: "btn btn-danger", data: {confirm: "予約を取り消しますか？"} %>
           <% else %>

@@ -20,10 +20,12 @@ class Public::EventsController < ApplicationController
   end
 
   def edit
+    is_matching_edit_user
     @event = Event.find(params[:id])
   end
 
   def update
+    is_matching_edit_user
     @event = Event.find(params[:id])
     if @event.update(event_params)
       flash[:notice] = "イベントが編集されました。"
@@ -73,6 +75,13 @@ class Public::EventsController < ApplicationController
       :number, :minimum_number, :fixed_number, :date, :time, :place, :fee, :how_to_pay, :latitude, :longitude,
       category_ids: []
       )
+    end
+
+    def is_matching_edit_user
+      event = Event.find(params[:id])
+      unless event.user_id == current_user.id
+        redirect_to user_mypage_path
+      end
     end
 
 end
