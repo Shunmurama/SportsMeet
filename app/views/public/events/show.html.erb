@@ -86,8 +86,9 @@
       <div class="text-center mt-4">
         <!--ログインしているか-->
         <% if user_signed_in? %>
-          <% if @reservation.present? %>
-              <%= link_to "詳細", event_reservation_path(@event.id, current_user.id), class: "btn btn-success" %>
+        <!--現在のユーザーの予約があるかどうか-->
+          <% if @check.present? %>
+              <%= link_to "詳細", event_reservation_path(@event.id, @reservation), class: "btn btn-success" %>
           <% else %>
             <% if @event.user_id == current_user.id %>
               <%= link_to "編集", edit_event_path(@event.id), class: "btn btn-success" %>

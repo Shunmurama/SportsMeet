@@ -46,8 +46,9 @@ class Public::EventsController < ApplicationController
     @event = Event.find(params[:id])
     @comment = Comment.new
     if user_signed_in?
-      @reservation = current_user.reservations.where(event_id: @event.id)
+      @check = current_user.reservations.where(event_id: @event.id)
     end
+    @reservation = current_user.reservations.where(event_id: @event.id).pluck(:id)
   end
 
   def result
