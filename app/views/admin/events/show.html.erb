@@ -74,9 +74,10 @@
       </div>
 
       <!-- イベント概要 -->
-      <div class="text-center mt-4">
-        <h5>概要</h5>
-        <p><%= @event.outline %></p>
+      <div class="row justify-content-center border-top">
+        <div class="mt-3 col-md-6 text-left"><h5>概要</h5>
+          <div class="mt-3 text-break" style="word-wrap:8rem"><%= simple_format(@event.outline, sanitize: true) %></div>
+        </div>
       </div>
 
       <div class="text-center mt-4">
