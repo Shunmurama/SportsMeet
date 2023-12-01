@@ -139,7 +139,7 @@
             <p><%= comment.created_at.strftime('%Y/%m/%d') %></p>
             <p><%= comment.comment %></p>
             <% if user_signed_in? && comment.user == current_user %>
-              <%= link_to "削除", event_comment_path(comment.event, comment), method: :delete, class: "text-danger" %>
+              <%= link_to "削除", event_comment_path(comment.event, comment), method: :delete, class: "text-danger", data: {confirm: "コメントを削除しますか？"}  %>
             <% end %>
           </div>
         </div>
