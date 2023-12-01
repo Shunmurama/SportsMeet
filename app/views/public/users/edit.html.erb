@@ -121,7 +121,7 @@
       </div>
       <div class="col-sm-8">
        <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
-        <%= b.check_box + b.text %>
+        <%= b.label {b.check_box + b.text} %>
        <% end %>
       </div>
      </div>

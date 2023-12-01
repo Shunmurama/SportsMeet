@@ -21,7 +21,7 @@
           <div class="mb-2"><h2><%= @event.name %></h2></div>
           <div class="event-categories mb-2">
             <% @event.event_categories.each do |ec| %>
-              <span class="badge badge-primary mr-2"><%= ec.category.name %></span>
+              <div class="badge badge-primary mr-2"><%= ec.category.name %></div>
             <% end %>
           </div>
           <div class="mt-2">
@@ -73,6 +73,8 @@
         </div>
 
       </div>
+    </div>
+  </div>
 
       <!-- イベント概要 -->
       <div class="text-center mt-4">
@@ -100,8 +102,8 @@
           <%= link_to '予約する', new_user_session_path, class: "btn btn-success" %>
         <% end %>
       </div>
-    </div>
-  </div>
+
+
 
   <div class="row justify-content-center mt-4">
     <!-- いいねとコメント -->

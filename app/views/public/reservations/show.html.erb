@@ -21,7 +21,7 @@
           <div class="mb-2"><h4><%= @event.name %></h4></div>
           <div class="event-categories mb-2">
             <% @event.event_categories.each do |event| %>
-              <span class="badge badge-primary mr-2"><%= event.category.name %></span>
+              <div class="badge badge-primary mr-2"><%= event.category.name %></span>
             <% end %>
           </div>
           <div class="mt-2">
