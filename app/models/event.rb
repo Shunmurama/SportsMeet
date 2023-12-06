@@ -32,7 +32,7 @@ class Event < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
 
-# 残りの予約人数の計算
+# 残りの予約可能人数の計算
   def available_numbers
     number - reservations.sum(:reserved_number)
   end

@@ -60,8 +60,13 @@
 
             <div class="mt-2">
               <p>募集人数：<%= @event.number %>人</p>
+              <% if @event.user_id == current_user.id %>
+                <p>現在の予約人数：<%= @event.reservations.sum(:reserved_number).to_s %>人</p>
+              <% end %>
+              <!--人数指定がある場合-->
               <% if @event.fixed_number.present? %>
                 <p>・<%= @event.fixed_number %>人で予約してください。</p>
+                <!--最小人数の指定がある場合-->
               <% elsif @event.minimum_number.present? %>
                 <p>・<%= @event.minimum_number %>人以上で予約してください。</p>
               <% end %>
