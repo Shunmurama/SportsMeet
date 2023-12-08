@@ -27,10 +27,10 @@
           <div class="mt-2">
             <p>開催日時：<%= @event.date %></p>
             <p>開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></p>
-            
+
             <script type="text/javascript">
              function initMap() {
-               var test = {lat: <%= @event.latitude %>, lng: <%= @event.longitude %>};
+               var test = {lat: <%= @event.latitude ||= 0 %>, lng: <%= @event.longitude ||= 0 %>};
                var map = new google.maps.Map(document.getElementById('map'), {
                          zoom: 15,
                          center: test
