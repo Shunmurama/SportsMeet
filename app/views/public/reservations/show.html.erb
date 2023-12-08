@@ -27,6 +27,7 @@
           <div class="mt-2">
             <p>開催日時：<%= @event.date %></p>
             <p>開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></p>
+            
             <script type="text/javascript">
              function initMap() {
                var test = {lat: <%= @event.latitude %>, lng: <%= @event.longitude %>};

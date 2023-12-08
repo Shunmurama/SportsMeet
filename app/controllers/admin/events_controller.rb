@@ -1,4 +1,6 @@
 class Admin::EventsController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @events = Event.page(params[:page])
     @events_run = @events.where('date >= ?', Date.today)

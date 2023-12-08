@@ -14,48 +14,50 @@
  *= require_self
  */
 
- header {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
+/*ここから下をjavascriptに移植*/
 
-.flash-message {
-  border-radius: 5px;
-  padding: 16px 24px;
-  margin: 16px 0px;
-  text-align: center;
-}
+/* header {*/
+/*  position: sticky;*/
+/*  top: 0;*/
+/*  width: 100%;*/
+/*  z-index: 1000;*/
+/*}*/
 
-.flash-message.notice {
-  background-color: #bcdfff;
-  color: #0067C0;
-  border: solid 1px #0067C0;
-}
+/*.flash-message {*/
+/*  border-radius: 5px;*/
+/*  padding: 16px 24px;*/
+/*  margin: 16px 0px;*/
+/*  text-align: center;*/
+/*}*/
 
-.flash-message.alert {
-  background-color: #ffd4d1;
-  color: #930403;
-  border: solid 1px #930403;
-}
+/*.flash-message.notice {*/
+/*  background-color: #bcdfff;*/
+/*  color: #0067C0;*/
+/*  border: solid 1px #0067C0;*/
+/*}*/
 
-.page a,
-.last a,
-.first a,
-.prev a {
-  margin-left: 10px;
-  margin-right: 10px;
-}
+/*.flash-message.alert {*/
+/*  background-color: #ffd4d1;*/
+/*  color: #930403;*/
+/*  border: solid 1px #930403;*/
+/*}*/
 
-.page a:hover,
-.next a:hover,
-.last a:hover,
-.first a:hover,
-.prev a:hover {
-  color: black;
-}
+/*.page a,*/
+/*.last a,*/
+/*.first a,*/
+/*.prev a {*/
+/*  margin-left: 10px;*/
+/*  margin-right: 10px;*/
+/*}*/
 
-.current {
-  font-weight: bold;
-}
+/*.page a:hover,*/
+/*.next a:hover,*/
+/*.last a:hover,*/
+/*.first a:hover,*/
+/*.prev a:hover {*/
+/*  color: black;*/
+/*}*/
+
+/*.current {*/
+/*  font-weight: bold;*/
+/*}*/
