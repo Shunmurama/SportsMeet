@@ -84,3 +84,16 @@ header {
 .current {
   font-weight: bold;
 }
+
+.scroll-top-btn {
+  // 最初は非表示
+  display: none;
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  font-size: 70px;
+}
+
+.scroll-top-btn:hover {
+  transform: scale(1.1);
+}
