@@ -21,12 +21,10 @@ class Public::EventsController < ApplicationController
   end
 
   def edit
-    is_matching_edit_user
     @event = Event.find(params[:id])
   end
 
   def update
-    is_matching_edit_user
     @event = Event.find(params[:id])
     if @event.update(event_params)
       flash[:notice] = "イベントが編集されました。"

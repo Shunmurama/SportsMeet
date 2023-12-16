@@ -28,36 +28,8 @@
             <p>開催日時：<%= @event.date %></p>
             <p>開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></p>
 
-            <script type="text/javascript">
-             function initMap() {
-               var test = {lat: <%= @event.latitude ||= 0 %>, lng: <%= @event.longitude ||= 0 %>};
-               var map = new google.maps.Map(document.getElementById('map'), {
-                         zoom: 15,
-                         center: test
-                         });
-               var transitLayer = new google.maps.TransitLayer();
-               transitLayer.setMap(map);
-               var contentString = '住所：<%= @event.place %>';
-               var infowindow = new google.maps.InfoWindow({
-                 content: contentString
-               });
-               var marker = new google.maps.Marker({
-                             position:test,
-                             map: map
-                           });
-               marker.addListener('click', function() {
-                 infowindow.open(map, marker);
-               });
-             }
-            </script>
-            <style type="text/css">
-              #map { height: 300px;
-                    width: 100%;}
-            </style>
-            <script async defer
-                       src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap">
-            </script>
-            <div id="map"></div>
+            <!--Google api 部分テンプレート-->
+            <%= render 'public/events/map', event: @event %>
 
             <div class="mt-2">
               <p>募集人数：<%= @event.number %>人</p>
