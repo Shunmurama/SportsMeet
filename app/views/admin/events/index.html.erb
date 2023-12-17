@@ -2,7 +2,31 @@
  <div class="mt-4 mb-3 text-center"><h4 class="m-0">イベント一覧</h4></div>
 
  <div class="row">
-  <%= render 'public/events/search', events: @events %>
+  <div class="col-md-4 mt-5">
+    <div class="container border border-dark">
+      <%= form_with url: admin_event_result_path(@events), method: :get do |f| %>
+        <div class="text-center border-bottom">検索</div>
+          <div class="container">
+            <div class="mt-2 mb-2">
+              <%= f.text_field :keyword, placeholder: "キーワードを入力" %>
+            </div>
+            <div class="mb-2">
+              <%= f.date_field :start_date, value: Date.today %>
+              <%= f.select :prefecture, Prefecture.names %>
+            </div>
+            <div class="mb-2">
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+                <%= b.label {b.check_box + b.text} %><br>
+              <% end %>
+            </div>
+            <div class="mb-2 text-right">
+              <%= f.submit "検索", class: "btn btn-primary" %>
+            </div>
+          </div>
+
+      <% end %>
+    </div>
+  </div>
 
     <div class="col-md-8">
       <div class="container mt-4">
