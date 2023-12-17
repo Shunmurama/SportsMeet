@@ -1,4 +1,5 @@
-$(document).ready(function() {
+// Turbolinksを無効化することでリロードせずにページ上部に遷移するように
+$(document).on('turbolinks:load', function() {
   // スクロールトップボタンをクリックしたときの処理
   $('.scroll-top-btn').click(function(e) {
     e.preventDefault();
