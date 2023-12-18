@@ -5,7 +5,7 @@
     <!--招待通知表示-->
       <% notifications.each do |notification| %>
         <% if notification.read == "unread" %>
-          <% if notification.event.user_id != current_user.id && Notification.joins(event: :categories).where(categories: { id: current_user.category_ids }) && notification.event.date >= Date.today %>
+          <% if Notification.joins(event: :categories).where(categories: { id: current_user.category_ids }) && notification.event.date >= Date.today %>
             <div class="mx-auto">
               <div class="container mt-4">
                   <div class="mt-2 border">
