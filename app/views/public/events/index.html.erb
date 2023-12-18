@@ -6,6 +6,8 @@
 
     <div class="col-md-8">
       <div class="container mt-4">
+        <!--カレンダー表示-->
+        <div id='calendar'></div>
         <!--本日以降開催のイベントを表示-->
         <% @events_run.each do |event| %>
           <%= render "event", event: event %>

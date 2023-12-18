@@ -10,13 +10,14 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'calendar' %>
   </head>
 
   <body>
 
     <main>
       <header>
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0000FF">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00CCFF">
           <div class="container">
             <% if user_signed_in? %>
               <%= link_to public_about_path, class: "navbar-brand" do %>
@@ -112,7 +113,7 @@
     </main>
 
       <footer>
-        <div class="mt-5 p-3" style="background-color: #0000FF">
+        <div class="mt-5 p-3" style="background-color: #00CCFF">
           <div class="border-dark border-dark">
              <!--フッターコンテンツを追加 -->
             <div class="container text-center text-white">
