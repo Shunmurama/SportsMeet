@@ -63,6 +63,8 @@ class Public::EventsController < ApplicationController
     @prefecture = params[:prefecture]
 
     @events = Event.search(@keyword, @start_date, @category_ids, @prefecture)
+    @events_run = @events.where('date >= ?', Date.today)
+    @events_past = @events.where('date < ?', Date.today)
   end
 
   def destroy
