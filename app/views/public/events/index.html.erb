@@ -8,92 +8,14 @@
       <div class="container mt-4">
         <!--本日以降開催のイベントを表示-->
         <% @events_run.each do |event| %>
-          <div class="row">
-            <div class="col-md-12 mt-2 border">
-              <div class="row">
-                <div class="col m-2">
-                  <!--画像-->
-                  <%= link_to event_path(event.id) do %>
-                    <% if event.image.attached? %>
-                      <%= image_tag event.image, class: "img-fluid" %>
-                    <% else %>
-                      <%= image_tag 'no_image.jpg', class: "img-fluid" %>
-                    <% end %>
-                  <% end %>
-                </div>
-                <div class="col mt-2">
-                  <!--イベント情報-->
-                  <div class="ml-1 mt-1">
-                    <h4 class="mt-0"><%= link_to event.name, event_path(event.id) %></h4>
-                  </div>
-                    <% event.event_categories.each do |event| %>
-                      <span class="badge badge-primary mr-2"><%= event.category.name %></span>
-                    <% end %>
-                  <div class="ml-1 mt-1">開催日時：<%= event.date.strftime("%Y/%m/%d") %> <%= event.time.strftime("%H:%M") %></div>
-                  <div class="ml-1 mt-1">募集人数：<%= event.number %>人</div>
-                    <% if event.fixed_number.present? %>
-                      <div class="ml-1 mt-1">・<%= event.fixed_number %>人で予約してください。</div>
-                    <% elsif event.minimum_number.present? %>
-                      <div class="ml-1 mt-1">・<%= event.minimum_number %>人以上で予約してください。</div>
-                    <% end %>
-                  <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[event.prefecture_id] %></div>
-                  <div class="ml-1 mt-1"><イベント概要><br>
-                    <% if event.outline.length > 40 %>
-                      <%= event.outline[0, 40] + "..." %>
-                    <% else %>
-                      <%= event.outline %>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <%= render "event", event: event %>
         <% end %>
 
         <% if @events_past.present? %>
           <div class="mt-4 mb-3 text-center"><h4 class="mt-0">過去のイベント</h4></div>
         <% end %>
           <% @events_past.each do |event| %>
-            <div class="row">
-              <div class="col-md-12 mt-2 border">
-                <div class="row">
-                  <div class="col m-2">
-                    <!--画像-->
-                    <%= link_to event_path(event.id) do %>
-                      <% if event.image.attached? %>
-                        <%= image_tag event.image, class: "img-fluid" %>
-                      <% else %>
-                        <%= image_tag 'no_image.jpg', class: "img-fluid" %>
-                      <% end %>
-                    <% end %>
-                  </div>
-                  <div class="col mt-2">
-                    <!--イベント情報-->
-                    <div class="ml-1 mt-1">
-                      <h4 class="mt-0"><%= link_to event.name, event_path(event.id) %></h4>
-                    </div>
-                      <% event.event_categories.each do |event| %>
-                        <span class="badge badge-primary mr-2"><%= event.category.name %></span>
-                      <% end %>
-                    <div class="ml-1 mt-1">開催日時：<%= event.date.strftime("%Y/%m/%d") %> <%= event.time.strftime("%H:%M") %></div>
-                    <div class="ml-1 mt-1">募集人数：<%= event.number %>人</div>
-                      <% if event.fixed_number.present? %>
-                        <div class="ml-1 mt-1">・<%= event.fixed_number %>人で予約してください。</div>
-                      <% elsif event.minimum_number.present? %>
-                        <div class="ml-1 mt-1">・<%= event.minimum_number %>人以上で予約してください。</div>
-                      <% end %>
-                    <div class="ml-1 mt-1">開催地：<%= Prefecture.names.invert[event.prefecture_id] %></div>
-                    <div class="ml-1 mt-1"><イベント概要><br>
-                      <% if event.outline.length > 40 %>
-                        <%= event.outline[0, 40] + "..." %>
-                      <% else %>
-                        <%= event.outline %>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <%= render "event", event: event %>
           <% end %>
       </div>
     </div>

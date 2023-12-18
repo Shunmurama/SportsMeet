@@ -36,7 +36,12 @@ class Public::EventsController < ApplicationController
   end
 
   def index
-    @events = Event.page(params[:page]).per(20)
+    if params[:cat]
+      category = Category.find(params[:cat])
+      @events = category.events.page(params[:page]).per(20)
+    else
+      @events = Event.page(params[:page]).per(20)
+    end
     @events_run = @events.where('date >= ?', Date.today)
     @events_past = @events.where('date < ?', Date.today)
   end
