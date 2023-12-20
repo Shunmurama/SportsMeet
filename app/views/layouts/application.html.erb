@@ -45,13 +45,18 @@
                 <% if user_signed_in? %>
                   <!-- ユーザーがログインしている場合 -->
                   <li class="nav-item">
+                    <%= link_to events_path, class: "nav-link text-white" do %>
+                      カレンダー
+                    <% end %>
+                  </li>
+                  <li class="nav-item">
                     <%= link_to new_event_path, class: "nav-link text-white" do %>
                       イベントを開催する
                     <% end %>
                   </li>
                   <li class="nav-item">
-                    <%= link_to events_path, class: "nav-link text-white" do %>
-                      イベント一覧
+                    <%= link_to title_path, class: "nav-link text-white" do %>
+                      イベント検索
                     <% end %>
                   </li>
                   <li class="nav-item">

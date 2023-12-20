@@ -4,6 +4,7 @@ class Public::EventsController < ApplicationController
   def new
     @event = Event.new
     @event.event_categories.build
+    # render plain: render_to_string(partial: 'form_new', layout: false, locals: { event: @event })
   end
 
   def create
@@ -36,6 +37,17 @@ class Public::EventsController < ApplicationController
   end
 
   def index
+    if params[:cat]
+      category = Category.find(params[:cat])
+      @events = category.events.page(params[:page]).per(20)
+    else
+      @events = Event.page(params[:page]).per(20)
+    end
+    @events_run = @events.where('date >= ?', Date.today)
+    @events_past = @events.where('date < ?', Date.today)
+  end
+
+  def title
     if params[:cat]
       category = Category.find(params[:cat])
       @events = category.events.page(params[:page]).per(20)

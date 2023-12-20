@@ -39,6 +39,8 @@ document.addEventListener('turbolinks:load', function() {
             //表示されたイベントにclassをcss用に追加する(詳しくは次回の記事へ)
         }
 
+
+
     });
     //カレンダー表示
     calendar.render();

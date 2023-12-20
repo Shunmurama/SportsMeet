@@ -15,6 +15,7 @@ scope module: :public do
   get 'user/_notification' => 'users#notification', as: 'user_notification'
   get 'user/notification_read/:id' => 'users#notification_read', as: "user_notification_read"
 
+  get 'title' => "events#title"
   resources :events, only: [:new, :index, :edit, :show, :create, :update, :destroy] do
   get 'result' => "events#result"
    resource :favorites, only: [:create, :destroy]
