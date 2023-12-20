@@ -13,6 +13,9 @@ import "popper.js";
 import "bootstrap";
 import "../stylesheets/application";
 
+// マイページの通知の読み込み
+import "../stylesheets/notification.css";
+
 import "script.js";
 
 Rails.start()

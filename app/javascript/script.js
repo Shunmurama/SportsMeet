@@ -1,3 +1,4 @@
+// ページ最上部にスクロール用の.js
 // Turbolinksを無効化することでリロードせずにページ上部に遷移するように
 $(document).on('turbolinks:load', function() {
   // スクロールトップボタンをクリックしたときの処理
