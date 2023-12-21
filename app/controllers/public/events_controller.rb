@@ -4,6 +4,7 @@ class Public::EventsController < ApplicationController
   def new
     @event = Event.new
     @event.event_categories.build
+    # render plain: render_to_string(partial: 'form_new', layout: false, locals: { event: @event })
   end
 
   def create

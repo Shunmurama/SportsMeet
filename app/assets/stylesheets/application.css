@@ -12,52 +12,5 @@
  *
  *= require_tree .
  *= require_self
+ *= require fullcalendar
  */
-
-/*ここから下をjavascriptに移植*/
-
-/* header {*/
-/*  position: sticky;*/
-/*  top: 0;*/
-/*  width: 100%;*/
-/*  z-index: 1000;*/
-/*}*/
-
-/*.flash-message {*/
-/*  border-radius: 5px;*/
-/*  padding: 16px 24px;*/
-/*  margin: 16px 0px;*/
-/*  text-align: center;*/
-/*}*/
-
-/*.flash-message.notice {*/
-/*  background-color: #bcdfff;*/
-/*  color: #0067C0;*/
-/*  border: solid 1px #0067C0;*/
-/*}*/
-
-/*.flash-message.alert {*/
-/*  background-color: #ffd4d1;*/
-/*  color: #930403;*/
-/*  border: solid 1px #930403;*/
-/*}*/
-
-/*.page a,*/
-/*.last a,*/
-/*.first a,*/
-/*.prev a {*/
-/*  margin-left: 10px;*/
-/*  margin-right: 10px;*/
-/*}*/
-
-/*.page a:hover,*/
-/*.next a:hover,*/
-/*.last a:hover,*/
-/*.first a:hover,*/
-/*.prev a:hover {*/
-/*  color: black;*/
-/*}*/
-
-/*.current {*/
-/*  font-weight: bold;*/
-/*}*/
