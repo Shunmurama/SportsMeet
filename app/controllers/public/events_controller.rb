@@ -12,6 +12,10 @@ class Public::EventsController < ApplicationController
     @event.user_id = current_user.id
     if @event.save
       @event.create_notification_event!(@event.id, current_user)
+      respond_to do |format|
+        format.html { redirect_to events_path }
+        format.js  #create.js.erbを探してその中の処理を実行する
+      end
       flash[:notice] = "イベントを投稿しました。"
       redirect_to events_path
     else
@@ -37,14 +41,7 @@ class Public::EventsController < ApplicationController
   end
 
   def index
-    if params[:cat]
-      category = Category.find(params[:cat])
-      @events = category.events.page(params[:page]).per(20)
-    else
       @events = Event.page(params[:page]).per(20)
-    end
-    @events_run = @events.where('date >= ?', Date.today)
-    @events_past = @events.where('date < ?', Date.today)
   end
 
   def title

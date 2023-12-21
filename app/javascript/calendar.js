@@ -24,9 +24,9 @@ document.addEventListener('turbolinks:load', function() {
     events:'/events.json',
 
     // クリック時の処理
-    eventClick: function(arg) {
+    eventClick: function(info) {
     //クリックしたら詳細ページへ
-      var eventUrl = '/events/' + arg.event.id;
+      var eventUrl = '/events/' + info.event.id;
       window.location.href = eventUrl;
     },
     //色の表示について

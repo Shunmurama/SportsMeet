@@ -18,10 +18,12 @@ import "../stylesheets/notification.css";
 
 import "script.js";
 
-import 'calendar'
+import 'calendar.js'
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
 require ('jquery')
+
+

@@ -1,5 +1,5 @@
-json.array! @events do |event|
+json.array!(@events) do |event|
   json.id event.id
-  json.name event.name
-  json.time event.time
+  json.title event.name
+  json.start event.time
 end
