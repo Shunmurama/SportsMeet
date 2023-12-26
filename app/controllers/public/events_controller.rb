@@ -12,10 +12,6 @@ class Public::EventsController < ApplicationController
     @event.user_id = current_user.id
     if @event.save
       @event.create_notification_event!(@event.id, current_user)
-      respond_to do |format|
-        format.html { redirect_to events_path }
-        format.js  #create.js.erbを探してその中の処理を実行する
-      end
       flash[:notice] = "イベントを投稿しました。"
       redirect_to events_path
     else

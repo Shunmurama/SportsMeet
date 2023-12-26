@@ -16,9 +16,13 @@ import "../stylesheets/application";
 // マイページの通知の読み込み
 import "../stylesheets/notification.css";
 
-import "script.js";
+import "./script.js";
 
-import 'calendar.js'
+import './calendar.js';
+
+import './hamburger.js';
+
+import './jquery.min.js';
 
 Rails.start()
 Turbolinks.start()
