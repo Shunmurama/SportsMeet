@@ -29,5 +29,3 @@ Turbolinks.start()
 ActiveStorage.start()
 
 require ('jquery')
-
-

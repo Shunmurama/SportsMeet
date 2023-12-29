@@ -41,97 +41,67 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-             <div id="menu">
               <ul class="navbar-nav ml-auto">
                 <% if user_signed_in? %>
                   <!-- ユーザーがログインしている場合 -->
                   <li class="nav-item">
-                    <a href="#">
                       <%= link_to events_path, class: "nav-link text-white" do %>
                         カレンダー
                       <% end %>
-                    </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#">
                       <%= link_to new_event_path, class: "nav-link text-white" do %>
                         イベントを開催する
                       <% end %>
-                    </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#">
                       <%= link_to title_path, class: "nav-link text-white" do %>
                         イベント検索
                       <% end %>
-                    </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#">
                       <%= link_to user_mypage_path, class: "nav-link text-white" do %>
                         マイページ
                       <% end %>
-                    </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#">
                       <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-white" do %>
                         ログアウト
                       <% end %>
-                    </a>
                   </li>
                 <% elsif admin_signed_in? %>
                   <!-- 管理者がログインしている場合 -->
                   <li class="nav-item">
-                    <a href="#">
                       <%= link_to admin_events_path, class: "nav-link text-white" do %>
                         イベント一覧
                       <% end %>
-                    </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#">
                       <%= link_to admin_categories_path, class: "nav-link text-white" do %>
                         カテゴリー一覧
                       <% end %>
-                    </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#">
                       <%= link_to new_admin_category_path, class: "nav-link text-white" do %>
                         カテゴリー追加
                       <% end %>
-                    </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#">
                       <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link text-white" do %>
                         ログアウト
                       <% end %>
-                    </a>
                   </li>
                 <% else %>
                   <!-- ログインしていない場合 -->
                   <li class="nav-item">
-                    <a href="#">
                       <%= link_to events_path, class: "nav-link text-white" do %>
                         イベント一覧
                       <% end %>
-                    </a>
                   </li>
                 <% end %>
               </ul>
-             </div>
             </div>
-            
-            <div id="hm-icon">
-              <a class="menu-trigger" href="#">
-                <span></span>
-                <span></span>
-                <span></span>
-              </a>
-            </div>
-            
+
           </div>
         </nav>
       </header>
