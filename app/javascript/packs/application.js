@@ -20,8 +20,6 @@ import "./script.js";
 
 import './calendar.js';
 
-import './hamburger.js';
-
 import './jquery.min.js';
 
 Rails.start()

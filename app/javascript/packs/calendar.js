@@ -21,7 +21,7 @@ document.addEventListener('turbolinks:load', function() {
     },
     allDayText: '終日',
     //表示させる場所、本記事ではeventsのindexにあたるルーティング
-    events:'/events.json',
+    events:'/index.json',
 
     // クリック時の処理
     eventClick: function(info) {
