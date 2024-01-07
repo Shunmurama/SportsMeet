@@ -26,7 +26,20 @@ document.addEventListener('turbolinks:load', function() {
     // クリック時の処理
     eventClick: function(info) {
     //クリックしたら詳細ページへ
-      var eventUrl = '/events/' + info.event.id;
+      var eventId = info.event.id;
+
+      $.ajax({
+        url: '/events/' + eventId ,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          displayEventDetails(data);
+        },
+        error: function(error) {
+          console.error('Error fetching event details:', error);
+        }
+      });
+
       window.location.href = eventUrl;
     },
     //色の表示について

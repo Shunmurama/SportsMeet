@@ -23,6 +23,8 @@ scope module: :public do
    resources :reservations, only: [:new, :show, :create, :destroy, :edit, :update]
   end
 
+  get '/index.json' => "events#index"
+
 end
 
 namespace :admin do
