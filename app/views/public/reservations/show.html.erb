@@ -25,38 +25,41 @@
             <% end %>
           </div>
           <div class="mt-2">
-            <p>開催日時：<%= @event.date %></p>
-            <p>開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></p>
+            <div class="mt-2">開催日時：<%= @event.date %></div>
+            <div class="mt-3 mb-3">開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></div>
 
             <!--Google api 部分テンプレート-->
             <%= render 'public/events/map', event: @event %>
 
-            <div class="mt-2">
-              <p>募集人数：<%= @event.number %>人</p>
-              <% if @event.date >= Date.today %>
-                <p><%= @reservation.reserved_number %>人で予約しています。</p>
-              <% else %>
-                <p><%= @reservation.reserved_number %>人でご参加されました。</p>
-              <% end %>
-
-              <% if @reservation.reserved_number >= 2 %>
-                <p><h4>代表者名：<%= @reservation.user.last_name %> <%= @reservation.user.first_name %> 様</h4></p>
-              <% else %>
-                <p>予約者名：<%= @reservation.user.last_name %> <%= @reservation.user.first_name %> 様</p>
-              <% end %>
-              <p>参加料金：<%= @event.fee %>円</p>
-              <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
-            </div>
-
           </div>
         </div>
+
       </div>
+    </div>
+  </div>
 
       <!-- イベント概要 -->
-      <div class="row justify-content-center border-top">
+      <div class="mt-3 row justify-content-center border-top">
         <div class="mt-3 col-md-8 text-left"><h5>イベント説明</h5>
           <div class="border border-4 rounded">
-            <div class="mt-3 text-break" style="word-wrap:8rem"><%= simple_format(@event.outline, sanitize: true) %></div>
+            <div class="ml-2 mt-3 text-break" style="word-wrap:8rem"><%= simple_format(@event.outline, sanitize: true) %></div>
+          </div>
+
+          <div class="mt-2">
+            <div class="mt-2">募集人数：<%= @event.number %>人</div>
+            <% if @event.date >= Date.today %>
+              <div class="mt-2 ml-4">< <%= @reservation.reserved_number %>人で予約しています。></div>
+            <% else %>
+              <div class="mt-2 ml-4">< <%= @reservation.reserved_number %>人でご参加されました。></div>
+            <% end %>
+
+            <% if @reservation.reserved_number >= 2 %>
+              <div class="mt-2"><h5>代表者名：<%= @reservation.user.last_name %> <%= @reservation.user.first_name %> 様</h5></div>
+            <% else %>
+              <div class="mt-2"><h5>予約者名：<%= @reservation.user.last_name %> <%= @reservation.user.first_name %> 様</h5></div>
+            <% end %>
+            <div class="mt-2">参加料金：<%= @event.fee %>円</div>
+            <div class="mt-2">お支払い方法：<%= @event.how_to_pay_i18n %></div>
           </div>
         </div>
       </div>

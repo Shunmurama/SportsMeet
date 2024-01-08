@@ -25,27 +25,11 @@
             <% end %>
           </div>
           <div class="mt-2">
-            <p>開催日時：<%= @event.date.strftime("%Y/%m/%d") %> <%= @event.time.strftime("%H:%M") %></p>
-            <p>開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></p>
+            <div class="mt-2">開催日時：<%= @event.date.strftime("%Y/%m/%d") %> <%= @event.time.strftime("%H:%M") %></div>
+            <div class="mt-3 mb-3">開催地：<%= Prefecture.names.invert[@event.prefecture_id] %> <%= @event.place %></div>
 
             <!--Google api 部分テンプレート-->
             <%= render 'map', event: @event %>
-
-            <div class="mt-2">
-              <p>募集人数：<%= @event.number %>人</p>
-              <% if @event.user_id == current_user.id %>
-                <p>現在の予約人数：<%= @event.reservations.sum(:reserved_number).to_s %>人</p>
-              <% end %>
-              <!--人数指定がある場合-->
-              <% if @event.fixed_number.present? %>
-                <p>・<%= @event.fixed_number %>人で予約してください。</p>
-                <!--最小人数の指定がある場合-->
-              <% elsif @event.minimum_number.present? %>
-                <p>・<%= @event.minimum_number %>人以上で予約してください。</p>
-              <% end %>
-              <p>参加料金：<%= @event.fee %>円</p>
-              <p>お支払い方法：<%= @event.how_to_pay_i18n %></p>
-            </div>
 
           </div>
         </div>
@@ -55,10 +39,26 @@
   </div>
 
       <!-- イベント概要 -->
-      <div class="row justify-content-center border-top">
+      <div class="mt-3 row justify-content-center border-top">
         <div class="mt-3 col-md-8 text-left"><h5>イベント説明</h5>
           <div class="border border-4 rounded">
             <div class="ml-2 mt-3 text-break" style="word-wrap:8rem"><%= simple_format(@event.outline, sanitize: true) %></div>
+          </div>
+
+          <div class="mt-2">
+            <div class="mt-2">募集人数：<%= @event.number %>人</div>
+            <% if @event.user_id == current_user.id %>
+              <div class="mt-2">現在の予約人数：<%= @event.reservations.sum(:reserved_number).to_s %>人</div>
+            <% end %>
+            <!--人数指定がある場合-->
+            <% if @event.fixed_number.present? %>
+              <div class="mt-2">・<%= @event.fixed_number %>人で予約してください。</div>
+              <!--最小人数の指定がある場合-->
+            <% elsif @event.minimum_number.present? %>
+              <div class="mt-2">・<%= @event.minimum_number %>人以上で予約してください。</div>
+            <% end %>
+            <div class="mt-2">参加料金：<%= @event.fee %>円</div>
+            <div class="mt-2">お支払い方法：<%= @event.how_to_pay_i18n %></div>
           </div>
         </div>
       </div>
