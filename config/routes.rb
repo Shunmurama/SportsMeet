@@ -23,7 +23,8 @@ scope module: :public do
    resources :reservations, only: [:new, :show, :create, :destroy, :edit, :update]
   end
 
-  get '/index.json' => "events#index"
+  # defaults :json追加でjsonでの受け取り
+  get '/calendar' => "events#index", defaults: { format: :json }
 
 end
 

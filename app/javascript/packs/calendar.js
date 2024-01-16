@@ -3,13 +3,14 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 
+
 document.addEventListener('turbolinks:load', function() {
   var calendarEl = document.getElementById('calendar');
 
   var calendar = new Calendar(calendarEl, {
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
     locale: 'ja',
-    timeZone: 'Asia/Tokyo',
+    // timeZone: 'Asia/Tokyo',
     //ボタンの位置、種類とかの設定
     headerToolbar: {
       start: 'prev,next,today',
@@ -19,34 +20,15 @@ document.addEventListener('turbolinks:load', function() {
     buttonText: {
       today: '今日'
     },
-    allDayText: '終日',
+    // allDayText: '終日',
     //表示させる場所、本記事ではeventsのindexにあたるルーティング
-    events:'/index.json',
+    events:'/calendar',
 
-    // クリック時の処理
-    eventClick: function(info) {
-    //クリックしたら詳細ページへ
-      var eventId = info.event.id;
-
-      $.ajax({
-        url: '/events/' + eventId ,
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-          displayEventDetails(data);
-        },
-        error: function(error) {
-          console.error('Error fetching event details:', error);
-        }
-      });
-
-      window.location.href = eventUrl;
-    },
     //色の表示について
-    eventColor: function(arg) {
-      var eventColor = arg.event.color;
-      return eventColor;
-    },
+    // eventColor: function(arg) {
+    //   var eventColor = arg.event.color;
+    //   return eventColor;
+    // },
   });
     //カレンダー表示
   calendar.render();
