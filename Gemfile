@@ -72,3 +72,7 @@ end
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
+
+gem 'jquery-rails'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
