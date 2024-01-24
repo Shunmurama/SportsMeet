@@ -16,8 +16,10 @@ import "../stylesheets/application";
 // マイページの通知の読み込み
 import "../stylesheets/notification.css";
 
+// スクロールボタンの.js
 import "./scroll.js";
 
+// フルカレンダーの.js
 import './calendar.js';
 
 import './jquery.min.js';
