@@ -16,7 +16,7 @@ import "../stylesheets/application";
 // マイページの通知の読み込み
 import "../stylesheets/notification.css";
 
-import "./script.js";
+import "./scroll.js";
 
 import './calendar.js';
 

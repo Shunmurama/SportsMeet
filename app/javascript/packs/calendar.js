@@ -21,7 +21,7 @@ document.addEventListener('turbolinks:load', function() {
       today: '今日'
     },
     // allDayText: '終日',
-    //表示させる場所、本記事ではeventsのindexにあたるルーティング
+    //表示させる場所、eventsのcalendarにあたるルーティング
     events:'/calendar',
 
     //色の表示について
