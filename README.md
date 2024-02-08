@@ -26,6 +26,11 @@
 
 ## 設計書
 <!--テーマを設定・提出する時点では不要です-->
+テーブ定義書：https://docs.google.com/spreadsheets/d/1DXe0C6-Y1mwABBNj0TPJf6I3l4-sN478urfKHClU3jU/edit?usp=sharing
+
+詳細設計：https://docs.google.com/spreadsheets/d/1ONdWgzK6pDODSoNT-2bvx8U2dWr76UTz-rXAmSogmDg/edit?usp=sharing
+
+ER図：https://drive.google.com/file/d/16wW6GrkrnVMWpWFHRuUFEmrvtbAFEO7B/view?usp=sharing
 ​
 ## 開発環境
 - OS：Linux(CentOS)

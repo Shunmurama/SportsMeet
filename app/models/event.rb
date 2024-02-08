@@ -24,7 +24,9 @@ class Event < ApplicationRecord
 
   accepts_nested_attributes_for :event_categories, allow_destroy: true
 
+  # placeによって取得する位置を決める
    geocoded_by :place
+  # placeが変更された場合に自動で変更されるようにもする
    after_validation :geocode, if: :place_changed?
 
 # お気に入りにするか
@@ -61,6 +63,7 @@ class Event < ApplicationRecord
   end
 
 # 通知の作成
+  # 通知の中にイベントのIDとuserのIDを保存
   def create_notification_event!(event_id, current_user)
     categories.each do |category|
         user_ids = UserInterest.where(category_id: category_ids).pluck(:user_id)
